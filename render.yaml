@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ftw-realtime
+    runtime: docker
+    plan: starter
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: PHX_HOST
+        value: ftw-realtime.onrender.com
+      - key: PHX_SERVER
+        value: "true"
+      - key: PORT
+        value: "10000"
+    healthCheckPath: /api/health

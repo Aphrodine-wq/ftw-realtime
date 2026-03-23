@@ -1,0 +1,3835 @@
+{
+  "version": "1.0",
+  "created_at": "2026-03-22T22:57:21.607171Z",
+  "entries": [
+    {
+      "fingerprint": "ed8f84178f95961b",
+      "file": "ftw_realtime/application.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ed8f84178f95961b",
+      "file": "ftw_realtime/application.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ed8f84178f95961b",
+      "file": "ftw_realtime/application.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "ed8f84178f95961b",
+      "file": "ftw_realtime/application.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "0392fbcc631a7d1b",
+      "file": "ftw_realtime/application.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "8b21c7776f8639bd",
+      "file": "ftw_realtime/application.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'type' in 'start' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "41f9114d146a1890",
+      "file": "ftw_realtime/application.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'args' in 'start' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "5426ac5ccc09340c",
+      "file": "ftw_realtime/application.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'changed' in 'config_change' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "806155032c3e5e78",
+      "file": "ftw_realtime/application.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'new' in 'config_change' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "33e2ba688977a338",
+      "file": "ftw_realtime/application.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'removed' in 'config_change' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6ef6284a17f01f23",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7b7ac2075115b322",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "af2f37f1b5e33aae",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'id' in 'get_user' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c88102a6ee8ce05c",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'email' in 'get_user_by_email' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "956ea593fecd4449",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'create_user' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b48a7fea41ff2943",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'opts' in 'list_jobs' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cee2d3eb2a1c6ea9",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'id' in 'get_job' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b3af1389e8657303",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'post_job' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fcb44e6ff124402d",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'job_id' in 'list_bids' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "a618118802225e65",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'job_id' in 'place_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ca023f6924dd846a",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'place_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6a89dc442c37a04f",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'job_id' in 'accept_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ae8cd35b79fcc064",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'bid_id' in 'accept_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8ff8c9ce1bff77e7",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'job_id' in 'get_or_create_conversation' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ceb56598d04cf0a7",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'homeowner_id' in 'get_or_create_conversation' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7b2f0e6eb959bc69",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'contractor_id' in 'get_or_create_conversation' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "35118041cb7e452e",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conversation_id' in 'list_messages' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8a2cd60cf62994d1",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conversation_id' in 'send_message' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b8489616c73e502c",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'send_message' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "f604f6a6ff9131db",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'job_id' in 'count_bids' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1146078ad4982c38",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'query' in 'maybe_filter_status' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d91d656c030124b2",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'nil' in 'maybe_filter_status' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1146078ad4982c38",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'query' in 'maybe_filter_status' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "509f3914f87c4a10",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'status' in 'maybe_filter_status' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "654ecfa496550cff",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'query' in 'maybe_filter_category' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1c2884fe6143c9cb",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'nil' in 'maybe_filter_category' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "654ecfa496550cff",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'query' in 'maybe_filter_category' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8c9407af830ca32a",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'category' in 'maybe_filter_category' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "da7cf8d1125dde81",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'topic' in 'broadcast' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7043d0616aac71db",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'event' in 'broadcast' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2f55c82cf7a01841",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'payload' in 'broadcast' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "bb1b4046c23f281c",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'job' in 'serialize_job' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "327131ba15c2b5da",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'bid' in 'serialize_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "75df3dabb6f1dbd2",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'message' in 'serialize_message' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "5b55b715ec31b8e5",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%User{} = user' in 'serialize_user' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "0fe7337a899b7da3",
+      "file": "ftw_realtime/marketplace.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'arg0' in 'serialize_user' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "be01c6d98b44698e",
+      "file": "ftw_realtime/marketplace/bid.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "be01c6d98b44698e",
+      "file": "ftw_realtime/marketplace/bid.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "42601810a1358859",
+      "file": "ftw_realtime/marketplace/bid.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'bid' in 'changeset' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2009b118afb70560",
+      "file": "ftw_realtime/marketplace/bid.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'changeset' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8a1a98416461801b",
+      "file": "ftw_realtime/marketplace/conversation.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8a1a98416461801b",
+      "file": "ftw_realtime/marketplace/conversation.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "138b6b5551822c05",
+      "file": "ftw_realtime/marketplace/conversation.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conversation' in 'changeset' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8887c3d2cdd45a17",
+      "file": "ftw_realtime/marketplace/conversation.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'changeset' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5526026c6628ff2",
+      "file": "ftw_realtime/marketplace/job.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5526026c6628ff2",
+      "file": "ftw_realtime/marketplace/job.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "dd9ebf5dd8c4b328",
+      "file": "ftw_realtime/marketplace/job.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'job' in 'changeset' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7f3f73c38cb52a82",
+      "file": "ftw_realtime/marketplace/job.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'changeset' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "47998a087c801903",
+      "file": "ftw_realtime/marketplace/message.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "47998a087c801903",
+      "file": "ftw_realtime/marketplace/message.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7609e044615a27d6",
+      "file": "ftw_realtime/marketplace/message.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'message' in 'changeset' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "98d0717ac38182e8",
+      "file": "ftw_realtime/marketplace/message.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'changeset' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "f88ebfe02f215eb2",
+      "file": "ftw_realtime/marketplace/user.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "f88ebfe02f215eb2",
+      "file": "ftw_realtime/marketplace/user.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "6a488b07ce1c40bc",
+      "file": "ftw_realtime/marketplace/user.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "3ced44b846e8f503",
+      "file": "ftw_realtime/marketplace/user.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'user' in 'changeset' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "280bee2dddd073e4",
+      "file": "ftw_realtime/marketplace/user.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'changeset' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8ee3fcdaa4045607",
+      "file": "ftw_realtime/release.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8ee3fcdaa4045607",
+      "file": "ftw_realtime/release.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "5a8bb6237ece708a",
+      "file": "ftw_realtime/release.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'repo' in 'rollback' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "0f224daf75ee5f73",
+      "file": "ftw_realtime/release.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'version' in 'rollback' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "7941d569f21c2246",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "3621879470d0afe4",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "454968d220a278eb",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"job:\" <> job_id' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ab0a971cb7e808a7",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "0de8468932568da8",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d67de6e4b6ee4f6b",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{:after_join, job_id}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "490de4ffc4245c08",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "9902f6c9e62a15ce",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{\"bid:placed\", bid_data}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "490de4ffc4245c08",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "0e0982e10f89ec21",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{\"bid:accepted\", bid_data}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "490de4ffc4245c08",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2c59b991219734b8",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"place_bid\"' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "92bbebcf24900b71",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b575a7d76f0e804b",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ae77c4dcd29d4e07",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"accept_bid\"' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "46a3d84f644cae24",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"bid_id\" => bid_id}' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b575a7d76f0e804b",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "99661283c7e8e775",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'job' in 'serialize_job' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "70cb97d39d51fe77",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'bid' in 'serialize_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "afe36a9f691c0b4e",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%Ecto.Changeset{} = changeset' in 'format_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7e0cecb4d49b5a02",
+      "file": "ftw_realtime_web/channels/bid_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'reason' in 'format_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1dac887bafb8fdca",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "af4cc4ce0a7d6373",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "16c9ca121b6e4d63",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"chat:\" <> conversation_id' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "97c234efea704bb8",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2a857f5feea45e2f",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c83ec4947b177d28",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{:after_join, conversation_id}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "13e851e6cfbd6a37",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c642704428d0b745",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{\"message:new\", message_data}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "13e851e6cfbd6a37",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c06cafd2894cd00e",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"typing\"' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "9503b1b489dd9004",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"typing\" => typing}' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d1bb845544c00f17",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "42ae334337e5b702",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"send_message\"' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b982959aa9861ddd",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d1bb845544c00f17",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2d2602353bacf217",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'message' in 'serialize_message' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "e422f84d1565db0a",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%Ecto.Changeset{} = changeset' in 'format_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "28fb929cc0ad20ef",
+      "file": "ftw_realtime_web/channels/chat_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'reason' in 'format_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "cf7580181c74b53e",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "97930edc1dc297f6",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "07be9b8d13154304",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"jobs:feed\"' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "91a159c370de6f0f",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ecdd6a5b43d076a1",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "57775617f2215d22",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':after_join' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c42cb3e3490f19b4",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "a16c429f30ae042b",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{\"job:posted\", job_data}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c42cb3e3490f19b4",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d0fc0fdfadf3b0ee",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{\"job:updated\", job_data}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c42cb3e3490f19b4",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "e5603ceb6b3f3bbf",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"post_job\"' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6a86d65511a1c44c",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'attrs' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "a02c1f20326e3896",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_in' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8e1606a82ded12a3",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{id: _} = job' in 'serialize_job' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "e8e3cc6380ba0ba0",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%Ecto.Changeset{} = changeset' in 'format_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6a912adecd43f4f1",
+      "file": "ftw_realtime_web/channels/job_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'reason' in 'format_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1e7a86ec6cc2ba7c",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1e7a86ec6cc2ba7c",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1e7a86ec6cc2ba7c",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1e7a86ec6cc2ba7c",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1e7a86ec6cc2ba7c",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1e7a86ec6cc2ba7c",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "5376ee3a34f27149",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "2a5f446fb3b4b911",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"user:\" <> user_id' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2059ddafcda91cac",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cfff8ad8c535cc05",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'join' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "02b5eef3a7afc833",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':after_join' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "de84f2950ae933ce",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "a418caa68c636ce9",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{\"notification\", payload}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "de84f2950ae933ce",
+      "file": "ftw_realtime_web/channels/notification_channel.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "64d84660b910e291",
+      "file": "ftw_realtime_web/channels/user_socket.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "64d84660b910e291",
+      "file": "ftw_realtime_web/channels/user_socket.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "64d84660b910e291",
+      "file": "ftw_realtime_web/channels/user_socket.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "64d84660b910e291",
+      "file": "ftw_realtime_web/channels/user_socket.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1345116316e01bfc",
+      "file": "ftw_realtime_web/channels/user_socket.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "16f058fdad24138e",
+      "file": "ftw_realtime_web/channels/user_socket.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'connect' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "80e0957f8811ac95",
+      "file": "ftw_realtime_web/channels/user_socket.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'connect' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1ccf7c011eabde4c",
+      "file": "ftw_realtime_web/channels/user_socket.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'connect_info' in 'connect' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cf2980cd9ec40a8d",
+      "file": "ftw_realtime_web/channels/user_socket.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'id' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "31e4e2fd839f05c9",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "d46635081823d80a",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "49714c03951277eb",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'flash' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "9bd7d536c60b97a4",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{rest: rest} = assigns' in 'button' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2b0cfa6a87cf5c6a",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{field: %Phoenix.HTML.FormField{} = field} = assigns' in 'input' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "296bf3c8dedb394d",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{type: \"hidden\"} = assigns' in 'input' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "f4853a4a446fde69",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{type: \"checkbox\"} = assigns' in 'input' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2bf952f354fee03f",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{type: \"select\"} = assigns' in 'input' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fa2124eb8ce10c66",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{type: \"textarea\"} = assigns' in 'input' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "632f49bb5842bc9c",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'input' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "cfea77fe1e92a656",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'header' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "97216ca0ba808948",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'table' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "462cefcb9a4d2336",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'list' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ab0f46efe18c94dc",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{name: \"hero-\" <> _} = assigns' in 'icon' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "9ec3f22370366f9b",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'js' in 'show' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "66b6f8ba1e1b5c55",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'selector' in 'show' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "eca719687a1b31ad",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'js' in 'hide' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c8d6ea0a2a2d150e",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'selector' in 'hide' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "3f67bba1bef0985c",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{msg, opts}' in 'translate_error' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1876849c3b143cd5",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'errors' in 'translate_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "5b16513361a665eb",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'field' in 'translate_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "60804323dc8b5fb2",
+      "file": "ftw_realtime_web/components/core_components.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'error' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1676cc47c16e0e5e",
+      "file": "ftw_realtime_web/components/layouts.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1676cc47c16e0e5e",
+      "file": "ftw_realtime_web/components/layouts.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1676cc47c16e0e5e",
+      "file": "ftw_realtime_web/components/layouts.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1676cc47c16e0e5e",
+      "file": "ftw_realtime_web/components/layouts.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1676cc47c16e0e5e",
+      "file": "ftw_realtime_web/components/layouts.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "1676cc47c16e0e5e",
+      "file": "ftw_realtime_web/components/layouts.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "81bbb3ba6c4ae6db",
+      "file": "ftw_realtime_web/components/layouts.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'app' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1fe36116afa20d8c",
+      "file": "ftw_realtime_web/components/layouts.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'flash_group' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "487568d2066d1206",
+      "file": "ftw_realtime_web/components/layouts.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'theme_toggle' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b8d2235325569229",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "58623287e19c2d90",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "8243bbcf81f09212",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'index' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1e87ef3c4747fddc",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"conversation_id\" => conversation_id}' in 'index' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1f274510b0d2526b",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'create' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "a2df1a2e181ed6fd",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"conversation_id\" => conversation_id, \"message\" => message_params}' in 'create' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b53c648d4744a658",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'message' in 'serialize_message' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "53d6b5a52152394e",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{id: _} = user' in 'serialize_user' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ddafbe3b43c5b415",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'arg0' in 'serialize_user' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "5d28f1e65dd8f11a",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%Ecto.Changeset{} = changeset' in 'format_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6cdbfe4d8283e5b0",
+      "file": "ftw_realtime_web/controllers/api/chat_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'reason' in 'format_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "f3f1555fe020678a",
+      "file": "ftw_realtime_web/controllers/api/health_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "f3f1555fe020678a",
+      "file": "ftw_realtime_web/controllers/api/health_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "c8fcd0d3f3ae1776",
+      "file": "ftw_realtime_web/controllers/api/health_controller.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "032ad1db685ec7b9",
+      "file": "ftw_realtime_web/controllers/api/health_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'index' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "5ffde3d711f213d9",
+      "file": "ftw_realtime_web/controllers/api/health_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'index' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fd6d85b9bb2f9e71",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "141737e4d2649e0d",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "516e57f0d99c71f8",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'index' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "96f0e70fae84aedc",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'index' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6837e844e14bbde6",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'show' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "a86ae2df484ebdae",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"id\" => id}' in 'show' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7c92590ec4ddb9e6",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'create' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d7fe633b166cedb6",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"job\" => job_params}' in 'create' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b3bc4f0c3f9aac61",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'place_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "422a32424603b944",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"id\" => job_id, \"bid\" => bid_params}' in 'place_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "aca92d82a1251d9b",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'accept_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "808c8797f199aefc",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"id\" => job_id, \"bid_id\" => bid_id}' in 'accept_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b1ebd6ba5e9e4d7e",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'job' in 'serialize_job' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d7553a9127466a7c",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'bid' in 'serialize_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7eb7b134d63b5275",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{id: _} = user' in 'serialize_user' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "236c170076ded30d",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'arg0' in 'serialize_user' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "3d8422efe77cfe3b",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%Ecto.Changeset{} = changeset' in 'format_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "416b18c2f51e5774",
+      "file": "ftw_realtime_web/controllers/api/job_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'reason' in 'format_errors' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "639f077c728eeb90",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "639f077c728eeb90",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "639f077c728eeb90",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "639f077c728eeb90",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "639f077c728eeb90",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "639f077c728eeb90",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "2a247484c892ce29",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "d8d6a10aa2aa3d29",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'show' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "970c10d83ee58065",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"id\" => id}' in 'show' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "16c890cc97d8b089",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'create' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "98a95b787e9f6f58",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"user\" => user_params}' in 'create' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "02bfdf337fb5dc6c",
+      "file": "ftw_realtime_web/controllers/api/user_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'user' in 'serialize_user' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b52ce1efa3ad9d93",
+      "file": "ftw_realtime_web/controllers/error_html.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b52ce1efa3ad9d93",
+      "file": "ftw_realtime_web/controllers/error_html.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "9fd201f0c62789c9",
+      "file": "ftw_realtime_web/controllers/error_html.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'template' in 'render' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "e2362dc37bfebc9d",
+      "file": "ftw_realtime_web/controllers/error_html.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'render' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "dabffd96da77d447",
+      "file": "ftw_realtime_web/controllers/error_json.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "dabffd96da77d447",
+      "file": "ftw_realtime_web/controllers/error_json.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "dabffd96da77d447",
+      "file": "ftw_realtime_web/controllers/error_json.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "dabffd96da77d447",
+      "file": "ftw_realtime_web/controllers/error_json.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "fc60ffb17b32e250",
+      "file": "ftw_realtime_web/controllers/error_json.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"500.json\"' in 'render' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1364efb01d37bea5",
+      "file": "ftw_realtime_web/controllers/error_json.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'render' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "37b85042187d1a2c",
+      "file": "ftw_realtime_web/controllers/error_json.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'template' in 'render' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "1364efb01d37bea5",
+      "file": "ftw_realtime_web/controllers/error_json.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'render' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ec2e4168488e5e82",
+      "file": "ftw_realtime_web/controllers/page_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ec2e4168488e5e82",
+      "file": "ftw_realtime_web/controllers/page_controller.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "88ff32e3e7c5fc57",
+      "file": "ftw_realtime_web/controllers/page_controller.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "21317062e1d08ea1",
+      "file": "ftw_realtime_web/controllers/page_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'home' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "a4c046fc8bc19f19",
+      "file": "ftw_realtime_web/controllers/page_controller.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'home' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "b5edf66e72753238",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "5ba33b608e1a0bb1",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "type_error",
+      "message": "Taint analysis failed: unhashable type: 'SourceLocation'",
+      "line": ""
+    },
+    {
+      "fingerprint": "a11815e54d372adb",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'mount' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fde00864d3958a40",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'session' in 'mount' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "e36b9d483ad41a06",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'mount' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "3d54c31eae04b580",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{\"job:posted\", job}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c013f0e2900a5a46",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "e5d3901dfd540176",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{\"job:updated\", updated_job}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c013f0e2900a5a46",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6273ed6d98368554",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{\"bid:placed\", bid}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c013f0e2900a5a46",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "038830988fcbccb2",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '{\"bid:accepted\", bid}' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "c013f0e2900a5a46",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_info' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "57d7b806b59c692b",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"select_job\"' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "3dd952c63415618f",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"id\" => job_id}' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "88e21afbb29c7211",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2dc1f2726f963f0b",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"toggle_post_form\"' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d5c6bc6d9eba28f3",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "88e21afbb29c7211",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "be33d047a8ccba5e",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"toggle_bid_form\"' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d5c6bc6d9eba28f3",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "88e21afbb29c7211",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fb1eff958c1e759f",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"post_job\"' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "42bd97ae823bbad6",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"job\" => job_params}' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "88e21afbb29c7211",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "acf9ae449b0752b4",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"place_bid\"' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "0378bedb18498f73",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"bid\" => bid_params}' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "88e21afbb29c7211",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "234d778a79be6f70",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"accept_bid\"' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6445f38ff3ba4e5b",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{\"bid-id\" => bid_id}' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "88e21afbb29c7211",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2bab230cba864435",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '\"back_to_list\"' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d5c6bc6d9eba28f3",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'params' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "88e21afbb29c7211",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'socket' in 'handle_event' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "ea9e7b4b17c296e1",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'render' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d3486bbc193155fc",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'job_list' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "39f8f586931ca967",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'job_detail' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "aac89090b80d9d60",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'post_job_form' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "41135aeca06d1ebd",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'assigns' in 'bid_form' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "b22ddbcfc5301b69",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':open' in 'status_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "57fa2ff92c3b7449",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':awarded' in 'status_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "3746432fc8761ab0",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':in_progress' in 'status_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "6c9ed9569d33e407",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':completed' in 'status_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "10b97ca02d218532",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'arg0' in 'status_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "035edaec3095117c",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':pending' in 'bid_status_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "00dbfce2a9d0f97c",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':accepted' in 'bid_status_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "849f260ea8cb5fde",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':rejected' in 'bid_status_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "4e2207d8cf5d257f",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'arg0' in 'bid_status_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "fade972fdff12e39",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':accepted' in 'bid_border_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "e852184d7668b3be",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: ':rejected' in 'bid_border_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d5438d7f7e7f0833",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'arg0' in 'bid_border_color' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "33567df829936e49",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'n' in 'format_number' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "33567df829936e49",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'n' in 'format_number' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "a10d76cc890d70c3",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'datetime' in 'relative_time' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d91bdaddfbe6ed33",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'job' in 'serialize_job' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8057ce9cff949254",
+      "file": "ftw_realtime_web/live/marketplace_live.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'bid' in 'serialize_bid' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "227cf1cc94cdd68e",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "227cf1cc94cdd68e",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "227cf1cc94cdd68e",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "227cf1cc94cdd68e",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "227cf1cc94cdd68e",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "227cf1cc94cdd68e",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "227cf1cc94cdd68e",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "227cf1cc94cdd68e",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "27b25b7c1298178f",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'opts' in 'init' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "2a03598c32239abb",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'call' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "7c1829bbf836e354",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'opts' in 'call' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "4473e2039f44fc6f",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: '%{method: \"OPTIONS\"} = conn' in 'handle_preflight' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "12b74b96bc302f99",
+      "file": "ftw_realtime_web/plugs/cors.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'conn' in 'handle_preflight' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d08cc84d2268d446",
+      "file": "ftw_realtime_web/telemetry.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d08cc84d2268d446",
+      "file": "ftw_realtime_web/telemetry.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "d08cc84d2268d446",
+      "file": "ftw_realtime_web/telemetry.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "d08cc84d2268d446",
+      "file": "ftw_realtime_web/telemetry.ex",
+      "rule_id": "type_error",
+      "message": "Expected type 'Void', got 'Int'",
+      "line": 0
+    },
+    {
+      "fingerprint": "3c7dc8b0e33866d7",
+      "file": "ftw_realtime_web/telemetry.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'arg' in 'start_link' is never referenced",
+      "line": "<elixir>"
+    },
+    {
+      "fingerprint": "8fb6b0bcd90a462f",
+      "file": "ftw_realtime_web/telemetry.ex",
+      "rule_id": "contract_error",
+      "message": "Contract violation: Unused parameter: 'arg' in 'init' is never referenced",
+      "line": "<elixir>"
+    }
+  ]
+}

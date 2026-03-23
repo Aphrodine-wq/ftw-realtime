@@ -15,6 +15,12 @@ defmodule FtwRealtimeWeb.Router do
     plug FtwRealtimeWeb.Plugs.CORS
   end
 
+  pipeline :authenticated do
+    plug :accepts, ["json"]
+    plug FtwRealtimeWeb.Plugs.CORS
+    plug FtwRealtimeWeb.Plugs.Auth
+  end
+
   scope "/", FtwRealtimeWeb do
     pipe_through :browser
 
@@ -22,15 +28,31 @@ defmodule FtwRealtimeWeb.Router do
     live "/marketplace", MarketplaceLive
   end
 
-  # Health check — no pipeline, no CORS, just a 200
+  # Health check — no pipeline
   get "/api/health", FtwRealtimeWeb.Api.HealthController, :index
 
+  # Public API — no auth required
   scope "/api", FtwRealtimeWeb.Api do
     pipe_through :api
 
+    post "/auth/login", AuthController, :login
+    post "/auth/register", UserController, :create
+
+    # Job browsing is public
     get "/jobs", JobController, :index
     get "/jobs/:id", JobController, :show
+  end
+
+  # Authenticated API — JWT required
+  scope "/api", FtwRealtimeWeb.Api do
+    pipe_through :authenticated
+
+    get "/auth/me", AuthController, :me
+
+    get "/users/:id", UserController, :show
+
     post "/jobs", JobController, :create
+    post "/jobs/:id/transition", JobController, :transition
     post "/jobs/:id/bids", JobController, :place_bid
     post "/jobs/:id/bids/:bid_id/accept", JobController, :accept_bid
 

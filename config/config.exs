@@ -8,6 +8,7 @@
 import Config
 
 config :ftw_realtime,
+  ecto_repos: [FtwRealtime.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configure the endpoint

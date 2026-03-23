@@ -9,7 +9,7 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
       Phoenix.PubSub.subscribe(FtwRealtime.PubSub, "jobs")
     end
 
-    jobs = Marketplace.list_jobs()
+    jobs = Marketplace.list_jobs() |> Enum.map(&serialize_job/1)
 
     socket =
       socket
@@ -62,8 +62,8 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
     bids =
       Enum.map(socket.assigns.bids, fn b ->
         cond do
-          b.id == bid.id -> %{b | status: "accepted"}
-          true -> %{b | status: "rejected"}
+          b.id == bid.id -> %{b | status: :accepted}
+          true -> %{b | status: :rejected}
         end
       end)
 
@@ -72,8 +72,8 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
 
   @impl true
   def handle_event("select_job", %{"id" => job_id}, socket) do
-    job = Marketplace.get_job(job_id)
-    bids = Marketplace.list_bids(job_id)
+    job = Marketplace.get_job(job_id) |> serialize_job()
+    bids = Marketplace.list_bids(job_id) |> Enum.map(&serialize_bid/1)
 
     if socket.assigns.selected_job do
       Phoenix.PubSub.unsubscribe(FtwRealtime.PubSub, "job:#{socket.assigns.selected_job.id}")
@@ -152,9 +152,11 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
     <div class="min-h-screen bg-[#FDFCFA]">
       <header class="bg-[#0F1419] text-white px-6 py-4">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
-          <h1 class="text-xl font-semibold tracking-tight" style="font-family: -apple-system, 'SF Pro Display', system-ui, sans-serif;">
-            FairTradeWorker
-            <span class="text-[#059669] ml-2 text-sm font-normal">REALTIME</span>
+          <h1
+            class="text-xl font-semibold tracking-tight"
+            style="font-family: -apple-system, 'SF Pro Display', system-ui, sans-serif;"
+          >
+            FairTradeWorker <span class="text-[#059669] ml-2 text-sm font-normal">REALTIME</span>
           </h1>
           <div class="flex items-center gap-3">
             <span class="inline-block w-2 h-2 rounded-full bg-[#059669] animate-pulse"></span>
@@ -183,7 +185,7 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
           phx-click="toggle_post_form"
           class="px-4 py-2 bg-[#059669] text-white rounded-lg text-sm font-medium hover:bg-[#047857] transition-colors"
         >
-          <%= if @show_post_form, do: "Cancel", else: "Post a Job" %>
+          {if @show_post_form, do: "Cancel", else: "Post a Job"}
         </button>
       </div>
 
@@ -205,7 +207,7 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
             </div>
             <div class="text-right">
               <span class={"inline-block px-2 py-1 rounded text-xs font-medium #{status_color(job.status)}"}>
-                {String.upcase(job.status)}
+                {job.status |> to_string() |> String.upcase()}
               </span>
               <p class="text-sm text-gray-500 mt-1">{job.bid_count} bids</p>
             </div>
@@ -226,7 +228,10 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
   defp job_detail(assigns) do
     ~H"""
     <div>
-      <button phx-click="back_to_list" class="text-sm text-gray-500 hover:text-[#059669] mb-4 flex items-center gap-1">
+      <button
+        phx-click="back_to_list"
+        class="text-sm text-gray-500 hover:text-[#059669] mb-4 flex items-center gap-1"
+      >
         &larr; Back to jobs
       </button>
 
@@ -234,10 +239,12 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
         <div class="flex items-start justify-between">
           <div>
             <h2 class="text-2xl font-semibold text-[#0F1419]">{@job.title}</h2>
-            <p class="text-gray-500 mt-1">{@job.location} &middot; {@job.category} &middot; Posted by {@job.homeowner}</p>
+            <p class="text-gray-500 mt-1">
+              {@job.location} &middot; {@job.category} &middot; Posted by {@job.homeowner_name}
+            </p>
           </div>
           <span class={"inline-block px-3 py-1 rounded text-sm font-medium #{status_color(@job.status)}"}>
-            {String.upcase(@job.status)}
+            {@job.status |> to_string() |> String.upcase()}
           </span>
         </div>
         <p class="text-gray-600 mt-4">{@job.description}</p>
@@ -248,12 +255,12 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
 
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-[#0F1419]">Bids ({length(@bids)})</h3>
-        <%= if @job.status == "open" do %>
+        <%= if @job.status == :open do %>
           <button
             phx-click="toggle_bid_form"
             class="px-4 py-2 bg-[#059669] text-white rounded-lg text-sm font-medium hover:bg-[#047857] transition-colors"
           >
-            <%= if @show_bid_form, do: "Cancel", else: "Place Bid" %>
+            {if @show_bid_form, do: "Cancel", else: "Place Bid"}
           </button>
         <% end %>
       </div>
@@ -272,7 +279,7 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
         >
           <div class="flex items-start justify-between">
             <div>
-              <span class="font-semibold text-[#0F1419]">{bid.contractor}</span>
+              <span class="font-semibold text-[#0F1419]">{bid.contractor_name}</span>
               <span class={"ml-2 text-xs px-2 py-0.5 rounded #{bid_status_color(bid.status)}"}>
                 {bid.status}
               </span>
@@ -282,7 +289,7 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
           <p class="text-gray-600 text-sm mt-2">{bid.message}</p>
           <div class="flex items-center justify-between mt-3">
             <span class="text-xs text-gray-400">Timeline: {bid.timeline}</span>
-            <%= if bid.status == "pending" && @job.status == "open" do %>
+            <%= if bid.status == :pending && @job.status == :open do %>
               <button
                 phx-click="accept_bid"
                 phx-value-bid-id={bid.id}
@@ -304,16 +311,27 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
       <h3 class="font-semibold text-[#0F1419] mb-4">Post a New Job</h3>
       <div class="grid grid-cols-2 gap-4">
         <div class="col-span-2">
-          <input name="job[title]" placeholder="Job title" required
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]" />
+          <input
+            name="job[title]"
+            placeholder="Job title"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"
+          />
         </div>
         <div class="col-span-2">
-          <textarea name="job[description]" placeholder="Describe the work needed..." rows="3" required
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"></textarea>
+          <textarea
+            name="job[description]"
+            placeholder="Describe the work needed..."
+            rows="3"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"
+          ></textarea>
         </div>
         <div>
-          <select name="job[category]"
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]">
+          <select
+            name="job[category]"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"
+          >
             <option value="remodeling">Remodeling</option>
             <option value="roofing">Roofing</option>
             <option value="additions">Additions</option>
@@ -325,24 +343,36 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
           </select>
         </div>
         <div>
-          <input name="job[location]" placeholder="City, State" required
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]" />
+          <input
+            name="job[location]"
+            placeholder="City, State"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"
+          />
         </div>
         <div>
-          <input name="job[budget_min]" type="number" placeholder="Min budget" required
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]" />
+          <input
+            name="job[budget_min]"
+            type="number"
+            placeholder="Min budget"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"
+          />
         </div>
         <div>
-          <input name="job[budget_max]" type="number" placeholder="Max budget" required
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]" />
-        </div>
-        <div class="col-span-2">
-          <input name="job[homeowner]" placeholder="Your name" required
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]" />
+          <input
+            name="job[budget_max]"
+            type="number"
+            placeholder="Max budget"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"
+          />
         </div>
       </div>
-      <button type="submit"
-        class="mt-4 px-6 py-2 bg-[#059669] text-white rounded-lg text-sm font-medium hover:bg-[#047857] transition-colors">
+      <button
+        type="submit"
+        class="mt-4 px-6 py-2 bg-[#059669] text-white rounded-lg text-sm font-medium hover:bg-[#047857] transition-colors"
+      >
         Post Job
       </button>
     </form>
@@ -355,46 +385,65 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
       <h3 class="font-semibold text-[#0F1419] mb-4">Submit Your Bid</h3>
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <input name="bid[contractor]" placeholder="Your name / company" required
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]" />
+          <input
+            name="bid[amount]"
+            type="number"
+            placeholder="Bid amount ($)"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"
+          />
         </div>
         <div>
-          <input name="bid[amount]" type="number" placeholder="Bid amount ($)" required
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]" />
-        </div>
-        <div>
-          <input name="bid[timeline]" placeholder="Timeline (e.g. 2-3 weeks)" required
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]" />
+          <input
+            name="bid[timeline]"
+            placeholder="Timeline (e.g. 2-3 weeks)"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"
+          />
         </div>
         <div class="col-span-2">
-          <textarea name="bid[message]" placeholder="Why you're the right contractor for this job..." rows="2"
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"></textarea>
+          <textarea
+            name="bid[message]"
+            placeholder="Why you're the right contractor for this job..."
+            rows="2"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#059669]"
+          ></textarea>
         </div>
       </div>
-      <button type="submit"
-        class="mt-4 px-6 py-2 bg-[#059669] text-white rounded-lg text-sm font-medium hover:bg-[#047857] transition-colors">
+      <button
+        type="submit"
+        class="mt-4 px-6 py-2 bg-[#059669] text-white rounded-lg text-sm font-medium hover:bg-[#047857] transition-colors"
+      >
         Submit Bid
       </button>
     </form>
     """
   end
 
-  defp status_color("open"), do: "bg-green-100 text-green-800"
-  defp status_color("awarded"), do: "bg-blue-100 text-blue-800"
-  defp status_color("completed"), do: "bg-gray-100 text-gray-800"
+  defp status_color(:open), do: "bg-green-100 text-green-800"
+  defp status_color(:awarded), do: "bg-blue-100 text-blue-800"
+  defp status_color(:in_progress), do: "bg-purple-100 text-purple-800"
+  defp status_color(:completed), do: "bg-gray-100 text-gray-800"
   defp status_color(_), do: "bg-gray-100 text-gray-600"
 
-  defp bid_status_color("pending"), do: "bg-yellow-100 text-yellow-800"
-  defp bid_status_color("accepted"), do: "bg-green-100 text-green-800"
-  defp bid_status_color("rejected"), do: "bg-red-100 text-red-800"
+  defp bid_status_color(:pending), do: "bg-yellow-100 text-yellow-800"
+  defp bid_status_color(:accepted), do: "bg-green-100 text-green-800"
+  defp bid_status_color(:rejected), do: "bg-red-100 text-red-800"
   defp bid_status_color(_), do: "bg-gray-100 text-gray-600"
 
-  defp bid_border_color("accepted"), do: "border-green-400"
-  defp bid_border_color("rejected"), do: "border-red-200"
+  defp bid_border_color(:accepted), do: "border-green-400"
+  defp bid_border_color(:rejected), do: "border-red-200"
   defp bid_border_color(_), do: "border-gray-200"
 
-  defp format_number(n) when is_integer(n), do: Number.to_string(n)
-  defp format_number(n) when is_binary(n), do: n
+  defp format_number(n) when is_integer(n) do
+    n
+    |> Integer.to_string()
+    |> String.reverse()
+    |> String.replace(~r/(\d{3})/, "\\1,")
+    |> String.reverse()
+    |> String.trim_leading(",")
+  end
+
   defp format_number(n), do: to_string(n)
 
   defp relative_time(datetime) do
@@ -407,17 +456,35 @@ defmodule FtwRealtimeWeb.MarketplaceLive do
       true -> "#{div(diff, 86400)}d ago"
     end
   end
-end
 
-defmodule Number do
-  def to_string(n) when is_integer(n) do
-    n
-    |> Integer.to_string()
-    |> String.reverse()
-    |> String.replace(~r/(\d{3})/, "\\1,")
-    |> String.reverse()
-    |> String.trim_leading(",")
+  defp serialize_job(job) do
+    %{
+      id: job.id,
+      title: job.title,
+      description: job.description,
+      category: job.category,
+      budget_min: job.budget_min,
+      budget_max: job.budget_max,
+      location: job.location,
+      status: job.status,
+      bid_count: job.bid_count,
+      homeowner_name:
+        if(Ecto.assoc_loaded?(job.homeowner), do: job.homeowner.name, else: "Unknown"),
+      posted_at: job.inserted_at
+    }
   end
 
-  def to_string(n), do: Kernel.to_string(n)
+  defp serialize_bid(bid) do
+    %{
+      id: bid.id,
+      job_id: bid.job_id,
+      amount: bid.amount,
+      message: bid.message,
+      timeline: bid.timeline,
+      status: bid.status,
+      contractor_name:
+        if(Ecto.assoc_loaded?(bid.contractor), do: bid.contractor.name, else: "Unknown"),
+      placed_at: bid.inserted_at
+    }
+  end
 end

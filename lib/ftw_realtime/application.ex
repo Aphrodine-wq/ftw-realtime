@@ -9,9 +9,10 @@ defmodule FtwRealtime.Application do
   def start(_type, _args) do
     children = [
       FtwRealtimeWeb.Telemetry,
+      FtwRealtime.Repo,
       {DNSCluster, query: Application.get_env(:ftw_realtime, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: FtwRealtime.PubSub},
-      FtwRealtime.Marketplace,
+      FtwRealtimeWeb.Presence,
       # Start to serve requests, typically the last entry
       FtwRealtimeWeb.Endpoint
     ]

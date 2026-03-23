@@ -41,6 +41,9 @@ defmodule FtwRealtime.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.8.5"},
+      {:phoenix_ecto, "~> 4.6"},
+      {:ecto_sql, "~> 3.12"},
+      {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 1.1.0"},
@@ -57,6 +60,8 @@ defmodule FtwRealtime.MixProject do
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 1.0"},
+      {:argon2_elixir, "~> 4.1"},
+      {:joken, "~> 2.6"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"}
@@ -71,7 +76,9 @@ defmodule FtwRealtime.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "assets.setup", "assets.build"],
+      setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["compile", "tailwind ftw_realtime", "esbuild ftw_realtime"],
       "assets.deploy": [

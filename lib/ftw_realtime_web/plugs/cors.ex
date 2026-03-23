@@ -5,14 +5,14 @@ defmodule FtwRealtimeWeb.Plugs.CORS do
   import Plug.Conn
 
   @allowed_origins (if Mix.env() == :prod do
-    [
-      "https://fairtradeworker.com",
-      "https://www.fairtradeworker.com",
-      "https://fairtradeworker.vercel.app"
-    ]
-  else
-    ["*"]
-  end)
+                      [
+                        "https://fairtradeworker.com",
+                        "https://www.fairtradeworker.com",
+                        "https://fairtradeworker.vercel.app"
+                      ]
+                    else
+                      ["*"]
+                    end)
 
   def init(opts), do: opts
 

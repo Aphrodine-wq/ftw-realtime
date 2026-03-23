@@ -26,7 +26,7 @@ RUN mix assets.deploy
 RUN mix compile
 RUN mix release
 
-# Runtime stage — minimal Alpine image
+# Runtime stage
 FROM alpine:3.21.3 AS runtime
 
 RUN apk add --no-cache libstdc++ openssl ncurses-libs
@@ -38,4 +38,5 @@ COPY --from=build /app/_build/prod/rel/ftw_realtime ./
 ENV PHX_SERVER=true
 ENV MIX_ENV=prod
 
-CMD ["bin/ftw_realtime", "start"]
+# Run migrations then start the server
+CMD ["sh", "-c", "bin/ftw_realtime eval 'FtwRealtime.Release.migrate()' && bin/ftw_realtime start"]

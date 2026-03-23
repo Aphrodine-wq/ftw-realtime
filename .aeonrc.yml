@@ -1,0 +1,37 @@
+project: ftw-realtime
+profile: security
+language: elixir
+
+engines:
+  - taint
+  - injection
+  - null-deref
+  - race-condition
+  - information-flow
+  - division-by-zero
+
+taint:
+  sources:
+    - "params"
+    - "attrs"
+    - "socket.assigns"
+    - "conn.params"
+    - "System.get_env"
+  sinks:
+    - "Repo.insert"
+    - "Repo.update"
+    - "Repo.delete"
+    - "Repo.query"
+    - "PubSub.broadcast"
+    - "push"
+
+include:
+  - "lib/**/*.ex"
+  - "config/**/*.exs"
+
+exclude:
+  - "deps/**"
+  - "_build/**"
+  - "priv/static/**"
+  - "assets/**"
+  - "test/**"

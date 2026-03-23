@@ -57,5 +57,6 @@ defmodule FtwRealtimeWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug FtwRealtimeWeb.Plugs.SecurityHeaders
   plug FtwRealtimeWeb.Router
 end

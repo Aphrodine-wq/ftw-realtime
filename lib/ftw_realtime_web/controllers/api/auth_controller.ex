@@ -8,7 +8,9 @@ defmodule FtwRealtimeWeb.Api.AuthController do
       {:ok, user} ->
         {:ok, token, _claims} = Auth.generate_token(user)
 
-        json(conn, %{
+        conn
+        |> put_status(:ok)
+        |> json(%{
           token: token,
           user: %{
             id: user.id,

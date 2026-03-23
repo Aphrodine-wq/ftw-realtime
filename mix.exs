@@ -21,7 +21,7 @@ defmodule FtwRealtime.MixProject do
   def application do
     [
       mod: {FtwRealtime.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :inets]
     ]
   end
 
@@ -64,7 +64,8 @@ defmodule FtwRealtime.MixProject do
       {:joken, "~> 2.6"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:oban, "~> 2.19"}
     ]
   end
 

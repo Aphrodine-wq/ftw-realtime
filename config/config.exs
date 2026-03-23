@@ -43,6 +43,16 @@ config :tailwind,
     cd: Path.expand("..", __DIR__)
   ]
 
+# Configure Oban background jobs
+config :ftw_realtime, Oban,
+  repo: FtwRealtime.Repo,
+  queues: [
+    default: 10,
+    notifications: 5,
+    matching: 3,
+    sync: 3
+  ]
+
 # Configure Elixir's Logger
 config :logger, :default_formatter,
   format: "$time $metadata[$level] $message\n",

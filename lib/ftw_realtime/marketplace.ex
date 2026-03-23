@@ -9,6 +9,7 @@ defmodule FtwRealtime.Marketplace do
   alias FtwRealtime.Marketplace.{User, Job, Bid, Conversation, Message}
   alias FtwRealtime.Marketplace.{Client, Estimate, LineItem, Invoice, Project, Notification}
   alias FtwRealtime.Marketplace.Review
+  alias FtwRealtime.Marketplace.{Upload, UserSetting}
   alias Phoenix.PubSub
 
   # --- Users ---
@@ -132,6 +133,16 @@ defmodule FtwRealtime.Marketplace do
 
               broadcast("jobs", "job:updated", serialize_job(updated_job))
               broadcast("job:#{job_id}", "bid:placed", serialize_bid(bid))
+
+              # Notify homeowner about new bid
+              enqueue_notification(
+                "bid_received",
+                job.homeowner_id,
+                "New bid on #{job.title}",
+                "A contractor bid $#{bid.amount} on your job",
+                %{job_id: job.id, bid_id: bid.id}
+              )
+
               bid
 
             {:error, changeset} ->
@@ -166,6 +177,16 @@ defmodule FtwRealtime.Marketplace do
 
           broadcast("jobs", "job:updated", serialize_job(updated_job))
           broadcast("job:#{job_id}", "bid:accepted", serialize_bid(accepted_bid))
+
+          # Notify winning contractor
+          enqueue_notification(
+            "bid_accepted",
+            bid.contractor_id,
+            "Your bid was accepted!",
+            "Your bid on #{job.title} was accepted",
+            %{job_id: job.id, bid_id: bid.id}
+          )
+
           accepted_bid
       end
     end)
@@ -515,6 +536,77 @@ defmodule FtwRealtime.Marketplace do
       nil -> {:error, :not_found}
       review -> review |> Ecto.Changeset.change(response: response_text) |> Repo.update()
     end
+  end
+
+  # --- Uploads ---
+
+  @max_upload_size 10_485_760
+
+  def list_uploads(entity_type, entity_id) do
+    Upload
+    |> where([u], u.entity_type == ^entity_type and u.entity_id == ^entity_id)
+    |> order_by([u], desc: u.inserted_at)
+    |> Repo.all()
+  end
+
+  def get_upload(id), do: Repo.get(Upload, id)
+
+  def create_upload(attrs) do
+    size = Map.get(attrs, :size) || Map.get(attrs, "size")
+
+    if is_integer(size) and size > @max_upload_size do
+      {:error, :file_too_large}
+    else
+      %Upload{}
+      |> Upload.changeset(attrs)
+      |> Repo.insert()
+    end
+  end
+
+  def delete_upload(id) do
+    case Repo.get(Upload, id) do
+      nil -> {:error, :not_found}
+      upload -> Repo.delete(upload)
+    end
+  end
+
+  @doc false
+  def serialize_upload(upload) do
+    %{
+      id: upload.id,
+      filename: upload.filename,
+      content_type: upload.content_type,
+      size: upload.size,
+      url: "/uploads/#{upload.path}",
+      entity_type: upload.entity_type,
+      entity_id: upload.entity_id,
+      created_at: upload.inserted_at
+    }
+  end
+
+  # --- User Settings ---
+
+  def get_settings(user_id) do
+    case Repo.get_by(UserSetting, user_id: user_id) do
+      nil ->
+        {:ok, settings} =
+          %UserSetting{}
+          |> UserSetting.changeset(%{user_id: user_id})
+          |> Repo.insert()
+
+        settings
+
+      settings ->
+        settings
+    end
+  end
+
+  def update_settings(user_id, attrs) do
+    settings = get_settings(user_id)
+
+    settings
+    |> UserSetting.changeset(attrs)
+    |> Repo.update()
   end
 
   # --- Seeds ---
@@ -1024,6 +1116,12 @@ defmodule FtwRealtime.Marketplace do
 
   defp broadcast(topic, event, payload) do
     PubSub.broadcast(FtwRealtime.PubSub, topic, {event, payload})
+  end
+
+  defp enqueue_notification(type, user_id, title, body, metadata) do
+    %{type: type, user_id: user_id, title: title, body: body, metadata: metadata}
+    |> FtwRealtime.Workers.NotificationWorker.new()
+    |> Oban.insert()
   end
 
   defp serialize_job(job) do

@@ -26,6 +26,12 @@ defmodule FtwRealtimeWeb.Endpoint do
     websocket: [connect_info: [session: @session_options]],
     longpoll: [connect_info: [session: @session_options]]
 
+  # Serve uploaded files from priv/static/uploads
+  plug Plug.Static,
+    at: "/uploads",
+    from: {:ftw_realtime, "priv/static/uploads"},
+    gzip: false
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # When code reloading is disabled (e.g., in production),

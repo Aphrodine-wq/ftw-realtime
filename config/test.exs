@@ -15,6 +15,9 @@ config :ftw_realtime, FtwRealtimeWeb.Endpoint,
   secret_key_base: "dCFb4YuVwgAbS+71uabhIeUXKiwvUnXyRqthIYl57dJh6RDn1d311TrXIESG4RxX",
   server: false
 
+# Disable Oban queues during test
+config :ftw_realtime, Oban, testing: :inline
+
 # Print only warnings and errors during test
 config :logger, level: :warning
 

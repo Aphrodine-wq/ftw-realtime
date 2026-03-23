@@ -82,6 +82,8 @@ defmodule FtwRealtimeWeb.Router do
 
     get "/users/:id", UserController, :show
 
+    post "/ai/estimate", AIController, :estimate
+
     post "/jobs", JobController, :create
     post "/jobs/:id/transition", JobController, :transition
     post "/jobs/:id/bids", JobController, :place_bid
@@ -112,5 +114,14 @@ defmodule FtwRealtimeWeb.Router do
     get "/notifications", NotificationController, :index
     post "/notifications/:id/read", NotificationController, :mark_read
     post "/notifications/read-all", NotificationController, :mark_all_read
+
+    # Uploads
+    post "/uploads", UploadController, :create
+    get "/uploads", UploadController, :index
+    delete "/uploads/:id", UploadController, :delete
+
+    # Settings
+    get "/settings", SettingsController, :show
+    put "/settings", SettingsController, :update
   end
 end

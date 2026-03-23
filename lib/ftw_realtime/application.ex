@@ -13,6 +13,7 @@ defmodule FtwRealtime.Application do
       {DNSCluster, query: Application.get_env(:ftw_realtime, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: FtwRealtime.PubSub},
       FtwRealtimeWeb.Presence,
+      {Oban, Application.fetch_env!(:ftw_realtime, Oban)},
       # Start to serve requests, typically the last entry
       FtwRealtimeWeb.Endpoint
     ]

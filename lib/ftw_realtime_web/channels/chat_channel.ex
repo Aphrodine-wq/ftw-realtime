@@ -2,12 +2,18 @@ defmodule FtwRealtimeWeb.ChatChannel do
   use Phoenix.Channel
 
   alias FtwRealtime.Marketplace
-  alias FtwRealtimeWeb.Presence
+  alias FtwRealtimeWeb.{Presence, RateLimiter}
 
   @impl true
   def join("chat:" <> conversation_id, _params, socket) do
-    send(self(), {:after_join, conversation_id})
-    {:ok, assign(socket, :conversation_id, conversation_id)}
+    user_id = socket.assigns.user_id
+
+    if Marketplace.conversation_participant?(conversation_id, user_id) do
+      send(self(), {:after_join, conversation_id})
+      {:ok, assign(socket, :conversation_id, conversation_id)}
+    else
+      {:error, %{reason: "unauthorized"}}
+    end
   end
 
   @impl true
@@ -38,21 +44,33 @@ defmodule FtwRealtimeWeb.ChatChannel do
 
   @impl true
   def handle_in("typing", %{"typing" => typing}, socket) do
-    Presence.update(socket, socket.assigns.user_id, fn meta ->
-      Map.put(meta, :typing, typing)
-    end)
+    case RateLimiter.check(:typing, limit: 5, window: 3_000) do
+      :rate_limited ->
+        {:noreply, socket}
 
-    {:noreply, socket}
+      :ok ->
+        Presence.update(socket, socket.assigns.user_id, fn meta ->
+          Map.put(meta, :typing, typing)
+        end)
+
+        {:noreply, socket}
+    end
   end
 
   @impl true
   def handle_in("send_message", attrs, socket) do
-    conversation_id = socket.assigns.conversation_id
-    attrs = Map.put(attrs, "sender_id", socket.assigns.user_id)
+    case RateLimiter.check(:message, limit: 10, window: 60_000) do
+      :rate_limited ->
+        {:reply, {:error, %{reason: "rate limited"}}, socket}
 
-    case Marketplace.send_message(conversation_id, attrs) do
-      {:ok, message} -> {:reply, {:ok, serialize_message(message)}, socket}
-      {:error, changeset} -> {:reply, {:error, %{errors: format_errors(changeset)}}, socket}
+      :ok ->
+        conversation_id = socket.assigns.conversation_id
+        attrs = Map.put(attrs, "sender_id", socket.assigns.user_id)
+
+        case Marketplace.send_message(conversation_id, attrs) do
+          {:ok, message} -> {:reply, {:ok, serialize_message(message)}, socket}
+          {:error, changeset} -> {:reply, {:error, %{errors: format_errors(changeset)}}, socket}
+        end
     end
   end
 

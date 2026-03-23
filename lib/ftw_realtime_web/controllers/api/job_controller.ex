@@ -4,10 +4,11 @@ defmodule FtwRealtimeWeb.Api.JobController do
   alias FtwRealtime.Marketplace
 
   def index(conn, params) do
-    limit = case Integer.parse(params["limit"] || "") do
-      {n, _} when n > 0 -> n
-      _ -> 20
-    end
+    limit =
+      case Integer.parse(params["limit"] || "") do
+        {n, _} when n > 0 -> n
+        _ -> 20
+      end
 
     opts = [
       status: params["status"],
@@ -83,7 +84,9 @@ defmodule FtwRealtimeWeb.Api.JobController do
         |> json(%{error: "Cannot transition from #{from} to #{to}"})
 
       {:error, :only_winning_contractor} ->
-        conn |> put_status(:forbidden) |> json(%{error: "Only the winning contractor can start work"})
+        conn
+        |> put_status(:forbidden)
+        |> json(%{error: "Only the winning contractor can start work"})
 
       {:error, :only_homeowner_can_cancel} ->
         conn |> put_status(:forbidden) |> json(%{error: "Only the homeowner can cancel"})

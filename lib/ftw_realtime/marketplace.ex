@@ -222,6 +222,18 @@ defmodule FtwRealtime.Marketplace do
 
   # --- Conversations & Messages ---
 
+  def get_conversation(id), do: Repo.get(Conversation, id)
+
+  def conversation_participant?(conversation_id, user_id) do
+    Repo.exists?(
+      from(c in Conversation,
+        where:
+          c.id == ^conversation_id and
+            (c.homeowner_id == ^user_id or c.contractor_id == ^user_id)
+      )
+    )
+  end
+
   def get_or_create_conversation(job_id, homeowner_id, contractor_id) do
     case Repo.get_by(Conversation,
            job_id: job_id,

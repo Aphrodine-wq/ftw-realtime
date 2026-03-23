@@ -2,6 +2,7 @@ defmodule FtwRealtimeWeb.BidChannel do
   use Phoenix.Channel
 
   alias FtwRealtime.Marketplace
+  alias FtwRealtimeWeb.RateLimiter
 
   @impl true
   def join("job:" <> job_id, _params, socket) do
@@ -43,24 +44,43 @@ defmodule FtwRealtimeWeb.BidChannel do
 
   @impl true
   def handle_in("place_bid", attrs, socket) do
-    job_id = socket.assigns.job_id
-    attrs = Map.put(attrs, "contractor_id", socket.assigns.user_id)
+    cond do
+      socket.assigns.role != "contractor" ->
+        {:reply, {:error, %{reason: "only contractors can place bids"}}, socket}
 
-    case Marketplace.place_bid(job_id, attrs) do
-      {:ok, bid} -> {:reply, {:ok, serialize_bid(bid)}, socket}
-      {:error, :job_not_found} -> {:reply, {:error, %{reason: "job not found"}}, socket}
-      {:error, changeset} -> {:reply, {:error, %{errors: format_errors(changeset)}}, socket}
+      RateLimiter.check(:bid, limit: 5, window: 60_000) == :rate_limited ->
+        {:reply, {:error, %{reason: "rate limited"}}, socket}
+
+      true ->
+        job_id = socket.assigns.job_id
+        attrs = Map.put(attrs, "contractor_id", socket.assigns.user_id)
+
+        case Marketplace.place_bid(job_id, attrs) do
+          {:ok, bid} -> {:reply, {:ok, serialize_bid(bid)}, socket}
+          {:error, :job_not_found} -> {:reply, {:error, %{reason: "job not found"}}, socket}
+          {:error, changeset} -> {:reply, {:error, %{errors: format_errors(changeset)}}, socket}
+        end
     end
   end
 
   @impl true
   def handle_in("accept_bid", %{"bid_id" => bid_id}, socket) do
     job_id = socket.assigns.job_id
+    job = Marketplace.get_job(job_id)
 
-    case Marketplace.accept_bid(job_id, bid_id) do
-      {:ok, bid} -> {:reply, {:ok, serialize_bid(bid)}, socket}
-      {:error, :bid_not_found} -> {:reply, {:error, %{reason: "bid not found"}}, socket}
-      {:error, reason} -> {:reply, {:error, %{reason: reason}}, socket}
+    cond do
+      socket.assigns.role != "homeowner" ->
+        {:reply, {:error, %{reason: "only homeowners can accept bids"}}, socket}
+
+      job && job.homeowner_id != socket.assigns.user_id ->
+        {:reply, {:error, %{reason: "only the job owner can accept bids"}}, socket}
+
+      true ->
+        case Marketplace.accept_bid(job_id, bid_id) do
+          {:ok, bid} -> {:reply, {:ok, serialize_bid(bid)}, socket}
+          {:error, :bid_not_found} -> {:reply, {:error, %{reason: "bid not found"}}, socket}
+          {:error, reason} -> {:reply, {:error, %{reason: reason}}, socket}
+        end
     end
   end
 

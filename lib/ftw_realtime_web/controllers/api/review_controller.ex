@@ -50,7 +50,9 @@ defmodule FtwRealtimeWeb.Api.ReviewController do
               json(conn, %{review: serialize_review(updated_review)})
 
             {:error, changeset} ->
-              conn |> put_status(:unprocessable_entity) |> json(%{errors: format_errors(changeset)})
+              conn
+              |> put_status(:unprocessable_entity)
+              |> json(%{errors: format_errors(changeset)})
           end
         end
     end

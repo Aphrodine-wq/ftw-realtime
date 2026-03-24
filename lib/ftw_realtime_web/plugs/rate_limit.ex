@@ -47,7 +47,10 @@ defmodule FtwRealtimeWeb.Plugs.RateLimit do
         |> put_resp_header("x-ratelimit-limit", to_string(limit))
         |> put_resp_header("x-ratelimit-remaining", "0")
         |> put_resp_header("content-type", "application/json")
-        |> send_resp(429, Jason.encode!(%{error: "Too many requests", retry_after: retry_seconds}))
+        |> send_resp(
+          429,
+          Jason.encode!(%{error: "Too many requests", retry_after: retry_seconds})
+        )
         |> halt()
     end
   end

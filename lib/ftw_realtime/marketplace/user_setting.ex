@@ -6,16 +6,16 @@ defmodule FtwRealtime.Marketplace.UserSetting do
   @foreign_key_type :binary_id
 
   schema "user_settings" do
-    field :notifications_email, :boolean, default: true
-    field :notifications_push, :boolean, default: true
-    field :notifications_sms, :boolean, default: false
-    field :appearance_theme, :string, default: "light"
-    field :language, :string, default: "en"
-    field :timezone, :string, default: "America/Chicago"
-    field :privacy_profile_visible, :boolean, default: true
-    field :privacy_show_rating, :boolean, default: true
+    field(:notifications_email, :boolean, default: true)
+    field(:notifications_push, :boolean, default: true)
+    field(:notifications_sms, :boolean, default: false)
+    field(:appearance_theme, :string, default: "light")
+    field(:language, :string, default: "en")
+    field(:timezone, :string, default: "America/Chicago")
+    field(:privacy_profile_visible, :boolean, default: true)
+    field(:privacy_show_rating, :boolean, default: true)
 
-    belongs_to :user, FtwRealtime.Marketplace.User
+    belongs_to(:user, FtwRealtime.Marketplace.User)
 
     timestamps(type: :utc_datetime)
   end

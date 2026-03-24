@@ -484,7 +484,12 @@ defmodule FtwRealtime.Marketplace do
 
     case result do
       {:ok, notification} ->
-        broadcast("user:#{notification.user_id}", "notification:new", serialize_notification(notification))
+        broadcast(
+          "user:#{notification.user_id}",
+          "notification:new",
+          serialize_notification(notification)
+        )
+
         {:ok, notification}
 
       error ->
@@ -789,7 +794,8 @@ defmodule FtwRealtime.Marketplace do
     {:ok, estimate1} =
       create_estimate(%{
         title: "Kitchen Remodel - Johnson Residence",
-        description: "Full kitchen gut and remodel including cabinets, countertops, backsplash, flooring, and appliance installation.",
+        description:
+          "Full kitchen gut and remodel including cabinets, countertops, backsplash, flooring, and appliance installation.",
         total: 3_850_000,
         status: :sent,
         valid_until: ~U[2026-04-22 00:00:00Z],
@@ -797,18 +803,59 @@ defmodule FtwRealtime.Marketplace do
         contractor_id: contractor1.id,
         client_id: client1.id,
         line_items: [
-          %{description: "Demo existing kitchen", quantity: 1.0, unit: "lot", unit_price: 350_000, total: 350_000, category: "demolition", sort_order: 0},
-          %{description: "Custom shaker cabinets (12 linear ft uppers, 16 linear ft lowers)", quantity: 1.0, unit: "set", unit_price: 1_200_000, total: 1_200_000, category: "cabinets", sort_order: 1},
-          %{description: "Granite countertops - Level 3 Bianco Antico", quantity: 42.0, unit: "sqft", unit_price: 18_500, total: 777_000, category: "countertops", sort_order: 2},
-          %{description: "Subway tile backsplash with herringbone accent", quantity: 30.0, unit: "sqft", unit_price: 2_500, total: 75_000, category: "tile", sort_order: 3},
-          %{description: "LVP flooring - kitchen and breakfast nook", quantity: 280.0, unit: "sqft", unit_price: 850, total: 238_000, category: "flooring", sort_order: 4}
+          %{
+            description: "Demo existing kitchen",
+            quantity: 1.0,
+            unit: "lot",
+            unit_price: 350_000,
+            total: 350_000,
+            category: "demolition",
+            sort_order: 0
+          },
+          %{
+            description: "Custom shaker cabinets (12 linear ft uppers, 16 linear ft lowers)",
+            quantity: 1.0,
+            unit: "set",
+            unit_price: 1_200_000,
+            total: 1_200_000,
+            category: "cabinets",
+            sort_order: 1
+          },
+          %{
+            description: "Granite countertops - Level 3 Bianco Antico",
+            quantity: 42.0,
+            unit: "sqft",
+            unit_price: 18_500,
+            total: 777_000,
+            category: "countertops",
+            sort_order: 2
+          },
+          %{
+            description: "Subway tile backsplash with herringbone accent",
+            quantity: 30.0,
+            unit: "sqft",
+            unit_price: 2_500,
+            total: 75_000,
+            category: "tile",
+            sort_order: 3
+          },
+          %{
+            description: "LVP flooring - kitchen and breakfast nook",
+            quantity: 280.0,
+            unit: "sqft",
+            unit_price: 850,
+            total: 238_000,
+            category: "flooring",
+            sort_order: 4
+          }
         ]
       })
 
     {:ok, _estimate2} =
       create_estimate(%{
         title: "Roof Replacement - Davis Property",
-        description: "Tear-off and replacement of existing roof. Architectural shingles, new underlayment, ridge vent.",
+        description:
+          "Tear-off and replacement of existing roof. Architectural shingles, new underlayment, ridge vent.",
         total: 1_185_000,
         status: :accepted,
         valid_until: ~U[2026-04-15 00:00:00Z],
@@ -816,50 +863,149 @@ defmodule FtwRealtime.Marketplace do
         contractor_id: contractor1.id,
         client_id: client2.id,
         line_items: [
-          %{description: "Tear-off existing shingles (2 layers)", quantity: 24.0, unit: "squares", unit_price: 12_500, total: 300_000, category: "demolition", sort_order: 0},
-          %{description: "GAF Timberline HDZ Architectural Shingles", quantity: 24.0, unit: "squares", unit_price: 22_000, total: 528_000, category: "roofing", sort_order: 1},
-          %{description: "Synthetic underlayment", quantity: 24.0, unit: "squares", unit_price: 4_500, total: 108_000, category: "roofing", sort_order: 2},
-          %{description: "Ridge vent and drip edge", quantity: 1.0, unit: "lot", unit_price: 125_000, total: 125_000, category: "roofing", sort_order: 3},
-          %{description: "Debris removal and dump fees", quantity: 1.0, unit: "lot", unit_price: 124_000, total: 124_000, category: "cleanup", sort_order: 4}
+          %{
+            description: "Tear-off existing shingles (2 layers)",
+            quantity: 24.0,
+            unit: "squares",
+            unit_price: 12_500,
+            total: 300_000,
+            category: "demolition",
+            sort_order: 0
+          },
+          %{
+            description: "GAF Timberline HDZ Architectural Shingles",
+            quantity: 24.0,
+            unit: "squares",
+            unit_price: 22_000,
+            total: 528_000,
+            category: "roofing",
+            sort_order: 1
+          },
+          %{
+            description: "Synthetic underlayment",
+            quantity: 24.0,
+            unit: "squares",
+            unit_price: 4_500,
+            total: 108_000,
+            category: "roofing",
+            sort_order: 2
+          },
+          %{
+            description: "Ridge vent and drip edge",
+            quantity: 1.0,
+            unit: "lot",
+            unit_price: 125_000,
+            total: 125_000,
+            category: "roofing",
+            sort_order: 3
+          },
+          %{
+            description: "Debris removal and dump fees",
+            quantity: 1.0,
+            unit: "lot",
+            unit_price: 124_000,
+            total: 124_000,
+            category: "cleanup",
+            sort_order: 4
+          }
         ]
       })
 
     {:ok, _estimate3} =
       create_estimate(%{
         title: "Master Bath Addition - Chen Home",
-        description: "New master bathroom addition with walk-in shower, double vanity, heated tile floors.",
+        description:
+          "New master bathroom addition with walk-in shower, double vanity, heated tile floors.",
         total: 2_475_000,
         status: :draft,
         contractor_id: contractor1.id,
         client_id: client3.id,
         line_items: [
-          %{description: "Framing and structural work", quantity: 1.0, unit: "lot", unit_price: 450_000, total: 450_000, category: "framing", sort_order: 0},
-          %{description: "Plumbing rough-in and fixtures", quantity: 1.0, unit: "lot", unit_price: 625_000, total: 625_000, category: "plumbing", sort_order: 1},
-          %{description: "Electrical rough-in and fixtures", quantity: 1.0, unit: "lot", unit_price: 275_000, total: 275_000, category: "electrical", sort_order: 2}
+          %{
+            description: "Framing and structural work",
+            quantity: 1.0,
+            unit: "lot",
+            unit_price: 450_000,
+            total: 450_000,
+            category: "framing",
+            sort_order: 0
+          },
+          %{
+            description: "Plumbing rough-in and fixtures",
+            quantity: 1.0,
+            unit: "lot",
+            unit_price: 625_000,
+            total: 625_000,
+            category: "plumbing",
+            sort_order: 1
+          },
+          %{
+            description: "Electrical rough-in and fixtures",
+            quantity: 1.0,
+            unit: "lot",
+            unit_price: 275_000,
+            total: 275_000,
+            category: "electrical",
+            sort_order: 2
+          }
         ]
       })
 
     {:ok, _estimate4} =
       create_estimate(%{
         title: "Composite Deck Build - Mitchell Residence",
-        description: "16x20 composite deck with aluminum railing, footings, ledger board, and built-in bench.",
+        description:
+          "16x20 composite deck with aluminum railing, footings, ledger board, and built-in bench.",
         total: 1_640_000,
         status: :viewed,
         valid_until: ~U[2026-05-01 00:00:00Z],
         contractor_id: contractor1.id,
         client_id: client4.id,
         line_items: [
-          %{description: "Concrete footings (8 piers)", quantity: 8.0, unit: "each", unit_price: 35_000, total: 280_000, category: "foundation", sort_order: 0},
-          %{description: "Pressure-treated framing lumber", quantity: 1.0, unit: "lot", unit_price: 320_000, total: 320_000, category: "framing", sort_order: 1},
-          %{description: "Trex Transcend composite decking", quantity: 320.0, unit: "sqft", unit_price: 2_200, total: 704_000, category: "decking", sort_order: 2},
-          %{description: "Aluminum railing system", quantity: 56.0, unit: "linear ft", unit_price: 4_500, total: 252_000, category: "railing", sort_order: 3}
+          %{
+            description: "Concrete footings (8 piers)",
+            quantity: 8.0,
+            unit: "each",
+            unit_price: 35_000,
+            total: 280_000,
+            category: "foundation",
+            sort_order: 0
+          },
+          %{
+            description: "Pressure-treated framing lumber",
+            quantity: 1.0,
+            unit: "lot",
+            unit_price: 320_000,
+            total: 320_000,
+            category: "framing",
+            sort_order: 1
+          },
+          %{
+            description: "Trex Transcend composite decking",
+            quantity: 320.0,
+            unit: "sqft",
+            unit_price: 2_200,
+            total: 704_000,
+            category: "decking",
+            sort_order: 2
+          },
+          %{
+            description: "Aluminum railing system",
+            quantity: 56.0,
+            unit: "linear ft",
+            unit_price: 4_500,
+            total: 252_000,
+            category: "railing",
+            sort_order: 3
+          }
         ]
       })
 
     {:ok, _estimate5} =
       create_estimate(%{
         title: "Office Renovation - Bradley Properties",
-        description: "Commercial office space renovation. New drywall, paint, flooring, and lighting.",
+        description:
+          "Commercial office space renovation. New drywall, paint, flooring, and lighting.",
         total: 890_000,
         status: :expired,
         valid_until: ~U[2026-02-28 00:00:00Z],
@@ -867,10 +1013,42 @@ defmodule FtwRealtime.Marketplace do
         contractor_id: contractor1.id,
         client_id: client6.id,
         line_items: [
-          %{description: "Drywall and framing (4 offices)", quantity: 1.0, unit: "lot", unit_price: 285_000, total: 285_000, category: "drywall", sort_order: 0},
-          %{description: "Interior paint - walls and trim", quantity: 1800.0, unit: "sqft", unit_price: 150, total: 270_000, category: "paint", sort_order: 1},
-          %{description: "Commercial carpet tile", quantity: 1200.0, unit: "sqft", unit_price: 175, total: 210_000, category: "flooring", sort_order: 2},
-          %{description: "LED panel lighting (drop ceiling)", quantity: 18.0, unit: "each", unit_price: 6_944, total: 125_000, category: "electrical", sort_order: 3}
+          %{
+            description: "Drywall and framing (4 offices)",
+            quantity: 1.0,
+            unit: "lot",
+            unit_price: 285_000,
+            total: 285_000,
+            category: "drywall",
+            sort_order: 0
+          },
+          %{
+            description: "Interior paint - walls and trim",
+            quantity: 1800.0,
+            unit: "sqft",
+            unit_price: 150,
+            total: 270_000,
+            category: "paint",
+            sort_order: 1
+          },
+          %{
+            description: "Commercial carpet tile",
+            quantity: 1200.0,
+            unit: "sqft",
+            unit_price: 175,
+            total: 210_000,
+            category: "flooring",
+            sort_order: 2
+          },
+          %{
+            description: "LED panel lighting (drop ceiling)",
+            quantity: 18.0,
+            unit: "each",
+            unit_price: 6_944,
+            total: 125_000,
+            category: "electrical",
+            sort_order: 3
+          }
         ]
       })
 
@@ -1021,7 +1199,8 @@ defmodule FtwRealtime.Marketplace do
     create_notification(%{
       type: "project_update",
       title: "Kitchen Remodel - Progress update",
-      body: "Demo is complete. Cabinets arrive next week. Plumbing rough-in scheduled for Monday.",
+      body:
+        "Demo is complete. Cabinets arrive next week. Plumbing rough-in scheduled for Monday.",
       read: false,
       metadata: %{},
       user_id: homeowner1.id
@@ -1036,7 +1215,8 @@ defmodule FtwRealtime.Marketplace do
     {:ok, review1} =
       create_review(%{
         rating: 5,
-        comment: "Bobby Ray and his crew did an outstanding job on our kitchen remodel. They showed up on time every single day and kept the workspace clean. The custom cabinets look incredible and the tile work is flawless. Worth every penny.",
+        comment:
+          "Bobby Ray and his crew did an outstanding job on our kitchen remodel. They showed up on time every single day and kept the workspace clean. The custom cabinets look incredible and the tile work is flawless. Worth every penny.",
         reviewer_id: homeowner1.id,
         reviewed_id: contractor1.id,
         job_id: job1.id
@@ -1045,7 +1225,8 @@ defmodule FtwRealtime.Marketplace do
     {:ok, _review2} =
       create_review(%{
         rating: 5,
-        comment: "Roof replacement done right. Tore off the old shingles, found some rotted decking, replaced it at no extra charge, and had the new roof on in three days. Communication was excellent throughout the entire project.",
+        comment:
+          "Roof replacement done right. Tore off the old shingles, found some rotted decking, replaced it at no extra charge, and had the new roof on in three days. Communication was excellent throughout the entire project.",
         reviewer_id: homeowner2.id,
         reviewed_id: contractor1.id,
         job_id: job2.id
@@ -1054,7 +1235,8 @@ defmodule FtwRealtime.Marketplace do
     {:ok, review3} =
       create_review(%{
         rating: 4,
-        comment: "Great work on the bathroom addition. Plumbing and tile were top notch. Only knock is the project ran about a week behind schedule due to a permit delay, but Bobby kept us informed the whole time.",
+        comment:
+          "Great work on the bathroom addition. Plumbing and tile were top notch. Only knock is the project ran about a week behind schedule due to a permit delay, but Bobby kept us informed the whole time.",
         reviewer_id: homeowner3.id,
         reviewed_id: contractor1.id,
         job_id: job3.id
@@ -1063,21 +1245,30 @@ defmodule FtwRealtime.Marketplace do
     {:ok, _review4} =
       create_review(%{
         rating: 5,
-        comment: "The composite deck turned out better than we imagined. Solid footings, clean cuts, and the built-in bench is a nice touch. Bobby even helped us pick the right decking color. Highly recommend.",
+        comment:
+          "The composite deck turned out better than we imagined. Solid footings, clean cuts, and the built-in bench is a nice touch. Bobby even helped us pick the right decking color. Highly recommend.",
         reviewer_id: homeowner4.id,
         reviewed_id: contractor1.id,
         job_id: job4.id
       })
 
     # Contractor responses on 2 reviews
-    respond_to_review(review1.id, "Thank you Sarah! It was a pleasure working on your kitchen. Those shaker cabinets really turned out sharp. Let us know when you're ready to tackle that master bath.")
-    respond_to_review(review3.id, "Appreciate the honest feedback Lisa. You're right about the delay — that permit holdup was frustrating for all of us. Glad the final result met your expectations.")
+    respond_to_review(
+      review1.id,
+      "Thank you Sarah! It was a pleasure working on your kitchen. Those shaker cabinets really turned out sharp. Let us know when you're ready to tackle that master bath."
+    )
+
+    respond_to_review(
+      review3.id,
+      "Appreciate the honest feedback Lisa. You're right about the delay — that permit holdup was frustrating for all of us. Glad the final result met your expectations."
+    )
 
     # 2 reviews of homeowner sarah by contractor1
     {:ok, _review5} =
       create_review(%{
         rating: 5,
-        comment: "Sarah was one of the best homeowners we've worked with. Clear about what she wanted, made decisions quickly, and always had materials access ready when we needed it. Would work with her again in a heartbeat.",
+        comment:
+          "Sarah was one of the best homeowners we've worked with. Clear about what she wanted, made decisions quickly, and always had materials access ready when we needed it. Would work with her again in a heartbeat.",
         reviewer_id: contractor1.id,
         reviewed_id: homeowner1.id
       })
@@ -1085,7 +1276,8 @@ defmodule FtwRealtime.Marketplace do
     {:ok, _review6} =
       create_review(%{
         rating: 4,
-        comment: "Good homeowner to work for. Responsive to calls and texts, paid on time. Only minor issue was a couple mid-project change orders, but we worked through them without any problems.",
+        comment:
+          "Good homeowner to work for. Responsive to calls and texts, paid on time. Only minor issue was a couple mid-project change orders, but we worked through them without any problems.",
         reviewer_id: contractor1.id,
         reviewed_id: homeowner2.id
       })

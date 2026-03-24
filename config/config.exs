@@ -51,6 +51,21 @@ config :ftw_realtime, Oban,
     notifications: 5,
     matching: 3,
     sync: 3
+  ],
+  plugins: [
+    {Oban.Plugins.Cron,
+     crontab: [
+       # Refresh FairPrice data weekly (Sunday 3am UTC)
+       {"0 3 * * 0", FtwRealtime.Workers.FairPriceComputeWorker, args: %{scope: "all"}},
+       # Clean expired FairScope cache entries daily (4am UTC)
+       {"0 4 * * *", FtwRealtime.Workers.FairScopeCleanupWorker},
+       # Check for expired contractor verifications daily (5am UTC)
+       {"0 5 * * *", FtwRealtime.Workers.VerificationExpiryWorker},
+       # Recompute contractor quality scores weekly (Sunday 6am UTC)
+       {"0 6 * * 0", FtwRealtime.Workers.QualityScoreWorker},
+       # Daily revenue snapshot (midnight UTC)
+       {"0 0 * * *", FtwRealtime.Workers.RevenueSnapshotWorker}
+     ]}
   ]
 
 # Configure Elixir's Logger

@@ -33,6 +33,12 @@ defmodule FtwRealtimeWeb.Router do
     plug FtwRealtimeWeb.Plugs.Auth
   end
 
+  pipeline :api_public_ai do
+    plug :accepts, ["json"]
+    plug FtwRealtimeWeb.Plugs.CORS
+    plug FtwRealtimeWeb.Plugs.AIRateLimit, feature: :fair_price
+  end
+
   pipeline :authenticated_rate_limited do
     plug :accepts, ["json"]
     plug FtwRealtimeWeb.Plugs.CORS
@@ -47,6 +53,13 @@ defmodule FtwRealtimeWeb.Router do
     live "/marketplace", MarketplaceLive
   end
 
+  # Admin dashboard — session-based password auth
+  scope "/", FtwRealtimeWeb do
+    pipe_through [:browser, FtwRealtimeWeb.Plugs.AdminAuth]
+
+    live "/admin", AdminLive
+  end
+
   # Health check — no pipeline
   get "/api/health", FtwRealtimeWeb.Api.HealthController, :index
 
@@ -59,6 +72,14 @@ defmodule FtwRealtimeWeb.Router do
   scope "/api", FtwRealtimeWeb.Api do
     pipe_through :api_register
     post "/auth/register", UserController, :create
+  end
+
+  # Public AI endpoints — rate limited, no auth
+  scope "/api", FtwRealtimeWeb.Api do
+    pipe_through :api_public_ai
+
+    get "/ai/fair-price", FairPriceController, :show
+    get "/ai/stats", FairPriceController, :stats
   end
 
   # Public API — no auth required
@@ -83,6 +104,7 @@ defmodule FtwRealtimeWeb.Router do
     get "/users/:id", UserController, :show
 
     post "/ai/estimate", AIController, :estimate
+    post "/ai/fair-scope", FairScopeController, :create
 
     post "/jobs", JobController, :create
     post "/jobs/:id/transition", JobController, :transition

@@ -35,3 +35,4 @@ ftw_realtime-*.tar
 npm-debug.log
 /assets/node_modules/
 
+.next/

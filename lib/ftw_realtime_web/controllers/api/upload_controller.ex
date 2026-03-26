@@ -2,8 +2,8 @@ defmodule FtwRealtimeWeb.Api.UploadController do
   use FtwRealtimeWeb, :controller
 
   alias FtwRealtime.Marketplace
+  alias FtwRealtime.Storage
 
-  @upload_dir "priv/static/uploads"
   @max_size 10_485_760
 
   def create(conn, %{"file" => upload, "entity_type" => entity_type, "entity_id" => entity_id}) do
@@ -15,9 +15,7 @@ defmodule FtwRealtimeWeb.Api.UploadController do
     else
       ext = Path.extname(filename)
       stored_name = "#{Ecto.UUID.generate()}#{ext}"
-      dest = Path.join([@upload_dir, stored_name])
-      File.mkdir_p!(Path.dirname(dest))
-      File.cp!(temp_path, dest)
+      Storage.put(stored_name, temp_path)
 
       attrs = %{
         filename: filename,
@@ -34,7 +32,7 @@ defmodule FtwRealtimeWeb.Api.UploadController do
           conn |> put_status(:created) |> json(%{upload: serialize_upload(upload_record)})
 
         {:error, changeset} ->
-          File.rm(dest)
+          Storage.delete(stored_name)
           conn |> put_status(:unprocessable_entity) |> json(%{errors: format_errors(changeset)})
       end
     end
@@ -48,7 +46,7 @@ defmodule FtwRealtimeWeb.Api.UploadController do
   def delete(conn, %{"id" => id}) do
     case Marketplace.delete_upload(id) do
       {:ok, upload} ->
-        File.rm(Path.join(@upload_dir, upload.path))
+        Storage.delete(upload.path)
         conn |> put_status(:no_content) |> send_resp(204, "")
 
       {:error, :not_found} ->
@@ -62,7 +60,7 @@ defmodule FtwRealtimeWeb.Api.UploadController do
       filename: upload.filename,
       content_type: upload.content_type,
       size: upload.size,
-      url: "/uploads/#{upload.path}",
+      url: Storage.url(upload.path),
       entity_type: upload.entity_type,
       entity_id: upload.entity_id,
       created_at: upload.inserted_at

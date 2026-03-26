@@ -19,6 +19,8 @@ defmodule FtwRealtime.Marketplace.Job do
     )
 
     field(:bid_count, :integer, default: 0)
+    field(:latitude, :float)
+    field(:longitude, :float)
 
     belongs_to(:homeowner, FtwRealtime.Marketplace.User)
     has_many(:bids, FtwRealtime.Marketplace.Bid)
@@ -36,7 +38,9 @@ defmodule FtwRealtime.Marketplace.Job do
       :budget_max,
       :location,
       :status,
-      :homeowner_id
+      :homeowner_id,
+      :latitude,
+      :longitude
     ])
     |> validate_required([:title, :description, :category, :location, :homeowner_id])
     |> validate_number(:budget_min, greater_than_or_equal_to: 0)

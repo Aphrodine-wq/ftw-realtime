@@ -19,6 +19,8 @@ defmodule FtwRealtime.Marketplace.User do
     field(:active, :boolean, default: true)
     field(:password_hash, :string)
     field(:password, :string, virtual: true)
+    field(:latitude, :float)
+    field(:longitude, :float)
 
     has_many(:posted_jobs, FtwRealtime.Marketplace.Job, foreign_key: :homeowner_id)
     has_many(:bids, FtwRealtime.Marketplace.Bid, foreign_key: :contractor_id)
@@ -39,7 +41,9 @@ defmodule FtwRealtime.Marketplace.User do
       :rating,
       :jobs_completed,
       :avatar_url,
-      :active
+      :active,
+      :latitude,
+      :longitude
     ])
     |> validate_required([:email, :name, :role])
     |> unique_constraint(:email)

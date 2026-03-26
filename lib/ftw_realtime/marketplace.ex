@@ -9,7 +9,7 @@ defmodule FtwRealtime.Marketplace do
   alias FtwRealtime.Marketplace.{User, Job, Bid, Conversation, Message}
   alias FtwRealtime.Marketplace.{Client, Estimate, LineItem, Invoice, Project, Notification}
   alias FtwRealtime.Marketplace.Review
-  alias FtwRealtime.Marketplace.{Upload, UserSetting}
+  alias FtwRealtime.Marketplace.{Upload, UserSetting, FairRecord, PushToken}
   alias Phoenix.PubSub
 
   # --- Users ---
@@ -51,6 +51,8 @@ defmodule FtwRealtime.Marketplace do
     category = Keyword.get(opts, :category)
     limit = opts |> Keyword.get(:limit, @default_page_size) |> min(@max_page_size)
     after_cursor = Keyword.get(opts, :after)
+    near_lat = Keyword.get(opts, :near_lat)
+    near_lng = Keyword.get(opts, :near_lng)
 
     query =
       Job
@@ -62,6 +64,24 @@ defmodule FtwRealtime.Marketplace do
       |> preload(:homeowner)
 
     results = Repo.all(query)
+
+    # If caller provides coordinates, sort by distance (closest first)
+    results =
+      if is_number(near_lat) and is_number(near_lng) do
+        Enum.sort_by(results, fn job ->
+          case {job.latitude, job.longitude} do
+            {lat, lng} when is_number(lat) and is_number(lng) ->
+              distance_km(near_lat, near_lng, lat, lng)
+
+            _ ->
+              # Jobs without coordinates go to the end
+              999_999.0
+          end
+        end)
+      else
+        results
+      end
+
     has_more = length(results) > limit
     jobs = Enum.take(results, limit)
 
@@ -230,6 +250,12 @@ defmodule FtwRealtime.Marketplace do
           job |> Ecto.Changeset.change(status: new_status) |> Repo.update!()
           updated_job = Repo.preload(Repo.get!(Job, job_id), :homeowner)
           broadcast("jobs", "job:updated", serialize_job(updated_job))
+
+          # Auto-generate FairRecord when project completes
+          if new_status == :completed do
+            maybe_generate_fair_record(job_id)
+          end
+
           updated_job
       end
     end)
@@ -411,6 +437,186 @@ defmodule FtwRealtime.Marketplace do
     case Repo.get(Project, id) do
       nil -> {:error, :not_found}
       project -> project |> Project.changeset(attrs) |> Repo.update()
+    end
+  end
+
+  # --- FairRecords ---
+
+  def get_fair_record(id) do
+    FairRecord
+    |> preload([:contractor, :homeowner, :project, :job])
+    |> Repo.get(id)
+  end
+
+  def get_fair_record_by_public_id(public_id) do
+    FairRecord
+    |> where([fr], fr.public_id == ^public_id)
+    |> preload([:contractor, :homeowner, :project, :job])
+    |> Repo.one()
+  end
+
+  def get_fair_record_by_project(project_id) do
+    FairRecord
+    |> where([fr], fr.project_id == ^project_id)
+    |> preload([:contractor, :homeowner, :project, :job])
+    |> Repo.one()
+  end
+
+  def list_contractor_records(contractor_id, opts \\ []) do
+    limit = Keyword.get(opts, :limit, 50)
+
+    FairRecord
+    |> where([fr], fr.contractor_id == ^contractor_id)
+    |> order_by([fr], desc: fr.actual_completion_date)
+    |> limit(^limit)
+    |> preload([:project, :job])
+    |> Repo.all()
+  end
+
+  def create_fair_record(project_id, attrs \\ %{}) do
+    project =
+      Project
+      |> preload([:contractor, :homeowner, :job])
+      |> Repo.get(project_id)
+
+    case project do
+      nil ->
+        {:error, :project_not_found}
+
+      project ->
+        # Compute metrics from project data
+        budget_accuracy =
+          if project.budget > 0 do
+            abs(1.0 - project.spent / project.budget) * 100
+          else
+            0.0
+          end
+
+        on_budget = budget_accuracy <= 10.0
+
+        on_time =
+          case {project.end_date, Map.get(attrs, :actual_completion_date, Map.get(attrs, "actual_completion_date"))} do
+            {%Date{} = est, %Date{} = actual} -> Date.compare(actual, est) != :gt
+            {%Date{} = est, nil} -> Date.compare(Date.utc_today(), est) != :gt
+            _ -> true
+          end
+
+        # Get review stats for this contractor
+        review_stats =
+          from(r in Review,
+            where: r.reviewed_id == ^project.contractor_id,
+            select: %{avg: avg(r.rating), count: count(r.id)}
+          )
+          |> Repo.one()
+
+        # Get dispute count for this job
+        dispute_count =
+          if project.job_id do
+            from(d in FtwRealtime.Marketplace.Dispute,
+              where: d.job_id == ^project.job_id
+            )
+            |> Repo.aggregate(:count)
+          else
+            0
+          end
+
+        record_attrs =
+          Map.merge(
+            %{
+              project_id: project.id,
+              contractor_id: project.contractor_id,
+              homeowner_id: project.homeowner_id,
+              job_id: project.job_id,
+              category: (project.job && project.job.category) || "General",
+              location_city: extract_city(project.contractor),
+              estimated_budget: project.budget,
+              final_cost: project.spent,
+              budget_accuracy_pct: Float.round(100.0 - budget_accuracy, 1),
+              on_budget: on_budget,
+              estimated_end_date: project.end_date,
+              on_time: on_time,
+              quality_score_at_completion: project.contractor.quality_score || 0,
+              avg_rating: (review_stats && review_stats.avg && Decimal.to_float(review_stats.avg)) || 0.0,
+              review_count: (review_stats && review_stats.count) || 0,
+              dispute_count: dispute_count
+            },
+            attrs
+          )
+
+        %FairRecord{}
+        |> FairRecord.changeset(record_attrs)
+        |> Repo.insert()
+    end
+  end
+
+  def confirm_fair_record(record_id, homeowner_id) do
+    case Repo.get(FairRecord, record_id) do
+      nil ->
+        {:error, :not_found}
+
+      %FairRecord{homeowner_id: ^homeowner_id} = record ->
+        now = DateTime.utc_now() |> DateTime.truncate(:second)
+
+        record
+        |> FairRecord.changeset(%{homeowner_confirmed: true, confirmed_at: now})
+        |> Repo.update()
+
+      _record ->
+        {:error, :unauthorized}
+    end
+  end
+
+  def contractor_record_stats(contractor_id) do
+    records =
+      from(fr in FairRecord,
+        where: fr.contractor_id == ^contractor_id and fr.homeowner_confirmed == true
+      )
+
+    total = Repo.aggregate(records, :count)
+
+    if total == 0 do
+      %{total: 0, avg_budget_accuracy: 0.0, on_time_rate: 0.0, avg_rating: 0.0}
+    else
+      avg_accuracy =
+        Repo.one(from(fr in records, select: avg(fr.budget_accuracy_pct))) ||
+          Decimal.new(0)
+
+      on_time_count =
+        Repo.aggregate(
+          from(fr in records, where: fr.on_time == true),
+          :count
+        )
+
+      avg_rating =
+        Repo.one(from(fr in records, select: avg(fr.avg_rating))) ||
+          Decimal.new(0)
+
+      %{
+        total: total,
+        avg_budget_accuracy: avg_accuracy |> Decimal.to_float() |> Float.round(1),
+        on_time_rate: Float.round(on_time_count / total * 100, 1),
+        avg_rating: avg_rating |> Decimal.to_float() |> Float.round(1)
+      }
+    end
+  end
+
+  defp extract_city(%User{location: location}) when is_binary(location) do
+    location |> String.split(",") |> List.first() |> String.trim()
+  end
+
+  defp extract_city(_), do: "Unknown"
+
+  defp maybe_generate_fair_record(job_id) do
+    # Find the project associated with this job
+    case Repo.one(from(p in Project, where: p.job_id == ^job_id, limit: 1)) do
+      nil -> :ok
+      project ->
+        # Only create if one doesn't already exist
+        unless Repo.exists?(from(fr in FairRecord, where: fr.project_id == ^project.id)) do
+          # Mark project as completed too
+          project |> Ecto.Changeset.change(status: :completed) |> Repo.update()
+          create_fair_record(project.id, %{actual_completion_date: Date.utc_today()})
+        end
     end
   end
 
@@ -1285,6 +1491,36 @@ defmodule FtwRealtime.Marketplace do
     :ok
   end
 
+  # --- Push Tokens ---
+
+  def register_push_token(user_id, token, platform) do
+    # Upsert: if token already exists, update user_id and platform
+    case Repo.get_by(PushToken, token: token) do
+      nil ->
+        %PushToken{}
+        |> PushToken.changeset(%{token: token, platform: platform, user_id: user_id})
+        |> Repo.insert()
+
+      existing ->
+        existing
+        |> PushToken.changeset(%{user_id: user_id, platform: platform})
+        |> Repo.update()
+    end
+  end
+
+  def unregister_push_token(token) do
+    case Repo.get_by(PushToken, token: token) do
+      nil -> {:error, :not_found}
+      push_token -> Repo.delete(push_token)
+    end
+  end
+
+  def list_push_tokens(user_id) do
+    PushToken
+    |> where([t], t.user_id == ^user_id)
+    |> Repo.all()
+  end
+
   # --- Private ---
 
   defp count_bids(job_id) do
@@ -1296,6 +1532,27 @@ defmodule FtwRealtime.Marketplace do
 
   defp maybe_filter_category(query, nil), do: query
   defp maybe_filter_category(query, category), do: where(query, [j], j.category == ^category)
+
+  @doc false
+  def distance_km(lat1, lng1, lat2, lng2)
+      when is_number(lat1) and is_number(lng1) and is_number(lat2) and is_number(lng2) do
+    # Haversine formula
+    r = 6371.0
+    dlat = deg_to_rad(lat2 - lat1)
+    dlng = deg_to_rad(lng2 - lng1)
+
+    a =
+      :math.sin(dlat / 2) * :math.sin(dlat / 2) +
+        :math.cos(deg_to_rad(lat1)) * :math.cos(deg_to_rad(lat2)) *
+          :math.sin(dlng / 2) * :math.sin(dlng / 2)
+
+    c = 2 * :math.atan2(:math.sqrt(a), :math.sqrt(1 - a))
+    r * c
+  end
+
+  def distance_km(_, _, _, _), do: nil
+
+  defp deg_to_rad(deg), do: deg * :math.pi() / 180.0
 
   defp maybe_after_cursor(query, nil), do: query
 
@@ -1325,6 +1582,8 @@ defmodule FtwRealtime.Marketplace do
       budget_min: job.budget_min,
       budget_max: job.budget_max,
       location: job.location,
+      latitude: job.latitude,
+      longitude: job.longitude,
       status: job.status,
       bid_count: job.bid_count,
       homeowner: serialize_user(job.homeowner),

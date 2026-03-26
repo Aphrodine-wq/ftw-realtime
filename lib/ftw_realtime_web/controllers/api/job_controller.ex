@@ -10,11 +10,16 @@ defmodule FtwRealtimeWeb.Api.JobController do
         _ -> 20
       end
 
+    near_lat = parse_float(params["near_lat"])
+    near_lng = parse_float(params["near_lng"])
+
     opts = [
       status: params["status"],
       category: params["category"],
       limit: limit,
-      after: params["after"]
+      after: params["after"],
+      near_lat: near_lat,
+      near_lng: near_lng
     ]
 
     %{jobs: jobs, has_more: has_more, next_cursor: next_cursor} = Marketplace.list_jobs(opts)
@@ -121,6 +126,8 @@ defmodule FtwRealtimeWeb.Api.JobController do
       budget_min: job.budget_min,
       budget_max: job.budget_max,
       location: job.location,
+      latitude: job.latitude,
+      longitude: job.longitude,
       status: job.status,
       bid_count: job.bid_count,
       homeowner: serialize_user(job.homeowner),
@@ -156,4 +163,17 @@ defmodule FtwRealtimeWeb.Api.JobController do
   end
 
   defp format_errors(reason), do: reason
+
+  defp parse_float(nil), do: nil
+
+  defp parse_float(val) when is_binary(val) do
+    case Float.parse(val) do
+      {f, _} -> f
+      :error -> nil
+    end
+  end
+
+  defp parse_float(val) when is_float(val), do: val
+  defp parse_float(val) when is_integer(val), do: val / 1
+  defp parse_float(_), do: nil
 end

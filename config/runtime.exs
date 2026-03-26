@@ -23,6 +23,21 @@ end
 config :ftw_realtime, FtwRealtimeWeb.Endpoint,
   http: [port: String.to_integer(System.get_env("PORT", "4000"))]
 
+# Mailer — uses SMTP in prod, local adapter in dev/test
+if smtp_host = System.get_env("SMTP_HOST") do
+  config :ftw_realtime, FtwRealtime.Mailer,
+    adapter: Swoosh.Adapters.SMTP,
+    relay: smtp_host,
+    port: String.to_integer(System.get_env("SMTP_PORT", "587")),
+    username: System.get_env("SMTP_USERNAME"),
+    password: System.get_env("SMTP_PASSWORD"),
+    tls: :if_available,
+    auth: :always
+else
+  config :ftw_realtime, FtwRealtime.Mailer,
+    adapter: Swoosh.Adapters.Local
+end
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

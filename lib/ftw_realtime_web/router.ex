@@ -89,6 +89,14 @@ defmodule FtwRealtimeWeb.Router do
     # Job browsing is public
     get "/jobs", JobController, :index
     get "/jobs/:id", JobController, :show
+
+    # FairRecord verification is public
+    get "/records/:public_id", FairRecordController, :verify
+    get "/records/:public_id/certificate", FairRecordController, :certificate
+
+    # Verification webhooks (no auth — signature verified in controller)
+    post "/webhooks/persona", VerificationController, :persona_webhook
+    post "/webhooks/checkr", VerificationController, :checkr_webhook
   end
 
   # Token validation — rate limited + authenticated
@@ -102,6 +110,10 @@ defmodule FtwRealtimeWeb.Router do
     pipe_through :authenticated
 
     get "/users/:id", UserController, :show
+
+    # Push notification token management
+    post "/push/register", PushController, :register
+    delete "/push/unregister", PushController, :unregister
 
     post "/ai/estimate", AIController, :estimate
     post "/ai/fair-scope", FairScopeController, :create
@@ -125,6 +137,15 @@ defmodule FtwRealtimeWeb.Router do
 
     # Clients
     resources "/clients", ClientController, only: [:index, :show, :create, :update, :delete]
+
+    # Verification
+    get "/contractor/verification", VerificationController, :status
+    post "/contractor/verification/:step", VerificationController, :submit
+
+    # FairRecords
+    get "/contractors/:contractor_id/records", FairRecordController, :contractor_index
+    get "/projects/:project_id/record", FairRecordController, :project_record
+    post "/records/:record_id/confirm", FairRecordController, :confirm
 
     # Reviews
     get "/reviews", ReviewController, :index

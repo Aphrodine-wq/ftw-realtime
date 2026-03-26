@@ -7,7 +7,7 @@ defmodule FtwRealtime.Ops.FairTrust do
   """
 
   alias FtwRealtime.Repo
-  alias FtwRealtime.Marketplace.{User, Verification, ContentFlag, Review}
+  alias FtwRealtime.Marketplace.{User, Verification, ContentFlag, Review, FairRecord}
 
   import Ecto.Query
 
@@ -138,9 +138,8 @@ defmodule FtwRealtime.Ops.FairTrust do
   def compute_quality_score(contractor_id) do
     avg_rating = avg_review_rating(contractor_id)
     completion_rate = job_completion_rate(contractor_id)
-    # Placeholders until project tracking is richer
-    on_time_rate = 0.85
-    budget_adherence = 0.90
+    on_time_rate = fair_record_on_time_rate(contractor_id)
+    budget_adherence = fair_record_budget_adherence(contractor_id)
 
     score =
       round(
@@ -195,6 +194,45 @@ defmodule FtwRealtime.Ops.FairTrust do
 
     # Approximate — awarded jobs include completed + in_progress
     if total > 0, do: min(1.0, total / max(total, 1)), else: 0.0
+  end
+
+  # ── FairRecord Metrics ──────────────────────────────────────────────
+
+  defp fair_record_on_time_rate(contractor_id) do
+    total =
+      Repo.aggregate(
+        from(fr in FairRecord, where: fr.contractor_id == ^contractor_id and fr.homeowner_confirmed == true),
+        :count
+      )
+
+    if total == 0 do
+      0.85
+    else
+      on_time =
+        Repo.aggregate(
+          from(fr in FairRecord,
+            where: fr.contractor_id == ^contractor_id and fr.homeowner_confirmed == true and fr.on_time == true
+          ),
+          :count
+        )
+
+      on_time / total
+    end
+  end
+
+  defp fair_record_budget_adherence(contractor_id) do
+    avg =
+      Repo.one(
+        from(fr in FairRecord,
+          where: fr.contractor_id == ^contractor_id and fr.homeowner_confirmed == true,
+          select: avg(fr.budget_accuracy_pct)
+        )
+      )
+
+    case avg do
+      nil -> 0.90
+      val -> Decimal.to_float(val) / 100.0
+    end
   end
 
   # ── Content Moderation ──────────────────────────────────────────────

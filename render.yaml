@@ -5,10 +5,26 @@ services:
     plan: starter
     region: oregon
     envVars:
-      - key: DATABASE_URL
+      - key: DB_HOST
         fromDatabase:
           name: ftw-realtime-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ftw-realtime-db
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: ftw-realtime-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: ftw-realtime-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ftw-realtime-db
+          property: name
       - key: SECRET_KEY_BASE
         generateValue: true
       - key: PORT

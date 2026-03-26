@@ -1,0 +1,3 @@
+-- Flyway baseline migration
+-- The database schema already exists from the Elixir/Ecto migrations.
+-- This file is intentionally empty — Flyway will baseline on first run.

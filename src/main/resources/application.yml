@@ -1,0 +1,82 @@
+server:
+  port: ${PORT:4000}
+
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/ftw_realtime_dev}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: ${POOL_SIZE:10}
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: "0"
+    locations: classpath:db/migration
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+
+  mail:
+    host: ${SMTP_HOST:localhost}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  jwt:
+    secret: ${SECRET_KEY_BASE:dev-secret-key-change-in-production}
+    ttl-seconds: 86400
+    issuer: ftw-realtime
+    audience: ftw
+
+  cors:
+    allowed-origins:
+      - http://localhost:3000
+      - https://fairtradeworker.com
+      - https://www.fairtradeworker.com
+      - https://fairtradeworker.vercel.app
+
+  storage:
+    bucket: ${STORAGE_BUCKET:}
+    region: ${AWS_REGION:us-east-1}
+    endpoint: ${STORAGE_ENDPOINT:}
+    access-key: ${AWS_ACCESS_KEY_ID:}
+    secret-key: ${AWS_SECRET_ACCESS_KEY:}
+    local-path: ${STORAGE_LOCAL_PATH:uploads}
+
+  push:
+    expo-token: ${EXPO_ACCESS_TOKEN:}
+
+  admin:
+    password: ${ADMIN_PASSWORD:faircommand}
+
+  ai:
+    runpod-url: ${RUNPOD_URL:}
+    cost-per-inference: 0.002

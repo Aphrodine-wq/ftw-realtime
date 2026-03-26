@@ -1,28 +1,23 @@
-databases:
-  - name: ftw-realtime-db
-    plan: starter
-    region: oregon
-    databaseName: ftw_realtime
-    user: ftw_realtime
-
 services:
   - type: web
     name: ftw-realtime
     runtime: docker
     plan: starter
     region: oregon
-    dockerfilePath: ./Dockerfile
     envVars:
-      - key: SECRET_KEY_BASE
-        generateValue: true
-      - key: PHX_HOST
-        value: ftw-realtime.onrender.com
-      - key: PHX_SERVER
-        value: "true"
-      - key: PORT
-        value: "10000"
       - key: DATABASE_URL
         fromDatabase:
           name: ftw-realtime-db
           property: connectionString
-    healthCheckPath: /api/health
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: PORT
+        value: "10000"
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+databases:
+  - name: ftw-realtime-db
+    plan: starter
+    region: oregon
+    databaseName: ftw_realtime

@@ -30,8 +30,8 @@ com.strata.ftw/
 │   ├── JacksonConfig.kt       # snake_case JSON, ISO-8601 dates
 │   └── AsyncConfig.kt         # Thread pool for @Async tasks
 ├── domain/
-│   ├── entity/                # 22 JPA entities (match existing Postgres schema)
-│   └── repository/            # 22 Spring Data JPA repositories
+│   ├── entity/                # 23 JPA entities (match existing Postgres schema)
+│   └── repository/            # 23 Spring Data JPA repositories
 ├── service/
 │   ├── MarketplaceService.kt  # Core business logic (1:1 port from Elixir marketplace.ex)
 │   ├── AuthService.kt         # JWT sign/verify (HS256), Argon2 passwords
@@ -43,7 +43,7 @@ com.strata.ftw/
 ├── ai/
 │   └── AiGateway.kt           # FairPrice (Caffeine cache from DB), FairScope (7d TTL), EstimateAgent (RunPod)
 ├── web/
-│   ├── controller/            # 15 REST controllers (identical /api/* paths)
+│   ├── controller/            # 17 REST controllers (identical /api/* paths)
 │   ├── filter/
 │   │   ├── JwtAuthFilter.kt   # Bearer token → SecurityContext
 │   │   └── RateLimitFilter.kt # Bucket4j per-IP rate limiting
@@ -59,7 +59,7 @@ com.strata.ftw/
 
 PostgreSQL via JPA/Hibernate. Schema managed by Flyway (baseline-on-migrate). Hibernate ddl-auto=none.
 
-22 entities matching the existing Ecto schema exactly. UUID primary keys. Timestamps as `inserted_at`/`updated_at`.
+23 entities matching the existing Ecto schema exactly. UUID primary keys. Timestamps as `inserted_at`/`updated_at`.
 
 ---
 
@@ -75,7 +75,7 @@ Argon2 password hashing (compatible with Elixir argon2_elixir).
 
 ## REST API
 
-15 controllers under `/api`, identical paths to the Elixir version:
+17 controllers under `/api`, identical paths to the Elixir version:
 
 | Controller | Endpoints |
 |---|---|
@@ -130,13 +130,26 @@ Send actions via `/app/jobs.feed.post`, `/app/job.{id}.bid`, `/app/chat.{id}.sen
 
 | Variable | Notes |
 |---|---|
-| `DATABASE_URL` | PostgreSQL JDBC URL |
+| `DB_HOST` | PostgreSQL host (default: localhost) |
+| `DB_PORT` | PostgreSQL port (default: 5432) |
+| `DB_NAME` | PostgreSQL database name (default: ftw_realtime_dev) |
+| `DB_USERNAME` | PostgreSQL user (default: postgres) |
+| `DB_PASSWORD` | PostgreSQL password (default: postgres) |
 | `SECRET_KEY_BASE` | JWT signing key (same as Elixir) |
-| `PORT` | HTTP port (default: 4000) |
-| `POOL_SIZE` | DB pool size (default: 10) |
-| `SMTP_HOST/PORT/USERNAME/PASSWORD` | Email relay |
-| `EXPO_ACCESS_TOKEN` | Push notifications |
-| `STORAGE_BUCKET`, `AWS_*` | S3/R2 file storage |
+| `PORT` | HTTP port (default: 4000, Render uses 10000) |
+| `POOL_SIZE` | Hikari DB pool size (default: 10) |
+| `SPRING_PROFILES_ACTIVE` | Spring profile (set to `prod` on Render) |
+| `SMTP_HOST` | SMTP relay host (default: localhost) |
+| `SMTP_PORT` | SMTP relay port (default: 587) |
+| `SMTP_USERNAME` | SMTP username |
+| `SMTP_PASSWORD` | SMTP password |
+| `EXPO_ACCESS_TOKEN` | Expo push notifications |
+| `STORAGE_BUCKET` | S3/R2 bucket name |
+| `STORAGE_ENDPOINT` | S3-compatible endpoint URL |
+| `STORAGE_LOCAL_PATH` | Local fallback upload dir (default: uploads) |
+| `AWS_REGION` | S3 region (default: us-east-1) |
+| `AWS_ACCESS_KEY_ID` | S3 access key |
+| `AWS_SECRET_ACCESS_KEY` | S3 secret key |
 | `RUNPOD_URL` | AI inference endpoint |
 | `ADMIN_PASSWORD` | Admin auth (default: faircommand) |
 
@@ -153,4 +166,4 @@ Docker on Render.com. `render.yaml` provisions web service + Postgres.
 - API paths are identical to the Elixir version — frontend works without changes (except WebSocket)
 - Frontend WebSocket client uses `@stomp/stompjs` instead of `phoenix` npm package
 - Do not modify the database schema — Hibernate validates against existing tables
-- CORS allows: localhost:3000, fairtradeworker.com, fairtradeworker.vercel.app
+- CORS allows: localhost:3000, fairtradeworker.com, www.fairtradeworker.com, fairtradeworker.vercel.app, *.vercel.app

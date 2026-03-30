@@ -33,7 +33,8 @@ class AuthService(
             .subject(user.id.toString())
             .claim("user_id", user.id.toString())
             .claim("email", user.email)
-            .claim("role", user.role.name)
+            .claim("role", user.activeRole.name)
+            .claim("roles", user.getRolesList().map { it.name })
             .issuer(issuer)
             .audience().add(audience).and()
             .issuedAt(Date.from(now))
@@ -51,10 +52,16 @@ class AuthService(
                 .parseSignedClaims(token)
                 .payload
 
+            val rolesList = try {
+                @Suppress("UNCHECKED_CAST")
+                (claims["roles"] as? List<String>)?.map { UserRole.valueOf(it) } ?: listOf()
+            } catch (_: Exception) { listOf() }
+
             TokenClaims(
                 userId = UUID.fromString(claims["user_id"] as String),
                 email = claims["email"] as String,
-                role = UserRole.valueOf(claims["role"] as String)
+                role = UserRole.valueOf(claims["role"] as String),
+                roles = rolesList
             )
         } catch (_: Exception) {
             null
@@ -74,9 +81,26 @@ class AuthService(
             email = email,
             name = name,
             role = role,
+            activeRole = role,
+            roles = role.name,
             location = location,
             passwordHash = hashPassword(password)
         )
+        return userRepository.save(user)
+    }
+
+    fun switchRole(userId: UUID, targetRole: UserRole): User {
+        val user = userRepository.findById(userId).orElseThrow { IllegalArgumentException("User not found") }
+        if (!user.hasRole(targetRole)) {
+            throw IllegalArgumentException("User does not have role: ${targetRole.name}")
+        }
+        user.activeRole = targetRole
+        return userRepository.save(user)
+    }
+
+    fun activateSubContractorRole(userId: UUID): User {
+        val user = userRepository.findById(userId).orElseThrow { IllegalArgumentException("User not found") }
+        user.addRole(UserRole.sub_contractor)
         return userRepository.save(user)
     }
 
@@ -96,5 +120,6 @@ class AuthService(
 data class TokenClaims(
     val userId: UUID,
     val email: String,
-    val role: UserRole
+    val role: UserRole,
+    val roles: List<UserRole> = listOf()
 )

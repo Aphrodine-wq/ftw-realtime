@@ -24,6 +24,13 @@ class User(
     @Enumerated(EnumType.STRING)
     var role: UserRole = UserRole.homeowner,
 
+    @Column(name = "active_role")
+    @Enumerated(EnumType.STRING)
+    var activeRole: UserRole = UserRole.homeowner,
+
+    @Column(name = "roles", columnDefinition = "VARCHAR(255)")
+    var roles: String = "",  // Comma-separated roles e.g. "contractor,sub_contractor"
+
     var phone: String? = null,
     var location: String? = null,
 
@@ -64,9 +71,24 @@ class User(
     var postedJobs: MutableList<Job> = mutableListOf(),
 
     @OneToMany(mappedBy = "contractor", fetch = FetchType.LAZY)
-    var bids: MutableList<Bid> = mutableListOf()
-)
+    var bids: MutableList<Bid> = mutableListOf(),
+
+    @OneToMany(mappedBy = "subContractor", fetch = FetchType.LAZY)
+    var subBids: MutableList<SubBid> = mutableListOf()
+) {
+    fun getRolesList(): List<UserRole> =
+        if (roles.isBlank()) listOf(role)
+        else roles.split(",").map { UserRole.valueOf(it.trim()) }
+
+    fun hasRole(r: UserRole): Boolean = getRolesList().contains(r)
+
+    fun addRole(r: UserRole) {
+        val current = getRolesList().toMutableSet()
+        current.add(r)
+        roles = current.joinToString(",") { it.name }
+    }
+}
 
 enum class UserRole {
-    homeowner, contractor, admin
+    homeowner, contractor, sub_contractor, admin
 }

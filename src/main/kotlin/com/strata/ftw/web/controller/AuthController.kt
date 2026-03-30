@@ -34,7 +34,8 @@ class AuthController(private val authService: AuthService) {
                 "id" to user.id.toString(),
                 "email" to user.email,
                 "name" to user.name,
-                "role" to user.role.name
+                "role" to user.activeRole.name,
+                "roles" to user.getRolesList().map { it.name }
             )
         ))
     }
@@ -49,7 +50,8 @@ class AuthController(private val authService: AuthService) {
                     "id" to user.id.toString(),
                     "email" to user.email,
                     "name" to user.name,
-                    "role" to user.role.name
+                    "role" to user.activeRole.name,
+                    "roles" to user.getRolesList().map { it.name }
                 )
             ))
         } catch (e: Exception) {
@@ -63,8 +65,35 @@ class AuthController(private val authService: AuthService) {
             "user" to mapOf(
                 "id" to claims.userId.toString(),
                 "email" to claims.email,
-                "role" to claims.role.name
+                "role" to claims.role.name,
+                "roles" to claims.roles.map { it.name }
             )
         ))
+    }
+
+    data class SwitchRoleRequest(val role: String)
+
+    @PostMapping("/switch-role")
+    fun switchRole(
+        @RequestBody req: SwitchRoleRequest,
+        @AuthenticationPrincipal claims: TokenClaims
+    ): ResponseEntity<Any> {
+        return try {
+            val targetRole = UserRole.valueOf(req.role)
+            val user = authService.switchRole(claims.userId, targetRole)
+            val token = authService.generateToken(user)
+            ResponseEntity.ok(mapOf(
+                "token" to token,
+                "user" to mapOf(
+                    "id" to user.id.toString(),
+                    "email" to user.email,
+                    "name" to user.name,
+                    "role" to user.activeRole.name,
+                    "roles" to user.getRolesList().map { it.name }
+                )
+            ))
+        } catch (e: Exception) {
+            ResponseEntity.badRequest().body(mapOf("error" to (e.message ?: "Switch failed")))
+        }
     }
 }

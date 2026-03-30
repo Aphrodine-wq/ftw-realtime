@@ -42,10 +42,12 @@ class SecurityConfig(
                     .requestMatchers("/api/health").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/jobs", "/api/jobs/*").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/sub-jobs", "/api/sub-jobs/*").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/ai/fair-price", "/api/ai/stats").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/records/*").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/records/*/certificate").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/webhooks/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/auth/switch-role").authenticated()
                     // WebSocket endpoint
                     .requestMatchers("/ws/**").permitAll()
                     // Everything else requires auth

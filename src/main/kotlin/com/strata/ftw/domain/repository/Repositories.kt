@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 import java.time.Instant
 import java.time.LocalDate
-import java.util.UUID
+import java.util.*
 
 @Repository
 interface UserRepository : JpaRepository<User, UUID> {
@@ -174,4 +174,33 @@ interface TransactionLogRepository : JpaRepository<TransactionLog, UUID>
 @Repository
 interface FairPriceEntryRepository : JpaRepository<FairPriceEntry, UUID> {
     fun findByCategoryAndZipPrefixAndSize(category: String, zipPrefix: String, size: String): FairPriceEntry?
+}
+
+@Repository
+interface SubContractorRepository : JpaRepository<SubContractor, UUID> {
+    fun findByUserId(userId: UUID): SubContractor?
+}
+
+@Repository
+interface SubJobRepository : JpaRepository<SubJob, UUID> {
+    fun findByStatusOrderByInsertedAtDesc(status: SubJobStatus, pageable: Pageable): List<SubJob>
+    fun findByContractorIdOrderByInsertedAtDesc(contractorId: UUID): List<SubJob>
+
+    @Query("SELECT sj FROM SubJob sj WHERE sj.status = :status ORDER BY sj.insertedAt DESC")
+    fun findByStatus(status: SubJobStatus, pageable: Pageable): List<SubJob>
+
+    @Query("SELECT sj FROM SubJob sj ORDER BY sj.insertedAt DESC")
+    fun findAllRecent(pageable: Pageable): List<SubJob>
+}
+
+@Repository
+interface SubBidRepository : JpaRepository<SubBid, UUID> {
+    fun findBySubJobIdOrderByInsertedAtAsc(subJobId: UUID): List<SubBid>
+    fun findBySubContractorId(subContractorId: UUID): List<SubBid>
+    fun findBySubJobIdAndSubContractorId(subJobId: UUID, subContractorId: UUID): SubBid?
+}
+
+@Repository
+interface SubPayoutRepository : JpaRepository<SubPayout, UUID> {
+    fun findBySubJobId(subJobId: UUID): SubPayout?
 }

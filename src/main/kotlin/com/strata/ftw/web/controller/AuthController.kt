@@ -21,6 +21,13 @@ class AuthController(private val authService: AuthService) {
         val location: String? = null
     )
 
+    /** Parse role string accepting any case and "subcontractor" as alias for "sub_contractor" */
+    private fun parseRole(role: String): UserRole {
+        val normalized = role.lowercase().replace("-", "_")
+        val mapped = if (normalized == "subcontractor") "sub_contractor" else normalized
+        return UserRole.valueOf(mapped)
+    }
+
     @PostMapping("/login")
     fun login(@RequestBody req: LoginRequest): ResponseEntity<Any> {
         val user = authService.authenticate(req.email, req.password)
@@ -43,7 +50,7 @@ class AuthController(private val authService: AuthService) {
     @PostMapping("/register")
     fun register(@RequestBody req: RegisterRequest): ResponseEntity<Any> {
         return try {
-            val role = UserRole.valueOf(req.role)
+            val role = parseRole(req.role)
             val user = authService.registerUser(req.email, req.password, req.name, role, req.location)
             ResponseEntity.status(HttpStatus.CREATED).body(mapOf(
                 "user" to mapOf(
@@ -79,7 +86,7 @@ class AuthController(private val authService: AuthService) {
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
         return try {
-            val targetRole = UserRole.valueOf(req.role)
+            val targetRole = parseRole(req.role)
             val user = authService.switchRole(claims.userId, targetRole)
             val token = authService.generateToken(user)
             ResponseEntity.ok(mapOf(

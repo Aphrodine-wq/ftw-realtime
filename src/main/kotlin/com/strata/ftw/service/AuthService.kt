@@ -98,6 +98,47 @@ class AuthService(
         return userRepository.save(user)
     }
 
+    fun generateResetToken(user: User): String {
+        val now = Instant.now()
+        return Jwts.builder()
+            .subject(user.id.toString())
+            .claim("user_id", user.id.toString())
+            .claim("email", user.email)
+            .claim("type", "reset")
+            .issuer(issuer)
+            .audience().add(audience).and()
+            .issuedAt(Date.from(now))
+            .expiration(Date.from(now.plusSeconds(900))) // 15 minutes
+            .signWith(signingKey())
+            .compact()
+    }
+
+    fun verifyResetToken(token: String): UUID? {
+        return try {
+            val claims = Jwts.parser()
+                .verifyWith(signingKey())
+                .requireIssuer(issuer)
+                .build()
+                .parseSignedClaims(token)
+                .payload
+
+            val type = claims["type"] as? String
+            if (type != "reset") return null
+
+            UUID.fromString(claims["user_id"] as String)
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    fun resetPassword(userId: UUID, newPassword: String): User {
+        val user = userRepository.findById(userId).orElseThrow { IllegalArgumentException("User not found") }
+        user.passwordHash = hashPassword(newPassword)
+        return userRepository.save(user)
+    }
+
+    fun findByEmail(email: String): User? = userRepository.findByEmail(email)
+
     fun activateSubContractorRole(userId: UUID): User {
         val user = userRepository.findById(userId).orElseThrow { IllegalArgumentException("User not found") }
         user.addRole(UserRole.sub_contractor)

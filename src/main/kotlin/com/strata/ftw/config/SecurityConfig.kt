@@ -40,7 +40,7 @@ class SecurityConfig(
                 auth
                     // Public endpoints
                     .requestMatchers("/api/health").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register", "/api/auth/forgot-password", "/api/auth/reset-password").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/jobs", "/api/jobs/*").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/sub-jobs", "/api/sub-jobs/*").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/ai/fair-price", "/api/ai/stats").permitAll()

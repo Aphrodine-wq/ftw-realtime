@@ -2,7 +2,9 @@ package com.strata.ftw.web.controller
 
 import com.strata.ftw.domain.entity.UserRole
 import com.strata.ftw.service.AuthService
+import com.strata.ftw.service.EmailService
 import com.strata.ftw.service.TokenClaims
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -10,7 +12,11 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/auth")
-class AuthController(private val authService: AuthService) {
+class AuthController(
+    private val authService: AuthService,
+    private val emailService: EmailService,
+    @Value("\${app.frontend-url:http://localhost:3000}") private val frontendUrl: String
+) {
 
     data class LoginRequest(val email: String, val password: String)
     data class RegisterRequest(
@@ -76,6 +82,38 @@ class AuthController(private val authService: AuthService) {
                 "roles" to claims.roles.map { it.name }
             )
         ))
+    }
+
+    data class ForgotPasswordRequest(val email: String)
+    data class ResetPasswordRequest(val token: String, val password: String)
+
+    @PostMapping("/forgot-password")
+    fun forgotPassword(@RequestBody req: ForgotPasswordRequest): ResponseEntity<Any> {
+        val user = authService.findByEmail(req.email)
+        if (user != null) {
+            val resetToken = authService.generateResetToken(user)
+            val resetUrl = "$frontendUrl/reset-password?token=$resetToken"
+            emailService.sendPasswordReset(user.email, user.name, resetUrl)
+        }
+        // Always return success to avoid leaking whether the email exists
+        return ResponseEntity.ok(mapOf("message" to "If an account exists, a reset link has been sent."))
+    }
+
+    @PostMapping("/reset-password")
+    fun resetPassword(@RequestBody req: ResetPasswordRequest): ResponseEntity<Any> {
+        if (req.password.length < 8) {
+            return ResponseEntity.badRequest().body(mapOf("error" to "Password must be at least 8 characters"))
+        }
+
+        val userId = authService.verifyResetToken(req.token)
+            ?: return ResponseEntity.badRequest().body(mapOf("error" to "Invalid or expired reset token"))
+
+        return try {
+            authService.resetPassword(userId, req.password)
+            ResponseEntity.ok(mapOf("message" to "Password reset successfully"))
+        } catch (e: Exception) {
+            ResponseEntity.badRequest().body(mapOf("error" to (e.message ?: "Reset failed")))
+        }
     }
 
     data class SwitchRoleRequest(val role: String)

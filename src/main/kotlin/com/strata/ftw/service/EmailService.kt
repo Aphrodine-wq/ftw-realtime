@@ -39,6 +39,21 @@ class EmailService(
     }
 
     @Async
+    fun sendPasswordReset(email: String, name: String, resetUrl: String) {
+        send(email, "Reset Your Password", """
+            Hi $name,
+
+            We received a request to reset your password. Click the link below to set a new one:
+
+            $resetUrl
+
+            This link expires in 15 minutes. If you didn't request this, ignore this email.
+
+            — The FairTradeWorker Team
+        """.trimIndent())
+    }
+
+    @Async
     fun sendBidAccepted(email: String, jobTitle: String) {
         send(email, "Your Bid Was Accepted", """
             Your bid on $jobTitle was accepted.

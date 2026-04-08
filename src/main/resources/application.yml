@@ -73,6 +73,8 @@ app:
     secret-key: ${AWS_SECRET_ACCESS_KEY:}
     local-path: ${STORAGE_LOCAL_PATH:uploads}
 
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+
   push:
     expo-token: ${EXPO_ACCESS_TOKEN:}
 

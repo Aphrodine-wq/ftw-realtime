@@ -5,6 +5,10 @@ import com.github.benmanes.caffeine.cache.Caffeine
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URI
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
@@ -95,15 +99,107 @@ class AiGateway(
             return mapOf("error" to "RunPod URL not configured")
         }
 
+        // Extract project details from natural language description
+        val sqftMatch = Regex("""(\d[\d,]*)\s*(?:sq\s*ft|sqft|square\s*feet|sf)""", RegexOption.IGNORE_CASE).find(description)
+        val sqft = sqftMatch?.groupValues?.get(1)?.replace(",", "")?.toIntOrNull() ?: 2000
+
+        // Detect project type
+        val typeKeywords = mapOf(
+            "kitchen" to "Kitchen remodel",
+            "bathroom" to "Bathroom remodel",
+            "roof" to "Roof replacement",
+            "house build" to "New house construction",
+            "new home" to "New house construction",
+            "new build" to "New house construction",
+            "full build" to "New house construction",
+            "addition" to "Home addition",
+            "deck" to "Deck construction",
+            "fence" to "Fence installation",
+            "basement" to "Basement finishing",
+            "garage" to "Garage construction",
+        )
+        val projectType = typeKeywords.entries.firstOrNull { description.lowercase().contains(it.key) }?.value ?: "General construction"
+
+        // Extract location
+        val locationMatch = Regex("""in\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*(?:,?\s*[A-Z]{2})?)""").find(description)
+        val location = locationMatch?.groupValues?.get(1) ?: "Austin, TX"
+
         return try {
+            val project = mutableMapOf<String, Any>(
+                "description" to description,
+                "type" to projectType,
+                "sqft" to sqft,
+                "location" to location,
+                "quality" to "mid-range",
+            )
             val result = restTemplate.postForObject(
-                "$runpodUrl/estimate",
-                mapOf("description" to description),
+                "$runpodUrl/api/estimate",
+                mapOf("project" to project),
                 Map::class.java
             ) as? Map<String, Any> ?: mapOf("error" to "No response")
             result
         } catch (e: Exception) {
             mapOf("error" to (e.message ?: "Estimation failed"))
+        }
+    }
+
+    fun chat(message: String, conversationId: String?): Map<String, Any> {
+        recordCost("chat", "inference")
+
+        if (runpodUrl.isBlank()) {
+            return mapOf("response" to "AI service not configured", "conversation_id" to (conversationId ?: ""))
+        }
+
+        return try {
+            val body = mutableMapOf<String, Any>("message" to message)
+            if (conversationId != null) body["conversation_id"] = conversationId
+            val result = restTemplate.postForObject(
+                "$runpodUrl/api/chat",
+                body,
+                Map::class.java
+            ) as? Map<String, Any> ?: mapOf("response" to "No response")
+            result
+        } catch (e: Exception) {
+            mapOf("response" to "Sorry, I couldn't process that right now.", "error" to (e.message ?: "Chat failed"))
+        }
+    }
+
+    fun chatStream(message: String, conversationId: String?, onToken: (String) -> Unit) {
+        recordCost("chat_stream", "inference")
+
+        if (runpodUrl.isBlank()) {
+            onToken("data: {\"error\":\"AI service not configured\"}\n\n")
+            return
+        }
+
+        val url = URI("$runpodUrl/api/chat/stream").toURL()
+        val conn = url.openConnection() as HttpURLConnection
+        conn.requestMethod = "POST"
+        conn.doOutput = true
+        conn.setRequestProperty("Content-Type", "application/json")
+        conn.setRequestProperty("Accept", "text/event-stream")
+        conn.connectTimeout = 10_000
+        conn.readTimeout = 120_000
+
+        val body = buildString {
+            append("{\"message\":\"")
+            append(message.replace("\"", "\\\"").replace("\n", "\\n"))
+            append("\"")
+            if (conversationId != null) {
+                append(",\"conversation_id\":\"$conversationId\"")
+            }
+            append("}")
+        }
+
+        conn.outputStream.use { it.write(body.toByteArray()) }
+
+        BufferedReader(InputStreamReader(conn.inputStream)).use { reader ->
+            var line: String?
+            while (reader.readLine().also { line = it } != null) {
+                if (line!!.startsWith("data: ")) {
+                    onToken(line!! + "\n\n")
+                }
+            }
         }
     }
 

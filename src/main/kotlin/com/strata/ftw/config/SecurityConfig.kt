@@ -50,6 +50,8 @@ class SecurityConfig(
                     // QuickBooks OAuth callback (Intuit redirects browser here)
                     .requestMatchers(HttpMethod.GET, "/api/quickbooks/callback").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/auth/switch-role").authenticated()
+                    // Admin endpoints — role check handled in controller
+                    .requestMatchers("/api/admin/**").authenticated()
                     // WebSocket endpoint
                     .requestMatchers("/ws/**").permitAll()
                     // Everything else requires auth

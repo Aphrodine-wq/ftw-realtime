@@ -4,6 +4,8 @@ import com.strata.ftw.domain.entity.UserRole
 import com.strata.ftw.service.AuthService
 import com.strata.ftw.service.EmailService
 import com.strata.ftw.service.TokenClaims
+import com.strata.ftw.web.dto.*
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,15 +20,6 @@ class AuthController(
     @Value("\${app.frontend-url:http://localhost:3000}") private val frontendUrl: String
 ) {
 
-    data class LoginRequest(val email: String, val password: String)
-    data class RegisterRequest(
-        val email: String,
-        val password: String,
-        val name: String,
-        val role: String,
-        val location: String? = null
-    )
-
     /** Parse role string accepting any case and "subcontractor" as alias for "sub_contractor" */
     private fun parseRole(role: String): UserRole {
         val normalized = role.lowercase().replace("-", "_")
@@ -35,7 +28,7 @@ class AuthController(
     }
 
     @PostMapping("/login")
-    fun login(@RequestBody req: LoginRequest): ResponseEntity<Any> {
+    fun login(@Valid @RequestBody req: LoginRequest): ResponseEntity<Any> {
         val user = authService.authenticate(req.email, req.password)
             ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(mapOf("error" to "Invalid credentials"))
@@ -54,22 +47,18 @@ class AuthController(
     }
 
     @PostMapping("/register")
-    fun register(@RequestBody req: RegisterRequest): ResponseEntity<Any> {
-        return try {
-            val role = parseRole(req.role)
-            val user = authService.registerUser(req.email, req.password, req.name, role, req.location)
-            ResponseEntity.status(HttpStatus.CREATED).body(mapOf(
-                "user" to mapOf(
-                    "id" to user.id.toString(),
-                    "email" to user.email,
-                    "name" to user.name,
-                    "role" to user.activeRole.name,
-                    "roles" to user.getRolesList().map { it.name }
-                )
-            ))
-        } catch (e: Exception) {
-            ResponseEntity.badRequest().body(mapOf("error" to (e.message ?: "Registration failed")))
-        }
+    fun register(@Valid @RequestBody req: RegisterRequest): ResponseEntity<Any> {
+        val role = parseRole(req.role)
+        val user = authService.registerUser(req.email, req.password, req.name, role, req.location)
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapOf(
+            "user" to mapOf(
+                "id" to user.id.toString(),
+                "email" to user.email,
+                "name" to user.name,
+                "role" to user.activeRole.name,
+                "roles" to user.getRolesList().map { it.name }
+            )
+        ))
     }
 
     @GetMapping("/me")
@@ -84,61 +73,43 @@ class AuthController(
         ))
     }
 
-    data class ForgotPasswordRequest(val email: String)
-    data class ResetPasswordRequest(val token: String, val password: String)
-
     @PostMapping("/forgot-password")
-    fun forgotPassword(@RequestBody req: ForgotPasswordRequest): ResponseEntity<Any> {
+    fun forgotPassword(@Valid @RequestBody req: ForgotPasswordRequest): ResponseEntity<Any> {
         val user = authService.findByEmail(req.email)
         if (user != null) {
             val resetToken = authService.generateResetToken(user)
             val resetUrl = "$frontendUrl/reset-password?token=$resetToken"
             emailService.sendPasswordReset(user.email, user.name, resetUrl)
         }
-        // Always return success to avoid leaking whether the email exists
         return ResponseEntity.ok(mapOf("message" to "If an account exists, a reset link has been sent."))
     }
 
     @PostMapping("/reset-password")
-    fun resetPassword(@RequestBody req: ResetPasswordRequest): ResponseEntity<Any> {
-        if (req.password.length < 8) {
-            return ResponseEntity.badRequest().body(mapOf("error" to "Password must be at least 8 characters"))
-        }
-
+    fun resetPassword(@Valid @RequestBody req: ResetPasswordRequest): ResponseEntity<Any> {
         val userId = authService.verifyResetToken(req.token)
             ?: return ResponseEntity.badRequest().body(mapOf("error" to "Invalid or expired reset token"))
 
-        return try {
-            authService.resetPassword(userId, req.password)
-            ResponseEntity.ok(mapOf("message" to "Password reset successfully"))
-        } catch (e: Exception) {
-            ResponseEntity.badRequest().body(mapOf("error" to (e.message ?: "Reset failed")))
-        }
+        authService.resetPassword(userId, req.password)
+        return ResponseEntity.ok(mapOf("message" to "Password reset successfully"))
     }
-
-    data class SwitchRoleRequest(val role: String)
 
     @PostMapping("/switch-role")
     fun switchRole(
-        @RequestBody req: SwitchRoleRequest,
+        @Valid @RequestBody req: SwitchRoleRequest,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
-        return try {
-            val targetRole = parseRole(req.role)
-            val user = authService.switchRole(claims.userId, targetRole)
-            val token = authService.generateToken(user)
-            ResponseEntity.ok(mapOf(
-                "token" to token,
-                "user" to mapOf(
-                    "id" to user.id.toString(),
-                    "email" to user.email,
-                    "name" to user.name,
-                    "role" to user.activeRole.name,
-                    "roles" to user.getRolesList().map { it.name }
-                )
-            ))
-        } catch (e: Exception) {
-            ResponseEntity.badRequest().body(mapOf("error" to (e.message ?: "Switch failed")))
-        }
+        val targetRole = parseRole(req.role)
+        val user = authService.switchRole(claims.userId, targetRole)
+        val token = authService.generateToken(user)
+        return ResponseEntity.ok(mapOf(
+            "token" to token,
+            "user" to mapOf(
+                "id" to user.id.toString(),
+                "email" to user.email,
+                "name" to user.name,
+                "role" to user.activeRole.name,
+                "roles" to user.getRolesList().map { it.name }
+            )
+        ))
     }
 }

@@ -3,9 +3,12 @@ package com.strata.ftw.web.controller
 import com.strata.ftw.domain.entity.*
 import com.strata.ftw.domain.repository.*
 import com.strata.ftw.service.TokenClaims
+import com.strata.ftw.web.dto.*
+import jakarta.validation.Valid
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import java.time.Instant
@@ -31,26 +34,26 @@ class SubJobController(
 
     @PostMapping
     fun create(
-        @RequestBody attrs: Map<String, Any>,
+        @Valid @RequestBody req: CreateSubJobRequest,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
         val subJob = SubJob(
             contractorId = claims.userId,
-            projectId = attrs["project_id"]?.toString() ?: "",
-            milestoneLabel = attrs["milestone_label"]?.toString() ?: "",
-            milestoneIndex = (attrs["milestone_index"] as? Number)?.toInt() ?: 0,
-            title = attrs["title"]?.toString() ?: "",
-            description = attrs["description"]?.toString(),
-            category = attrs["category"]?.toString(),
-            skills = attrs["skills"]?.toString(),
-            location = attrs["location"]?.toString(),
-            budgetMin = (attrs["budget_min"] as? Number)?.toInt(),
-            budgetMax = (attrs["budget_max"] as? Number)?.toInt(),
+            projectId = req.project_id ?: "",
+            milestoneLabel = req.milestone_label ?: "",
+            milestoneIndex = req.milestone_index,
+            title = req.title,
+            description = req.description,
+            category = req.category,
+            skills = req.skills,
+            location = req.location,
+            budgetMin = req.budget_min,
+            budgetMax = req.budget_max,
             paymentPath = try {
-                SubPaymentPath.valueOf(attrs["payment_path"]?.toString() ?: "contractor_escrow")
+                SubPaymentPath.valueOf(req.payment_path)
             } catch (_: Exception) { SubPaymentPath.contractor_escrow },
-            disclosedToOwner = attrs["disclosed_to_owner"] as? Boolean ?: false,
-            deadline = (attrs["deadline"] as? String)?.let { Instant.parse(it) }
+            disclosedToOwner = req.disclosed_to_owner,
+            deadline = req.deadline?.let { Instant.parse(it) }
         )
         val saved = subJobRepository.save(subJob)
         return ResponseEntity.status(HttpStatus.CREATED).body(mapOf("sub_job" to serializeSubJob(saved)))
@@ -70,25 +73,21 @@ class SubJobController(
     @PostMapping("/{subJobId}/bids")
     fun placeBid(
         @PathVariable subJobId: UUID,
-        @RequestBody attrs: Map<String, Any>,
+        @Valid @RequestBody req: PlaceSubBidRequest,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
         val subJob = subJobRepository.findById(subJobId).orElse(null)
             ?: return ResponseEntity.notFound().build()
 
-        if (subJob.status != SubJobStatus.open) {
-            return ResponseEntity.badRequest().body(mapOf("error" to "Sub job is not open for bids"))
-        }
+        require(subJob.status == SubJobStatus.open) { "Sub job is not open for bids" }
 
         val existing = subBidRepository.findBySubJobIdAndSubContractorId(subJobId, claims.userId)
-        if (existing != null) {
-            return ResponseEntity.badRequest().body(mapOf("error" to "Already bid on this sub job"))
-        }
+        require(existing == null) { "Already bid on this sub job" }
 
         val bid = SubBid(
-            amount = (attrs["amount"] as? Number)?.toInt() ?: 0,
-            message = attrs["message"]?.toString(),
-            timeline = attrs["timeline"]?.toString()
+            amount = req.amount,
+            message = req.message,
+            timeline = req.timeline
         )
         bid.subJob = subJob
         bid.subContractor = userRepository.findById(claims.userId).orElse(null)
@@ -110,7 +109,7 @@ class SubJobController(
             ?: return ResponseEntity.notFound().build()
 
         if (subJob.contractorId != claims.userId) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(mapOf("error" to "Not your sub job"))
+            throw AccessDeniedException("Not your sub job")
         }
 
         val bid = subBidRepository.findById(bidId).orElse(null)

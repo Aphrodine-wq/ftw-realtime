@@ -13,6 +13,7 @@ import java.time.LocalDate
 class ScheduledWorkers(
     private val aiGateway: AiGateway,
     private val fairTrust: FairTrustService,
+    private val payoutService: com.strata.ftw.service.PayoutService,
     private val userRepository: UserRepository,
     private val revenueSnapshotRepository: RevenueSnapshotRepository,
     private val jobRepository: JobRepository,
@@ -57,6 +58,16 @@ class ScheduledWorkers(
             }
         }
         log.info("Quality score recomputation complete for {} contractors", contractors.size)
+    }
+
+    // Every 15 minutes — retry failed payouts
+    @Scheduled(cron = "0 */15 * * * *")
+    fun retryFailedPayouts() {
+        log.info("Retrying failed payouts")
+        val retried = payoutService.retryFailedPayouts()
+        if (retried > 0) {
+            log.info("Retried {} payouts", retried)
+        }
     }
 
     // Daily midnight UTC — revenue snapshot

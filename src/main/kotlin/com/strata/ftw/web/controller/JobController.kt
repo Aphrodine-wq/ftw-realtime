@@ -3,6 +3,8 @@ package com.strata.ftw.web.controller
 import com.strata.ftw.domain.entity.JobStatus
 import com.strata.ftw.service.MarketplaceService
 import com.strata.ftw.service.TokenClaims
+import com.strata.ftw.web.dto.*
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -36,11 +38,17 @@ class JobController(private val marketplace: MarketplaceService) {
 
     @PostMapping
     fun createJob(
-        @RequestBody body: Map<String, Any>,
+        @Valid @RequestBody req: CreateJobRequest,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
-        @Suppress("UNCHECKED_CAST")
-        val attrs = body["job"] as? Map<String, Any> ?: body
+        val attrs = mapOf<String, Any?>(
+            "title" to req.title,
+            "description" to req.description,
+            "category" to req.category,
+            "budget_min" to req.budget_min,
+            "budget_max" to req.budget_max,
+            "location" to req.location
+        ).filterValues { it != null }.mapValues { it.value!! }
         val job = marketplace.postJob(attrs, claims.userId)
         return ResponseEntity.status(HttpStatus.CREATED).body(mapOf("job" to marketplace.serializeJob(job)))
     }
@@ -48,17 +56,16 @@ class JobController(private val marketplace: MarketplaceService) {
     @PostMapping("/{jobId}/bids")
     fun placeBid(
         @PathVariable jobId: UUID,
-        @RequestBody body: Map<String, Any>,
+        @Valid @RequestBody req: PlaceBidRequest,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
-        return try {
-            @Suppress("UNCHECKED_CAST")
-            val attrs = body["bid"] as? Map<String, Any> ?: body
-            val bid = marketplace.placeBid(jobId, attrs, claims.userId)
-            ResponseEntity.status(HttpStatus.CREATED).body(mapOf("bid" to marketplace.serializeBid(bid)))
-        } catch (e: IllegalArgumentException) {
-            ResponseEntity.badRequest().body(mapOf("error" to e.message))
-        }
+        val attrs = mapOf<String, Any?>(
+            "amount" to req.amount,
+            "message" to req.message,
+            "timeline" to req.timeline
+        ).filterValues { it != null }.mapValues { it.value!! }
+        val bid = marketplace.placeBid(jobId, attrs, claims.userId)
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapOf("bid" to marketplace.serializeBid(bid)))
     }
 
     @PostMapping("/{jobId}/bids/{bidId}/accept")
@@ -67,26 +74,18 @@ class JobController(private val marketplace: MarketplaceService) {
         @PathVariable bidId: UUID,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
-        return try {
-            val bid = marketplace.acceptBid(jobId, bidId, claims.userId)
-            ResponseEntity.ok(mapOf("bid" to marketplace.serializeBid(bid)))
-        } catch (e: IllegalArgumentException) {
-            ResponseEntity.badRequest().body(mapOf("error" to e.message))
-        }
+        val bid = marketplace.acceptBid(jobId, bidId, claims.userId)
+        return ResponseEntity.ok(mapOf("bid" to marketplace.serializeBid(bid)))
     }
 
     @PostMapping("/{jobId}/transition")
     fun transitionJob(
         @PathVariable jobId: UUID,
-        @RequestBody body: Map<String, String>,
+        @Valid @RequestBody req: TransitionJobRequest,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
-        return try {
-            val newStatus = JobStatus.valueOf(body["status"]!!)
-            val job = marketplace.transitionJob(jobId, newStatus, claims.userId)
-            ResponseEntity.ok(mapOf("job" to marketplace.serializeJob(job)))
-        } catch (e: Exception) {
-            ResponseEntity.badRequest().body(mapOf("error" to e.message))
-        }
+        val newStatus = JobStatus.valueOf(req.status)
+        val job = marketplace.transitionJob(jobId, newStatus, claims.userId)
+        return ResponseEntity.ok(mapOf("job" to marketplace.serializeJob(job)))
     }
 }

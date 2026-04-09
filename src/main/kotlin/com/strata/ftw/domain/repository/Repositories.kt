@@ -13,6 +13,12 @@ import java.util.*
 @Repository
 interface UserRepository : JpaRepository<User, UUID> {
     fun findByEmail(email: String): User?
+
+    @Query("SELECT u FROM User u WHERE (:role IS NULL OR u.role = :role) AND (:active IS NULL OR u.active = :active) ORDER BY u.insertedAt DESC")
+    fun findFiltered(role: UserRole?, active: Boolean?, pageable: Pageable): List<User>
+
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role = :role")
+    fun countByRole(role: UserRole): Long
 }
 
 @Repository
@@ -87,6 +93,11 @@ interface ReviewRepository : JpaRepository<Review, UUID> {
 
     @Query("SELECT COUNT(r) FROM Review r WHERE r.reviewedId = :userId")
     fun countByReviewedId(userId: UUID): Long
+
+    fun findByReviewerIdAndJobId(reviewerId: UUID, jobId: UUID): Review?
+
+    @Query("SELECT r.rating, COUNT(r) FROM Review r WHERE r.reviewedId = :userId GROUP BY r.rating ORDER BY r.rating DESC")
+    fun ratingBreakdown(userId: UUID): List<Array<Any>>
 }
 
 @Repository
@@ -156,6 +167,11 @@ interface ContentFlagRepository : JpaRepository<ContentFlag, UUID> {
 interface DisputeRepository : JpaRepository<Dispute, UUID> {
     fun findByJobId(jobId: UUID): List<Dispute>
     fun countByJobId(jobId: UUID): Long
+
+    @Query("SELECT d FROM Dispute d ORDER BY d.insertedAt DESC")
+    fun findAllRecent(pageable: Pageable): List<Dispute>
+
+    fun findByStatus(status: String): List<Dispute>
 }
 
 @Repository
@@ -203,6 +219,10 @@ interface SubBidRepository : JpaRepository<SubBid, UUID> {
 @Repository
 interface SubPayoutRepository : JpaRepository<SubPayout, UUID> {
     fun findBySubJobId(subJobId: UUID): SubPayout?
+    fun findByStatus(status: String): List<SubPayout>
+
+    @Query("SELECT sp FROM SubPayout sp WHERE sp.status IN ('failed', 'processing') AND sp.updatedAt < :cutoff")
+    fun findRetryable(cutoff: Instant): List<SubPayout>
 }
 
 @Repository

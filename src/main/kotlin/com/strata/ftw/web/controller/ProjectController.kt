@@ -3,6 +3,8 @@ package com.strata.ftw.web.controller
 import com.strata.ftw.domain.entity.ProjectStatus
 import com.strata.ftw.service.MarketplaceService
 import com.strata.ftw.service.TokenClaims
+import com.strata.ftw.web.dto.*
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -31,19 +33,31 @@ class ProjectController(private val marketplace: MarketplaceService) {
 
     @PostMapping
     fun create(
-        @RequestBody body: Map<String, Any>,
+        @Valid @RequestBody req: CreateProjectRequest,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
-        @Suppress("UNCHECKED_CAST")
-        val attrs = body["project"] as? Map<String, Any> ?: body
+        val attrs = mutableMapOf<String, Any>("name" to req.name, "budget" to req.budget)
+        req.description?.let { attrs["description"] = it }
+        req.contractor_id?.let { attrs["contractor_id"] = it }
+        req.homeowner_id?.let { attrs["homeowner_id"] = it }
+        req.job_id?.let { attrs["job_id"] = it }
+        req.start_date?.let { attrs["start_date"] = it }
+        req.end_date?.let { attrs["end_date"] = it }
         val project = marketplace.createProject(attrs)
         return ResponseEntity.status(HttpStatus.CREATED).body(mapOf("project" to marketplace.serializeProject(project)))
     }
 
     @PatchMapping("/{id}")
-    fun update(@PathVariable id: UUID, @RequestBody body: Map<String, Any>): ResponseEntity<Any> {
-        @Suppress("UNCHECKED_CAST")
-        val attrs = body["project"] as? Map<String, Any> ?: body
+    fun update(
+        @PathVariable id: UUID,
+        @Valid @RequestBody req: UpdateProjectRequest
+    ): ResponseEntity<Any> {
+        val attrs = mutableMapOf<String, Any>()
+        req.name?.let { attrs["name"] = it }
+        req.description?.let { attrs["description"] = it }
+        req.status?.let { attrs["status"] = it }
+        req.budget?.let { attrs["budget"] = it }
+        req.spent?.let { attrs["spent"] = it }
         val project = marketplace.updateProject(id, attrs)
         return ResponseEntity.ok(mapOf("project" to marketplace.serializeProject(project)))
     }

@@ -2,6 +2,8 @@ package com.strata.ftw.web.controller
 
 import com.strata.ftw.service.MarketplaceService
 import com.strata.ftw.service.TokenClaims
+import com.strata.ftw.web.dto.UpdateSettingsRequest
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
@@ -27,11 +29,18 @@ class SettingsController(private val marketplace: MarketplaceService) {
 
     @PutMapping
     fun update(
-        @RequestBody body: Map<String, Any>,
+        @Valid @RequestBody req: UpdateSettingsRequest,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
-        @Suppress("UNCHECKED_CAST")
-        val attrs = body["settings"] as? Map<String, Any> ?: body
+        val attrs = mutableMapOf<String, Any>()
+        req.notifications_email?.let { attrs["notifications_email"] = it }
+        req.notifications_push?.let { attrs["notifications_push"] = it }
+        req.notifications_sms?.let { attrs["notifications_sms"] = it }
+        req.appearance_theme?.let { attrs["appearance_theme"] = it }
+        req.language?.let { attrs["language"] = it }
+        req.timezone?.let { attrs["timezone"] = it }
+        req.privacy_profile_visible?.let { attrs["privacy_profile_visible"] = it }
+        req.privacy_show_rating?.let { attrs["privacy_show_rating"] = it }
         val settings = marketplace.updateSettings(claims.userId, attrs)
         return ResponseEntity.ok(mapOf("settings" to mapOf(
             "notifications_email" to settings.notificationsEmail,

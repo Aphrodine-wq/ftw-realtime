@@ -2,6 +2,8 @@ package com.strata.ftw.web.controller
 
 import com.strata.ftw.service.MarketplaceService
 import com.strata.ftw.service.TokenClaims
+import com.strata.ftw.web.dto.*
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -26,19 +28,29 @@ class ClientController(private val marketplace: MarketplaceService) {
 
     @PostMapping
     fun create(
-        @RequestBody body: Map<String, Any>,
+        @Valid @RequestBody req: CreateClientRequest,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
-        @Suppress("UNCHECKED_CAST")
-        val attrs = body["client"] as? Map<String, Any> ?: body
+        val attrs = mutableMapOf<String, Any>("name" to req.name)
+        req.email?.let { attrs["email"] = it }
+        req.phone?.let { attrs["phone"] = it }
+        req.address?.let { attrs["address"] = it }
+        req.notes?.let { attrs["notes"] = it }
         val client = marketplace.createClient(attrs, claims.userId)
         return ResponseEntity.status(HttpStatus.CREATED).body(mapOf("client" to marketplace.serializeClient(client)))
     }
 
     @PatchMapping("/{id}")
-    fun update(@PathVariable id: UUID, @RequestBody body: Map<String, Any>): ResponseEntity<Any> {
-        @Suppress("UNCHECKED_CAST")
-        val attrs = body["client"] as? Map<String, Any> ?: body
+    fun update(
+        @PathVariable id: UUID,
+        @Valid @RequestBody req: UpdateClientRequest
+    ): ResponseEntity<Any> {
+        val attrs = mutableMapOf<String, Any>()
+        req.name?.let { attrs["name"] = it }
+        req.email?.let { attrs["email"] = it }
+        req.phone?.let { attrs["phone"] = it }
+        req.address?.let { attrs["address"] = it }
+        req.notes?.let { attrs["notes"] = it }
         val client = marketplace.updateClient(id, attrs)
         return ResponseEntity.ok(mapOf("client" to marketplace.serializeClient(client)))
     }

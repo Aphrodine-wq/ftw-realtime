@@ -2,7 +2,10 @@ package com.strata.ftw.web.controller
 
 import com.strata.ftw.service.MarketplaceService
 import com.strata.ftw.service.TokenClaims
+import com.strata.ftw.web.dto.SendMessageRequest
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import java.util.UUID
@@ -17,7 +20,7 @@ class ChatController(private val marketplace: MarketplaceService) {
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
         if (!marketplace.isConversationParticipant(conversationId, claims.userId)) {
-            return ResponseEntity.status(403).body(mapOf("error" to "Not a participant"))
+            throw AccessDeniedException("Not a participant in this conversation")
         }
         val messages = marketplace.listMessages(conversationId)
         return ResponseEntity.ok(mapOf("messages" to messages.map { marketplace.serializeMessage(it) }))
@@ -26,15 +29,13 @@ class ChatController(private val marketplace: MarketplaceService) {
     @PostMapping("/{conversationId}")
     fun sendMessage(
         @PathVariable conversationId: UUID,
-        @RequestBody body: Map<String, Any>,
+        @Valid @RequestBody req: SendMessageRequest,
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
         if (!marketplace.isConversationParticipant(conversationId, claims.userId)) {
-            return ResponseEntity.status(403).body(mapOf("error" to "Not a participant"))
+            throw AccessDeniedException("Not a participant in this conversation")
         }
-        @Suppress("UNCHECKED_CAST")
-        val msgAttrs = body["message"] as? Map<String, Any> ?: body
-        val message = marketplace.sendMessage(conversationId, msgAttrs["body"] as String, claims.userId)
+        val message = marketplace.sendMessage(conversationId, req.body, claims.userId)
         return ResponseEntity.ok(mapOf("message" to marketplace.serializeMessage(message)))
     }
 }

@@ -32,7 +32,8 @@ class MarketplaceService(
     private val fairRecordRepository: FairRecordRepository,
     private val pushTokenRepository: PushTokenRepository,
     private val verificationRepository: VerificationRepository,
-    private val messagingTemplate: SimpMessagingTemplate
+    private val messagingTemplate: SimpMessagingTemplate,
+    private val notificationService: NotificationService
 ) {
     // ── Users ──
 
@@ -106,8 +107,7 @@ class MarketplaceService(
 
         broadcast("/topic/job.${jobId}", "bid:placed", serializeBid(saved))
         broadcast("/topic/jobs.feed", "job:updated", serializeJob(job))
-        enqueueNotification("bid_received", job.homeownerId!!, "New Bid",
-            "${contractor.name} bid on your job: ${job.title}", mapOf("job_id" to jobId.toString()))
+        notificationService.onBidPlaced(job.title, contractor.name, job.homeownerId!!, jobId)
         return saved
     }
 
@@ -132,8 +132,11 @@ class MarketplaceService(
 
         broadcast("/topic/job.${jobId}", "bid:accepted", serializeBid(savedBid))
         broadcast("/topic/jobs.feed", "job:updated", serializeJob(job))
-        enqueueNotification("bid_accepted", bid.contractorId!!, "Bid Accepted",
-            "Your bid on ${job.title} was accepted!", mapOf("job_id" to jobId.toString()))
+        notificationService.onBidAccepted(job.title, bid.contractorId!!, jobId)
+        // Notify rejected bidders
+        otherBids.forEach { rejected ->
+            notificationService.onBidRejected(job.title, rejected.contractorId!!, jobId)
+        }
         return savedBid
     }
 
@@ -156,6 +159,10 @@ class MarketplaceService(
         val saved = jobRepository.save(job)
 
         broadcast("/topic/jobs.feed", "job:updated", serializeJob(saved))
+
+        // Notify relevant parties
+        val acceptedBid = bidRepository.findByJobIdOrderByInsertedAtAsc(jobId).find { it.status == BidStatus.accepted }
+        notificationService.onJobStatusChange(job.title, newStatus.name, job.homeownerId!!, acceptedBid?.contractorId, jobId)
 
         if (newStatus == JobStatus.completed) {
             maybeGenerateFairRecord(saved)
@@ -208,6 +215,14 @@ class MarketplaceService(
         )
         val saved = messageRepository.save(message)
         broadcast("/topic/chat.${conversationId}", "message:new", serializeMessage(saved))
+        // Notify the other participant
+        val conv = conversationRepository.findById(conversationId).orElse(null)
+        if (conv != null) {
+            val recipientId = if (conv.homeownerId == senderId) conv.contractorId else conv.homeownerId
+            if (recipientId != null) {
+                notificationService.onMessageReceived(sender.name, recipientId, conversationId)
+            }
+        }
         return saved
     }
 

@@ -622,6 +622,8 @@ class MarketplaceService(
         "client_id" to inv.clientId?.toString(),
         "estimate_id" to inv.estimateId?.toString(),
         "project_id" to inv.projectId?.toString(),
+        "qb_invoice_id" to inv.qbInvoiceId,
+        "qb_synced_at" to inv.qbSyncedAt?.toString(),
         "created_at" to inv.insertedAt?.toString()
     )
 

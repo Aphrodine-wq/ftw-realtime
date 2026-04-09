@@ -43,7 +43,7 @@ com.strata.ftw/
 ├── ai/
 │   └── AiGateway.kt           # FairPrice (ConcurrentHashMap from DB), FairScope (Caffeine 7d TTL), EstimateAgent (RunPod)
 ├── web/
-│   ├── controller/            # 18 REST controllers
+│   ├── controller/            # 19 REST controllers
 │   ├── filter/
 │   │   ├── JwtAuthFilter.kt   # Bearer token -> SecurityContext
 │   │   └── RateLimitFilter.kt # Bucket4j per-IP rate limiting
@@ -59,16 +59,17 @@ com.strata.ftw/
 
 PostgreSQL via JPA/Hibernate. Schema managed by Flyway (baseline-on-migrate, baseline-version=0). Hibernate ddl-auto=none.
 
-27 entities matching the existing Postgres schema. UUID primary keys. Timestamps as `inserted_at`/`updated_at`.
+28 entities matching the existing Postgres schema. UUID primary keys. Timestamps as `inserted_at`/`updated_at`.
 
-### Entities (27)
+### Entities (28)
 
-Bid, Client, ContentFlag, Conversation, Dispute, DisputeEvidence, Estimate, FairPriceEntry, FairRecord, Invoice, Job, LineItem, Message, Notification, Project, PushToken, RevenueSnapshot, Review, SubBid, SubContractor, SubJob, SubPayout, TransactionLog, Upload, User, UserSetting, Verification
+Bid, Client, ContentFlag, Conversation, Dispute, DisputeEvidence, Estimate, FairPriceEntry, FairRecord, Invoice, Job, LineItem, Message, Notification, Project, PushToken, QbCredential, RevenueSnapshot, Review, SubBid, SubContractor, SubJob, SubPayout, TransactionLog, Upload, User, UserSetting, Verification
 
 ### Flyway Migrations
 
 - `V1__baseline.sql` -- initial schema
 - `V2__sub_contractor.sql` -- sub-contractor tables
+- `V3__quickbooks_credentials.sql` -- QB OAuth credentials + invoice sync columns
 
 ---
 
@@ -87,7 +88,7 @@ Argon2 password hashing (compatible with Elixir argon2_elixir via Spring Securit
 
 ## REST API
 
-18 controllers under `/api`:
+19 controllers under `/api`:
 
 | Controller   | Endpoints                                                                                                                                                                   |
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -108,6 +109,7 @@ Argon2 password hashing (compatible with Elixir argon2_elixir via Spring Securit
 | Push         | `POST /api/push/register`, `DELETE /api/push/unregister`                                                                                                                    |
 | Notification | `GET /api/notifications`, `POST /api/notifications/{id}/read`, `POST /api/notifications/read-all`                                                                           |
 | Upload       | `POST/GET /api/uploads`, `DELETE /api/uploads/{id}`                                                                                                                         |
+| QuickBooks   | `GET /api/quickbooks/callback`, `GET /api/quickbooks/status`, `DELETE /api/quickbooks/disconnect`, `POST /api/quickbooks/invoices/{id}/sync`, `POST /api/quickbooks/invoices/{id}/payment`, `GET /api/quickbooks/invoices/{id}` |
 | Settings     | `GET/PUT /api/settings`                                                                                                                                                     |
 
 ### Public Endpoints (no auth required)
@@ -118,6 +120,7 @@ Argon2 password hashing (compatible with Elixir argon2_elixir via Spring Securit
 - `GET /api/sub-jobs`, `GET /api/sub-jobs/*`
 - `GET /api/ai/fair-price`, `GET /api/ai/stats`
 - `GET /api/records/*`, `GET /api/records/*/certificate`
+- `GET /api/quickbooks/callback` (OAuth redirect from Intuit)
 - `POST /api/webhooks/**`
 - `/ws/**`
 
@@ -189,6 +192,11 @@ Endpoint: `/ws` (SockJS). JWT auth on CONNECT via `token` header or `Authorizati
 | `AWS_ACCESS_KEY_ID`      | S3 access key                                                  |
 | `AWS_SECRET_ACCESS_KEY`  | S3 secret key                                                  |
 | `RUNPOD_URL`             | ConstructionAI inference endpoint (RunPod Serverless)          |
+| `QB_CLIENT_ID`           | QuickBooks OAuth2 client ID (Intuit developer portal)          |
+| `QB_CLIENT_SECRET`       | QuickBooks OAuth2 client secret                                |
+| `QB_REDIRECT_URI`        | OAuth callback URL (default: http://localhost:4000/api/quickbooks/callback) |
+| `QB_ENVIRONMENT`         | `sandbox` or `production` (default: sandbox)                   |
+| `QB_BASE_URL`            | QB API base (default: sandbox-quickbooks.api.intuit.com)       |
 | `ADMIN_PASSWORD`         | Admin auth (default: faircommand)                              |
 
 ---

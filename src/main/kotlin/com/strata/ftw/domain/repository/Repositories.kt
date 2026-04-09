@@ -204,3 +204,8 @@ interface SubBidRepository : JpaRepository<SubBid, UUID> {
 interface SubPayoutRepository : JpaRepository<SubPayout, UUID> {
     fun findBySubJobId(subJobId: UUID): SubPayout?
 }
+
+@Repository
+interface QbCredentialRepository : JpaRepository<QbCredential, UUID> {
+    fun findByUserId(userId: UUID): QbCredential?
+}

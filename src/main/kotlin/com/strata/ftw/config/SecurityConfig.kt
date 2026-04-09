@@ -47,6 +47,8 @@ class SecurityConfig(
                     .requestMatchers(HttpMethod.GET, "/api/records/*").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/records/*/certificate").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/webhooks/**").permitAll()
+                    // QuickBooks OAuth callback (Intuit redirects browser here)
+                    .requestMatchers(HttpMethod.GET, "/api/quickbooks/callback").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/auth/switch-role").authenticated()
                     // WebSocket endpoint
                     .requestMatchers("/ws/**").permitAll()

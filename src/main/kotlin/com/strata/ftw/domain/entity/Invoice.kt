@@ -61,6 +61,12 @@ class Invoice(
     @Column(name = "project_id", insertable = false, updatable = false)
     var projectId: UUID? = null,
 
+    @Column(name = "qb_invoice_id")
+    var qbInvoiceId: String? = null,
+
+    @Column(name = "qb_synced_at")
+    var qbSyncedAt: Instant? = null,
+
     @CreationTimestamp
     @Column(name = "inserted_at", updatable = false)
     var insertedAt: Instant? = null,

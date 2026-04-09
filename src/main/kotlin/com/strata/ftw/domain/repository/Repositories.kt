@@ -47,6 +47,9 @@ interface BidRepository : JpaRepository<Bid, UUID> {
 @Repository
 interface ConversationRepository : JpaRepository<Conversation, UUID> {
     fun findByJobIdAndHomeownerIdAndContractorId(jobId: UUID, homeownerId: UUID, contractorId: UUID): Conversation?
+
+    @Query("SELECT c FROM Conversation c WHERE c.homeownerId = :userId OR c.contractorId = :userId ORDER BY c.updatedAt DESC")
+    fun findByParticipant(userId: UUID): List<Conversation>
 }
 
 @Repository
@@ -207,6 +210,9 @@ interface SubJobRepository : JpaRepository<SubJob, UUID> {
 
     @Query("SELECT sj FROM SubJob sj ORDER BY sj.insertedAt DESC")
     fun findAllRecent(pageable: Pageable): List<SubJob>
+
+    @Query("SELECT COUNT(sj) FROM SubJob sj WHERE sj.contractorId = :uid AND sj.status = :status")
+    fun countByContractorIdAndStatus(uid: UUID, status: SubJobStatus): Long
 }
 
 @Repository
@@ -214,6 +220,12 @@ interface SubBidRepository : JpaRepository<SubBid, UUID> {
     fun findBySubJobIdOrderByInsertedAtAsc(subJobId: UUID): List<SubBid>
     fun findBySubContractorId(subContractorId: UUID): List<SubBid>
     fun findBySubJobIdAndSubContractorId(subJobId: UUID, subContractorId: UUID): SubBid?
+
+    @Query("SELECT COUNT(sb) FROM SubBid sb WHERE sb.subContractorId = :uid AND sb.status = 'pending'")
+    fun countPendingBySubContractorId(uid: UUID): Long
+
+    @Query("SELECT COUNT(sb) FROM SubBid sb WHERE sb.subContractorId = :uid AND sb.status = 'accepted'")
+    fun countAcceptedBySubContractorId(uid: UUID): Long
 }
 
 @Repository
@@ -223,6 +235,12 @@ interface SubPayoutRepository : JpaRepository<SubPayout, UUID> {
 
     @Query("SELECT sp FROM SubPayout sp WHERE sp.status IN ('failed', 'processing') AND sp.updatedAt < :cutoff")
     fun findRetryable(cutoff: Instant): List<SubPayout>
+
+    @Query("SELECT COALESCE(SUM(sp.netAmount), 0) FROM SubPayout sp WHERE sp.subContractorId = :uid AND sp.status = 'paid' AND sp.paidAt >= :since")
+    fun sumNetAmountSince(uid: UUID, since: Instant): Double
+
+    @Query("SELECT COALESCE(SUM(sp.netAmount), 0) FROM SubPayout sp WHERE sp.subContractorId = :uid AND sp.status = 'paid' AND sp.paidAt >= :since AND sp.paidAt < :until")
+    fun sumNetAmountBetween(uid: UUID, since: Instant, until: Instant): Double
 }
 
 @Repository

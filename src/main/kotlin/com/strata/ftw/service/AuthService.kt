@@ -139,6 +139,8 @@ class AuthService(
 
     fun findByEmail(email: String): User? = userRepository.findByEmail(email)
 
+    fun findById(userId: UUID): User? = userRepository.findById(userId).orElse(null)
+
     fun activateSubContractorRole(userId: UUID): User {
         val user = userRepository.findById(userId).orElseThrow { IllegalArgumentException("User not found") }
         user.addRole(UserRole.sub_contractor)

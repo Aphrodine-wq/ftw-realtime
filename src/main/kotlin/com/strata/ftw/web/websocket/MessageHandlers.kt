@@ -109,7 +109,7 @@ class MessageHandlers(
         val saved = subJobRepository.save(subJob)
         messagingTemplate.convertAndSend(
             "/topic/sub-jobs.feed",
-            mapOf("event" to "sub_job:posted", "data" to serializeSubJob(saved))
+            mapOf("event" to "sub-job:posted", "data" to serializeSubJob(saved))
         )
     }
 
@@ -137,7 +137,7 @@ class MessageHandlers(
 
         messagingTemplate.convertAndSend(
             "/topic/sub-job.$subJobId",
-            mapOf("event" to "sub_bid:placed", "data" to serializeSubBid(saved))
+            mapOf("event" to "sub-bid:placed", "data" to serializeSubBid(saved))
         )
     }
 

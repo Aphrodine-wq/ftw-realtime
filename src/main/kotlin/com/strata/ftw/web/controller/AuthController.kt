@@ -50,7 +50,9 @@ class AuthController(
     fun register(@Valid @RequestBody req: RegisterRequest): ResponseEntity<Any> {
         val role = parseRole(req.role)
         val user = authService.registerUser(req.email, req.password, req.name, role, req.location)
+        val token = authService.generateToken(user)
         return ResponseEntity.status(HttpStatus.CREATED).body(mapOf(
+            "token" to token,
             "user" to mapOf(
                 "id" to user.id.toString(),
                 "email" to user.email,
@@ -91,6 +93,24 @@ class AuthController(
 
         authService.resetPassword(userId, req.password)
         return ResponseEntity.ok(mapOf("message" to "Password reset successfully"))
+    }
+
+    @PostMapping("/refresh")
+    fun refresh(@AuthenticationPrincipal claims: TokenClaims): ResponseEntity<Any> {
+        val user = authService.findById(claims.userId)
+            ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(mapOf("error" to "User not found"))
+        val token = authService.generateToken(user)
+        return ResponseEntity.ok(mapOf(
+            "token" to token,
+            "user" to mapOf(
+                "id" to user.id.toString(),
+                "email" to user.email,
+                "name" to user.name,
+                "role" to user.activeRole.name,
+                "roles" to user.getRolesList().map { it.name }
+            )
+        ))
     }
 
     @PostMapping("/switch-role")

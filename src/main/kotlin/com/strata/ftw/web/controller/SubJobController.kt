@@ -130,6 +130,30 @@ class SubJobController(
         return ResponseEntity.ok(mapOf("sub_jobs" to subJobs.map { serializeSubJob(it) }))
     }
 
+    @GetMapping("/mine")
+    fun mine(@AuthenticationPrincipal claims: TokenClaims): ResponseEntity<Any> = myPosts(claims)
+
+    @PutMapping("/{id}/status")
+    fun updateStatus(
+        @PathVariable id: UUID,
+        @RequestBody body: Map<String, String>,
+        @AuthenticationPrincipal claims: TokenClaims
+    ): ResponseEntity<Any> {
+        val subJob = subJobRepository.findById(id).orElse(null)
+            ?: return ResponseEntity.notFound().build()
+        if (subJob.contractorId != claims.userId) {
+            throw AccessDeniedException("Not your sub job")
+        }
+        val newStatus = try {
+            SubJobStatus.valueOf(body["status"] ?: return ResponseEntity.badRequest().body(mapOf("error" to "status required")))
+        } catch (_: Exception) {
+            return ResponseEntity.badRequest().body(mapOf("error" to "Invalid status"))
+        }
+        subJob.status = newStatus
+        val saved = subJobRepository.save(subJob)
+        return ResponseEntity.ok(mapOf("sub_job" to serializeSubJob(saved)))
+    }
+
     private fun serializeSubJob(sj: SubJob): Map<String, Any?> = mapOf(
         "id" to sj.id.toString(),
         "contractor_id" to sj.contractorId.toString(),

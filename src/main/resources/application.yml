@@ -89,6 +89,7 @@ app:
     base-url: ${QB_BASE_URL:https://sandbox-quickbooks.api.intuit.com}
     auth-url: https://appcenter.intuit.com/connect/oauth2
     token-url: https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer
+    webhook-verifier-token: ${QB_WEBHOOK_VERIFIER_TOKEN:}
 
   ai:
     runpod-url: ${RUNPOD_URL:}

@@ -49,6 +49,8 @@ class SecurityConfig(
                     .requestMatchers(HttpMethod.POST, "/api/webhooks/**").permitAll()
                     // QuickBooks OAuth callback (Intuit redirects browser here)
                     .requestMatchers(HttpMethod.GET, "/api/quickbooks/callback").permitAll()
+                    // QuickBooks webhook (Intuit posts here — verified via HMAC)
+                    .requestMatchers(HttpMethod.POST, "/api/quickbooks/webhook").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/auth/switch-role").authenticated()
                     // Admin endpoints — role check handled in controller
                     .requestMatchers("/api/admin/**").authenticated()

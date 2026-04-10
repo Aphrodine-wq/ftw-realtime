@@ -247,3 +247,13 @@ interface SubPayoutRepository : JpaRepository<SubPayout, UUID> {
 interface QbCredentialRepository : JpaRepository<QbCredential, UUID> {
     fun findByUserId(userId: UUID): QbCredential?
 }
+
+@Repository
+interface PayoutRepository : JpaRepository<Payout, UUID> {
+    fun findByBidId(bidId: UUID): Payout?
+}
+
+@Repository
+interface ReceiptRepository : JpaRepository<Receipt, UUID> {
+    fun findByBidId(bidId: UUID): Receipt?
+}

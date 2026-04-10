@@ -1,6 +1,7 @@
 package com.strata.ftw.web
 
 import com.strata.ftw.service.QuickBooksException
+import com.strata.ftw.service.QuickBooksTokenException
 import jakarta.persistence.EntityNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -26,6 +27,10 @@ class GlobalExceptionHandler {
     fun handleIllegalArgument(ex: IllegalArgumentException): ResponseEntity<Map<String, Any>> =
         error(HttpStatus.BAD_REQUEST, "bad_request", ex.message ?: "Invalid request")
 
+    @ExceptionHandler(IllegalStateException::class)
+    fun handleIllegalState(ex: IllegalStateException): ResponseEntity<Map<String, Any>> =
+        error(HttpStatus.CONFLICT, "conflict", ex.message ?: "Operation not allowed in current state")
+
     @ExceptionHandler(EntityNotFoundException::class)
     fun handleNotFound(ex: EntityNotFoundException): ResponseEntity<Map<String, Any>> =
         error(HttpStatus.NOT_FOUND, "not_found", ex.message ?: "Resource not found")
@@ -33,6 +38,12 @@ class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException::class)
     fun handleAccessDenied(ex: AccessDeniedException): ResponseEntity<Map<String, Any>> =
         error(HttpStatus.FORBIDDEN, "forbidden", ex.message ?: "Access denied")
+
+    @ExceptionHandler(QuickBooksTokenException::class)
+    fun handleQuickBooksToken(ex: QuickBooksTokenException): ResponseEntity<Map<String, Any>> {
+        log.error("QuickBooks token error: {}", ex.message)
+        return error(HttpStatus.UNAUTHORIZED, "quickbooks_auth_error", ex.message ?: "QuickBooks authorization expired. Please reconnect.")
+    }
 
     @ExceptionHandler(QuickBooksException::class)
     fun handleQuickBooks(ex: QuickBooksException): ResponseEntity<Map<String, Any>> {

@@ -340,3 +340,49 @@ data class ResolveDisputeRequest(
     @field:NotBlank(message = "Resolution is required")
     val resolution: String  // "resolved", "dismissed", "escalated"
 )
+
+// ── QuickBooks ──
+
+data class RecordPaymentRequest(
+    @field:Positive(message = "Amount must be positive")
+    val amount: Int? = null  // cents, optional — defaults to invoice total
+)
+
+data class CreateQbInvoiceRequest(
+    @field:NotNull(message = "Bid ID is required")
+    val bidId: UUID,
+    val milestone: String? = null,
+    val dueDate: String? = null,
+    @field:NotBlank(message = "Customer name is required")
+    val customerName: String,
+    val customerEmail: String? = null,
+    val description: String? = null
+)
+
+data class SyncEstimateRequest(
+    @field:NotBlank(message = "Customer name is required")
+    val customerName: String,
+    val customerEmail: String? = null,
+    @field:Valid
+    val lineItems: List<EstimateLineItem> = emptyList(),
+    val expirationDate: String? = null,
+    val title: String? = null
+)
+
+data class EstimateLineItem(
+    val description: String = "",
+    @field:Min(1, message = "Quantity must be at least 1")
+    val quantity: Int = 1,
+    @field:Min(0, message = "Unit price must be non-negative")
+    val unitPrice: Int = 0
+)
+
+data class ExecutePayoutRequest(
+    @field:NotNull(message = "Bid ID is required")
+    val bidId: UUID
+)
+
+data class GenerateReceiptRequest(
+    @field:NotNull(message = "Bid ID is required")
+    val bidId: UUID
+)

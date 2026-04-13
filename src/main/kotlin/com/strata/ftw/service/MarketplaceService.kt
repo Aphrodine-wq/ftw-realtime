@@ -33,7 +33,9 @@ class MarketplaceService(
     private val pushTokenRepository: PushTokenRepository,
     private val verificationRepository: VerificationRepository,
     private val messagingTemplate: SimpMessagingTemplate,
-    private val notificationService: NotificationService
+    private val notificationService: NotificationService,
+    private val milestoneRepository: MilestoneRepository,
+    private val expenseRepository: ExpenseRepository
 ) {
     // ── Users ──
 
@@ -329,13 +331,31 @@ class MarketplaceService(
             name = attrs["name"] as String,
             description = attrs["description"] as? String,
             budget = (attrs["budget"] as? Number)?.toInt() ?: 0,
+            category = attrs["category"] as? String,
             contractorId = (attrs["contractor_id"] as? String)?.let { UUID.fromString(it) },
             homeownerId = (attrs["homeowner_id"] as? String)?.let { UUID.fromString(it) },
             jobId = (attrs["job_id"] as? String)?.let { UUID.fromString(it) },
             startDate = (attrs["start_date"] as? String)?.let { LocalDate.parse(it) },
             endDate = (attrs["end_date"] as? String)?.let { LocalDate.parse(it) }
         )
-        return projectRepository.save(project)
+        val saved = projectRepository.save(project)
+
+        // Bulk-create milestones if provided
+        @Suppress("UNCHECKED_CAST")
+        val milestoneList = attrs["milestones"] as? List<Map<String, Any>>
+        milestoneList?.forEachIndexed { idx, m ->
+            val milestone = Milestone(
+                project = saved,
+                title = m["title"] as String,
+                description = m["description"] as? String,
+                amount = (m["amount"] as? Number)?.toInt() ?: 0,
+                sortOrder = (m["sort_order"] as? Number)?.toInt() ?: idx,
+                dueDate = (m["due_date"] as? String)?.let { LocalDate.parse(it) }
+            )
+            milestoneRepository.save(milestone)
+        }
+
+        return saved
     }
 
     @Transactional
@@ -642,11 +662,98 @@ class MarketplaceService(
         "created_at" to inv.insertedAt?.toString()
     )
 
+    // ── Milestones ──
+
+    fun listMilestones(projectId: UUID): List<Milestone> =
+        milestoneRepository.findByProjectIdOrderBySortOrderAsc(projectId)
+
+    fun getMilestone(id: UUID): Milestone? = milestoneRepository.findById(id).orElse(null)
+
+    @Transactional
+    fun createMilestone(projectId: UUID, attrs: Map<String, Any>): Milestone {
+        val project = projectRepository.findById(projectId).orElseThrow()
+        val milestone = Milestone(
+            project = project,
+            title = attrs["title"] as String,
+            description = attrs["description"] as? String,
+            amount = (attrs["amount"] as? Number)?.toInt() ?: 0,
+            sortOrder = (attrs["sort_order"] as? Number)?.toInt() ?: 0,
+            dueDate = (attrs["due_date"] as? String)?.let { LocalDate.parse(it) }
+        )
+        return milestoneRepository.save(milestone)
+    }
+
+    @Transactional
+    fun updateMilestone(id: UUID, attrs: Map<String, Any>): Milestone {
+        val milestone = milestoneRepository.findById(id).orElseThrow()
+        attrs["title"]?.let { milestone.title = it as String }
+        attrs["description"]?.let { milestone.description = it as String }
+        attrs["amount"]?.let { milestone.amount = (it as Number).toInt() }
+        attrs["sort_order"]?.let { milestone.sortOrder = (it as Number).toInt() }
+        attrs["note"]?.let { milestone.note = it as String }
+        attrs["due_date"]?.let { milestone.dueDate = LocalDate.parse(it as String) }
+        attrs["status"]?.let {
+            val newStatus = MilestoneStatus.valueOf(it as String)
+            milestone.status = newStatus
+            when (newStatus) {
+                MilestoneStatus.complete -> milestone.completedDate = LocalDate.now()
+                MilestoneStatus.paid -> milestone.paidDate = LocalDate.now()
+                else -> {}
+            }
+        }
+        return milestoneRepository.save(milestone)
+    }
+
+    @Transactional
+    fun deleteMilestone(id: UUID) = milestoneRepository.deleteById(id)
+
+    // ── Expenses ──
+
+    fun listExpenses(projectId: UUID): List<Expense> =
+        expenseRepository.findByProjectIdOrderByDateDesc(projectId)
+
+    @Transactional
+    fun createExpense(projectId: UUID, attrs: Map<String, Any>): Expense {
+        val project = projectRepository.findById(projectId).orElseThrow()
+        val expense = Expense(
+            project = project,
+            description = attrs["description"] as String,
+            amount = (attrs["amount"] as Number).toInt(),
+            category = attrs["category"] as? String,
+            date = (attrs["date"] as? String)?.let { LocalDate.parse(it) } ?: LocalDate.now(),
+            vendor = attrs["vendor"] as? String
+        )
+        (attrs["milestone_id"] as? String)?.let { msId ->
+            expense.milestone = milestoneRepository.findById(UUID.fromString(msId)).orElse(null)
+        }
+        val saved = expenseRepository.save(expense)
+        // Update project spent total
+        project.spent = project.spent + saved.amount
+        projectRepository.save(project)
+        return saved
+    }
+
+    @Transactional
+    fun deleteExpense(id: UUID) {
+        val expense = expenseRepository.findById(id).orElse(null) ?: return
+        expense.projectId?.let { pid ->
+            val project = projectRepository.findById(pid).orElse(null)
+            if (project != null) {
+                project.spent = (project.spent - expense.amount).coerceAtLeast(0)
+                projectRepository.save(project)
+            }
+        }
+        expenseRepository.deleteById(id)
+    }
+
+    // ── Serializers ──
+
     fun serializeProject(proj: Project): Map<String, Any?> = mapOf(
         "id" to proj.id.toString(),
         "name" to proj.name,
         "description" to proj.description,
         "status" to proj.status.name,
+        "category" to proj.category,
         "start_date" to proj.startDate?.toString(),
         "end_date" to proj.endDate?.toString(),
         "budget" to proj.budget,
@@ -654,7 +761,36 @@ class MarketplaceService(
         "contractor_id" to proj.contractorId?.toString(),
         "homeowner_id" to proj.homeownerId?.toString(),
         "job_id" to proj.jobId?.toString(),
+        "milestones" to listMilestones(proj.id!!).map { serializeMilestone(it) },
+        "expenses" to listExpenses(proj.id!!).map { serializeExpense(it) },
         "created_at" to proj.insertedAt?.toString()
+    )
+
+    fun serializeMilestone(m: Milestone): Map<String, Any?> = mapOf(
+        "id" to m.id.toString(),
+        "project_id" to m.projectId?.toString(),
+        "title" to m.title,
+        "description" to m.description,
+        "amount" to m.amount,
+        "status" to m.status.name,
+        "sort_order" to m.sortOrder,
+        "due_date" to m.dueDate?.toString(),
+        "completed_date" to m.completedDate?.toString(),
+        "paid_date" to m.paidDate?.toString(),
+        "note" to m.note,
+        "created_at" to m.insertedAt?.toString()
+    )
+
+    fun serializeExpense(e: Expense): Map<String, Any?> = mapOf(
+        "id" to e.id.toString(),
+        "project_id" to e.projectId?.toString(),
+        "milestone_id" to e.milestoneId?.toString(),
+        "description" to e.description,
+        "amount" to e.amount,
+        "category" to e.category,
+        "date" to e.date.toString(),
+        "vendor" to e.vendor,
+        "created_at" to e.insertedAt?.toString()
     )
 
     fun serializeClient(client: Client): Map<String, Any?> = mapOf(

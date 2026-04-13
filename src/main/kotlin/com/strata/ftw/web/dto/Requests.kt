@@ -179,7 +179,9 @@ data class CreateProjectRequest(
     val homeowner_id: String? = null,
     val job_id: String? = null,
     val start_date: String? = null,
-    val end_date: String? = null
+    val end_date: String? = null,
+    val category: String? = null,
+    val milestones: List<CreateMilestoneRequest>? = null
 )
 
 data class UpdateProjectRequest(
@@ -320,7 +322,7 @@ data class OnboardingProfileRequest(
     val years_experience: Int? = null,
 
     @field:Min(0, message = "Hourly rate must be non-negative")
-    val hourly_rate: Double? = null,
+    val hourly_rate: Int? = null, // cents
 
     val license_number: String? = null,
     val phone: String? = null
@@ -385,4 +387,39 @@ data class ExecutePayoutRequest(
 data class GenerateReceiptRequest(
     @field:NotNull(message = "Bid ID is required")
     val bidId: UUID
+)
+
+// ── Milestones ──
+
+data class CreateMilestoneRequest(
+    @field:NotBlank(message = "Title is required")
+    val title: String,
+    val description: String? = null,
+    @field:Min(0, message = "Amount must be non-negative")
+    val amount: Int = 0,
+    val due_date: String? = null,
+    val sort_order: Int = 0
+)
+
+data class UpdateMilestoneRequest(
+    val title: String? = null,
+    val description: String? = null,
+    val amount: Int? = null,
+    val status: String? = null,
+    val due_date: String? = null,
+    val note: String? = null,
+    val sort_order: Int? = null
+)
+
+// ── Expenses ──
+
+data class CreateExpenseRequest(
+    @field:NotBlank(message = "Description is required")
+    val description: String,
+    @field:Min(1, message = "Amount must be positive")
+    val amount: Int,
+    val category: String? = null,
+    val milestone_id: String? = null,
+    val date: String? = null,
+    val vendor: String? = null
 )

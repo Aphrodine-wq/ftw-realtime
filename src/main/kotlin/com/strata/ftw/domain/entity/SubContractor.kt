@@ -34,7 +34,7 @@ class SubContractor(
     var yearsExperience: Int? = null,
 
     @Column(name = "hourly_rate")
-    var hourlyRate: Double? = null,
+    var hourlyRate: Int? = null, // Amount in cents (divide by 100 for display)
 
     var verified: Boolean = false,
     var licensed: Boolean = false,

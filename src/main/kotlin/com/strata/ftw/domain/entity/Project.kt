@@ -54,6 +54,16 @@ class Project(
     @Column(name = "job_id", insertable = false, updatable = false)
     var jobId: UUID? = null,
 
+    var category: String? = null,
+
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    @OrderBy("sortOrder ASC")
+    var milestones: MutableList<Milestone> = mutableListOf(),
+
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    @OrderBy("date DESC")
+    var expenses: MutableList<Expense> = mutableListOf(),
+
     @CreationTimestamp
     @Column(name = "inserted_at", updatable = false)
     var insertedAt: Instant? = null,

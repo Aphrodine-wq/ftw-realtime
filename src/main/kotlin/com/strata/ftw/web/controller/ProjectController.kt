@@ -43,6 +43,15 @@ class ProjectController(private val marketplace: MarketplaceService) {
         req.job_id?.let { attrs["job_id"] = it }
         req.start_date?.let { attrs["start_date"] = it }
         req.end_date?.let { attrs["end_date"] = it }
+        req.category?.let { attrs["category"] = it }
+        req.milestones?.let { milestones ->
+            attrs["milestones"] = milestones.map { m ->
+                mutableMapOf<String, Any>("title" to m.title, "amount" to m.amount, "sort_order" to m.sort_order).also { map ->
+                    m.description?.let { map["description"] = it }
+                    m.due_date?.let { map["due_date"] = it }
+                }
+            }
+        }
         val project = marketplace.createProject(attrs)
         return ResponseEntity.status(HttpStatus.CREATED).body(mapOf("project" to marketplace.serializeProject(project)))
     }

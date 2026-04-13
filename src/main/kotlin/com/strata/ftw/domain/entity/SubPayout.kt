@@ -25,13 +25,13 @@ class SubPayout(
     var subContractorId: UUID? = null,
 
     @Column(name = "gross_amount", nullable = false)
-    var grossAmount: Double = 0.0, // Amount in dollars (NOTE: unlike Payout, this uses Double not Int cents)
+    var grossAmount: Int = 0, // Amount in cents (divide by 100 for display)
 
     @Column(name = "platform_fee", nullable = false)
-    var platformFee: Double = 0.0, // Amount in dollars (NOTE: unlike Payout, this uses Double not Int cents)
+    var platformFee: Int = 0, // Amount in cents (divide by 100 for display)
 
     @Column(name = "net_amount", nullable = false)
-    var netAmount: Double = 0.0, // Amount in dollars (NOTE: unlike Payout, this uses Double not Int cents)
+    var netAmount: Int = 0, // Amount in cents (divide by 100 for display)
 
     @Column(name = "fee_percent")
     var feePercent: Double = 5.0,

@@ -59,9 +59,9 @@ class DataSeeder(
         val s3 = createUser("ray.thompson@example.com", "Ray Thompson", UserRole.sub_contractor, "Hattiesburg, MS", 31.3271, -89.2903)
 
         // SubContractor profiles
-        subContractorRepository.save(SubContractor(userId = s1.id, company = "Rivera Framing", specialty = "framing", skills = "framing,drywall,carpentry", location = "Oxford, MS", yearsExperience = 12, hourlyRate = 45.0, licensed = true, insured = true))
-        subContractorRepository.save(SubContractor(userId = s2.id, company = "Foster Electric", specialty = "electrical", skills = "electrical,panel_upgrades,wiring", location = "Tupelo, MS", yearsExperience = 8, hourlyRate = 55.0, licensed = true, insured = true))
-        subContractorRepository.save(SubContractor(userId = s3.id, company = "Thompson Plumbing", specialty = "plumbing", skills = "plumbing,water_heaters,pipe_fitting", location = "Hattiesburg, MS", yearsExperience = 15, hourlyRate = 50.0, licensed = true, insured = true))
+        subContractorRepository.save(SubContractor(userId = s1.id, company = "Rivera Framing", specialty = "framing", skills = "framing,drywall,carpentry", location = "Oxford, MS", yearsExperience = 12, hourlyRate = 4500, licensed = true, insured = true))
+        subContractorRepository.save(SubContractor(userId = s2.id, company = "Foster Electric", specialty = "electrical", skills = "electrical,panel_upgrades,wiring", location = "Tupelo, MS", yearsExperience = 8, hourlyRate = 5500, licensed = true, insured = true))
+        subContractorRepository.save(SubContractor(userId = s3.id, company = "Thompson Plumbing", specialty = "plumbing", skills = "plumbing,water_heaters,pipe_fitting", location = "Hattiesburg, MS", yearsExperience = 15, hourlyRate = 5000, licensed = true, insured = true))
 
         // ── Jobs (mix of statuses) ──
         val j1 = createJob("Kitchen Remodel — Full Gut", "Complete kitchen renovation including cabinets, countertops, flooring, plumbing, and electrical. 200 sq ft galley kitchen.", "remodeling", 25000, 45000, "Oxford, MS", JobStatus.open, h1)

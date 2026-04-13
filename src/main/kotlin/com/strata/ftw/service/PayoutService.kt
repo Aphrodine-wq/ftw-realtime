@@ -34,11 +34,11 @@ class PayoutService(
             throw IllegalArgumentException("Payout already exists for sub-job: $subJobId")
         }
 
-        // Use the accepted bid amount as the gross
+        // Use the accepted bid amount as the gross (already in cents)
         val acceptedBid = subJob.subBids.find { it.status.name == "accepted" }
-        val grossAmount = acceptedBid?.amount?.toDouble() ?: 0.0
+        val grossAmount = acceptedBid?.amount ?: 0
         val feePercent = 5.0
-        val platformFee = grossAmount * (feePercent / 100.0)
+        val platformFee = (grossAmount * feePercent / 100.0).toInt()
         val netAmount = grossAmount - platformFee
 
         val payout = SubPayout(
@@ -79,7 +79,7 @@ class PayoutService(
                 if (payout.subContractorId != null) {
                     notificationService.onPaymentReceived(
                         "SUB-${payout.subJobId.toString().take(6)}",
-                        (payout.netAmount * 100).toInt(),
+                        payout.netAmount, // Already in cents
                         payout.subContractorId!!
                     )
                 }

@@ -244,6 +244,18 @@ interface SubPayoutRepository : JpaRepository<SubPayout, UUID> {
 }
 
 @Repository
+interface MilestoneRepository : JpaRepository<Milestone, UUID> {
+    fun findByProjectIdOrderBySortOrderAsc(projectId: UUID): List<Milestone>
+}
+
+@Repository
+interface ExpenseRepository : JpaRepository<Expense, UUID> {
+    fun findByProjectIdOrderByDateDesc(projectId: UUID): List<Expense>
+    fun findByMilestoneIdOrderByDateDesc(milestoneId: UUID): List<Expense>
+    fun findByProjectIdAndCategory(projectId: UUID, category: String): List<Expense>
+}
+
+@Repository
 interface QbCredentialRepository : JpaRepository<QbCredential, UUID> {
     fun findByUserId(userId: UUID): QbCredential?
 }

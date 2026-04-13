@@ -63,7 +63,6 @@ app:
       - https://fairtradeworker.com
       - https://www.fairtradeworker.com
       - https://fairtradeworker.vercel.app
-      - https://*.vercel.app
       - https://ftw-svc.onrender.com
 
   storage:

@@ -19,7 +19,7 @@ class Invoice(
     var invoiceNumber: String = "",
 
     @Column(nullable = false)
-    var amount: Int = 0,
+    var amount: Int = 0, // Amount in cents (divide by 100 for display)
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

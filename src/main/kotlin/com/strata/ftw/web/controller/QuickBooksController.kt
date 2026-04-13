@@ -165,12 +165,13 @@ class QuickBooksController(
         @AuthenticationPrincipal claims: TokenClaims
     ): ResponseEntity<Any> {
         val payout = quickBooksService.getPayout(bidId)
+        // Money fields (grossAmount, platformFee, netAmount) are in cents — divide by 100 for display
         return ResponseEntity.ok(mapOf(
             "id" to payout.id,
             "bidId" to payout.bidId,
-            "grossAmount" to payout.grossAmount,
-            "platformFee" to payout.platformFee,
-            "netAmount" to payout.netAmount,
+            "grossAmount" to payout.grossAmount, // cents
+            "platformFee" to payout.platformFee, // cents
+            "netAmount" to payout.netAmount, // cents
             "feePercent" to payout.feePercent,
             "status" to payout.status.name,
             "failureReason" to payout.failureReason,
@@ -223,12 +224,13 @@ class QuickBooksController(
         return ResponseEntity.ok(mapOf("ok" to true))
     }
 
+    // Money fields (grossAmount, platformFee, totalCharged) are in cents — divide by 100 for display
     private fun receiptToMap(receipt: com.strata.ftw.domain.entity.Receipt): Map<String, Any?> = mapOf(
         "receiptId" to receipt.id,
         "receiptNumber" to receipt.receiptNumber,
-        "grossAmount" to receipt.grossAmount,
-        "platformFee" to receipt.platformFee,
-        "totalCharged" to receipt.totalCharged,
+        "grossAmount" to receipt.grossAmount, // cents
+        "platformFee" to receipt.platformFee, // cents
+        "totalCharged" to receipt.totalCharged, // cents
         "jobTitle" to receipt.jobTitle,
         "contractorName" to receipt.contractorName,
         "homeownerName" to receipt.homeownerName,

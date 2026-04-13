@@ -22,13 +22,13 @@ class Payout(
     var bid: Bid? = null,
 
     @Column(name = "gross_amount", nullable = false)
-    var grossAmount: Int = 0,
+    var grossAmount: Int = 0, // Amount in cents (divide by 100 for display)
 
     @Column(name = "platform_fee", nullable = false)
-    var platformFee: Int = 0,
+    var platformFee: Int = 0, // Amount in cents (divide by 100 for display)
 
     @Column(name = "net_amount", nullable = false)
-    var netAmount: Int = 0,
+    var netAmount: Int = 0, // Amount in cents (divide by 100 for display)
 
     @Column(name = "fee_percent", nullable = false)
     var feePercent: Double = 5.0,

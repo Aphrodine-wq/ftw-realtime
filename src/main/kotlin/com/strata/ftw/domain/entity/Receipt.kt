@@ -24,13 +24,13 @@ class Receipt(
     var bid: Bid? = null,
 
     @Column(name = "gross_amount", nullable = false)
-    var grossAmount: Int = 0,
+    var grossAmount: Int = 0, // Amount in cents (divide by 100 for display)
 
     @Column(name = "platform_fee", nullable = false)
-    var platformFee: Int = 0,
+    var platformFee: Int = 0, // Amount in cents (divide by 100 for display)
 
     @Column(name = "total_charged", nullable = false)
-    var totalCharged: Int = 0,
+    var totalCharged: Int = 0, // Amount in cents (divide by 100 for display)
 
     @Column(name = "job_title", nullable = false)
     var jobTitle: String = "",

@@ -4,6 +4,7 @@ import com.strata.ftw.domain.repository.FairPriceEntryRepository
 import com.github.benmanes.caffeine.cache.Caffeine
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
+import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.web.client.RestTemplate
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -21,7 +22,10 @@ class AiGateway(
     private val fairPriceEntryRepository: FairPriceEntryRepository,
     @Value("\${app.ai.runpod-url:}") private val runpodUrl: String
 ) {
-    private val restTemplate = RestTemplate()
+    private val restTemplate = RestTemplateBuilder()
+        .connectTimeout(Duration.ofSeconds(30))
+        .readTimeout(Duration.ofSeconds(120))
+        .build()
 
     // FairPrice: in-memory cache loaded from DB
     private val fairPriceCache = ConcurrentHashMap<String, Map<String, Any>>()

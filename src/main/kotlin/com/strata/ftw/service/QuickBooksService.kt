@@ -265,21 +265,17 @@ class QuickBooksService(
             }
         }
 
-        // TODO: actual QB API call when sandbox creds available
-        // val response = qbApiPost(credential, "/v3/company/${credential.realmId}/invoice", invoicePayload)
-        // val qbInvoiceId = response.get("Invoice").get("Id").asText()
-        // val docNumber = response.get("Invoice").get("DocNumber").asText()
+        val response = qbApiPost(credential, "/v3/company/${credential.realmId}/invoice", invoicePayload)
+        val qbInvoiceId = response.get("Invoice").get("Id").asText()
+        val docNumber = response.get("Invoice").get("DocNumber").asText()
 
-        val stubId = "stub-${bidId.toString().take(8)}"
-        val stubDocNumber = "FTW-${System.currentTimeMillis().toString().takeLast(6)}"
-
-        log.info("Created QB invoice stub for bid {} — user {}", bidId, userId)
+        log.info("Created QB invoice for bid {} — invoiceId={}, docNumber={}", bidId, qbInvoiceId, docNumber)
 
         return mapOf(
             "created" to true,
-            "qbInvoiceId" to stubId,
-            "qbDocNumber" to stubDocNumber,
-            "invoiceLink" to "https://app.sandbox.qbo.intuit.com/app/invoice?txnId=$stubId"
+            "qbInvoiceId" to qbInvoiceId,
+            "qbDocNumber" to docNumber,
+            "invoiceLink" to "https://app.sandbox.qbo.intuit.com/app/invoice?txnId=$qbInvoiceId"
         )
     }
 
@@ -334,20 +330,16 @@ class QuickBooksService(
             title?.let { put("PrivateNote", it) }
         }
 
-        // TODO: actual QB API call when sandbox creds available
-        // val response = qbApiPost(credential, "/v3/company/${credential.realmId}/estimate", estimatePayload)
-        // val qbEstimateId = response.get("Estimate").get("Id").asText()
-        // val docNumber = response.get("Estimate").get("DocNumber").asText()
+        val response = qbApiPost(credential, "/v3/company/${credential.realmId}/estimate", estimatePayload)
+        val qbEstimateId = response.get("Estimate").get("Id").asText()
+        val docNumber = response.get("Estimate").get("DocNumber").asText()
 
-        val stubId = "est-stub-${System.currentTimeMillis().toString().takeLast(8)}"
-        val stubDocNumber = "EST-${System.currentTimeMillis().toString().takeLast(6)}"
-
-        log.info("Synced estimate to QB for user {}", userId)
+        log.info("Synced estimate to QB for user {} — estimateId={}", userId, qbEstimateId)
 
         return mapOf(
             "synced" to true,
-            "qbEstimateId" to stubId,
-            "qbDocNumber" to stubDocNumber
+            "qbEstimateId" to qbEstimateId,
+            "qbDocNumber" to docNumber
         )
     }
 
@@ -388,23 +380,69 @@ class QuickBooksService(
             status = PayoutStatus.PROCESSING
         )
 
-        // TODO: actual QB Bill + BillPayment creation when sandbox creds available
-        // val billResponse = qbApiPost(credential, "/v3/company/${credential.realmId}/bill", billPayload)
-        // val qbBillId = billResponse.get("Bill").get("Id").asText()
-        // val billPaymentResponse = qbApiPost(credential, "/v3/company/${credential.realmId}/billpayment", billPaymentPayload)
-        // val qbBillPaymentId = billPaymentResponse.get("BillPayment").get("Id").asText()
+        val netAmountDecimal = netAmount / 100.0
 
-        val stubBillId = "bill-${bidId.toString().take(8)}"
-        val stubBillPaymentId = "billpay-${bidId.toString().take(8)}"
+        // Create QB Bill (what we owe the contractor)
+        val billPayload = objectMapper.createObjectNode().apply {
+            set<JsonNode>("VendorRef", objectMapper.createObjectNode().apply {
+                put("value", "1") // TODO: look up or create QB vendor for contractor
+            })
+            set<JsonNode>("Line", objectMapper.createArrayNode().add(
+                objectMapper.createObjectNode().apply {
+                    put("Amount", netAmountDecimal)
+                    put("DetailType", "AccountBasedExpenseLineDetail")
+                    put("Description", "FTW Payout — Bid ${bidId.toString().take(8)}")
+                    set<JsonNode>("AccountBasedExpenseLineDetail", objectMapper.createObjectNode().apply {
+                        set<JsonNode>("AccountRef", objectMapper.createObjectNode().apply {
+                            put("value", "1") // Expenses account
+                        })
+                    })
+                }
+            ))
+            put("DueDate", java.time.LocalDate.now().toString())
+        }
 
-        payout.qbBillId = stubBillId
-        payout.qbBillPaymentId = stubBillPaymentId
+        val billResponse = qbApiPost(credential, "/v3/company/${credential.realmId}/bill", billPayload)
+        val qbBillId = billResponse.get("Bill").get("Id").asText()
+
+        payout.qbBillId = qbBillId
+        payoutRepository.save(payout)
+
+        // Pay the Bill (execute the transfer)
+        val billPaymentPayload = objectMapper.createObjectNode().apply {
+            set<JsonNode>("VendorRef", objectMapper.createObjectNode().apply {
+                put("value", billResponse.get("Bill").get("VendorRef").get("value").asText())
+            })
+            put("PayType", "Check")
+            put("TotalAmt", netAmountDecimal)
+            set<JsonNode>("Line", objectMapper.createArrayNode().add(
+                objectMapper.createObjectNode().apply {
+                    put("Amount", netAmountDecimal)
+                    set<JsonNode>("LinkedTxn", objectMapper.createArrayNode().add(
+                        objectMapper.createObjectNode().apply {
+                            put("TxnId", qbBillId)
+                            put("TxnType", "Bill")
+                        }
+                    ))
+                }
+            ))
+            set<JsonNode>("CheckPayment", objectMapper.createObjectNode().apply {
+                set<JsonNode>("BankAccountRef", objectMapper.createObjectNode().apply {
+                    put("value", "1") // Primary checking account
+                })
+            })
+        }
+
+        val billPaymentResponse = qbApiPost(credential, "/v3/company/${credential.realmId}/billpayment", billPaymentPayload)
+        val qbBillPaymentId = billPaymentResponse.get("BillPayment").get("Id").asText()
+
+        payout.qbBillPaymentId = qbBillPaymentId
         payout.status = PayoutStatus.COMPLETED
         payout.paidAt = Instant.now()
 
         val saved = payoutRepository.save(payout)
 
-        log.info("Executed payout for bid {} — gross={} fee={} net={}", bidId, grossAmount, platformFee, netAmount)
+        log.info("Executed payout for bid {} — gross={} fee={} net={} billId={} paymentId={}", bidId, grossAmount, platformFee, netAmount, qbBillId, qbBillPaymentId)
 
         return mapOf(
             "success" to true,
@@ -413,8 +451,8 @@ class QuickBooksService(
             "platformFee" to platformFee,
             "feePercent" to feePercent,
             "netAmount" to netAmount,
-            "qbBillId" to stubBillId,
-            "qbBillPaymentId" to stubBillPaymentId
+            "qbBillId" to qbBillId,
+            "qbBillPaymentId" to qbBillPaymentId
         )
     }
 

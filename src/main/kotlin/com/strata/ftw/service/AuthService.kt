@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.time.Instant
 import java.util.Date
@@ -23,6 +24,7 @@ class AuthService(
 ) {
     // Argon2id encoder matching Elixir's argon2_elixir defaults
     private val passwordEncoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8()
+    private val bcryptEncoder = BCryptPasswordEncoder()
 
     private fun signingKey(): SecretKey =
         Keys.hmacShaKeyFor(jwtSecret.toByteArray())
@@ -152,9 +154,12 @@ class AuthService(
 
     private fun verifyPassword(rawPassword: String, encodedPassword: String): Boolean {
         return try {
-            passwordEncoder.matches(rawPassword, encodedPassword)
+            if (encodedPassword.startsWith("\$2a\$") || encodedPassword.startsWith("\$2b\$")) {
+                bcryptEncoder.matches(rawPassword, encodedPassword)
+            } else {
+                passwordEncoder.matches(rawPassword, encodedPassword)
+            }
         } catch (_: Exception) {
-            // If the hash format doesn't match Argon2, try raw comparison (shouldn't happen in prod)
             false
         }
     }

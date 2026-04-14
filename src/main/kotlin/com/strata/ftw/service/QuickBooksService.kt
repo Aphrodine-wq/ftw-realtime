@@ -30,7 +30,8 @@ class QuickBooksService(
     @Value("\${app.quickbooks.redirect-uri}") private val redirectUri: String,
     @Value("\${app.quickbooks.base-url}") private val baseUrl: String,
     @Value("\${app.quickbooks.token-url}") private val tokenUrl: String,
-    @Value("\${app.quickbooks.webhook-verifier-token}") private val webhookVerifierToken: String
+    @Value("\${app.quickbooks.webhook-verifier-token}") private val webhookVerifierToken: String,
+    @Value("\${app.quickbooks.auth-url}") private val authUrl: String
 ) {
     private val log = LoggerFactory.getLogger(QuickBooksService::class.java)
     private val restClient = RestClient.create()
@@ -41,6 +42,15 @@ class QuickBooksService(
     }
 
     // ── OAuth ──
+
+    fun buildAuthUrl(state: String): String {
+        val scopes = "com.intuit.quickbooks.accounting"
+        return "$authUrl?client_id=${URLEncoder.encode(clientId, Charsets.UTF_8)}" +
+            "&redirect_uri=${URLEncoder.encode(redirectUri, Charsets.UTF_8)}" +
+            "&response_type=code" +
+            "&scope=${URLEncoder.encode(scopes, Charsets.UTF_8)}" +
+            "&state=${URLEncoder.encode(state, Charsets.UTF_8)}"
+    }
 
     @Transactional
     fun exchangeCodeForTokens(code: String, realmId: String, userId: UUID): QbCredential {

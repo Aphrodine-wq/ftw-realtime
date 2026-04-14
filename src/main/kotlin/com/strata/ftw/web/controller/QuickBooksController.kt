@@ -21,6 +21,17 @@ class QuickBooksController(
     private val log = LoggerFactory.getLogger(QuickBooksController::class.java)
 
     /**
+     * Initiate OAuth2 flow — returns the Intuit authorization URL for the mobile app to open.
+     * State encodes the userId so the callback can associate the token.
+     */
+    @GetMapping("/connect")
+    fun connect(@AuthenticationPrincipal claims: TokenClaims): ResponseEntity<Any> {
+        val state = "userId:${claims.userId}"
+        val authUrl = quickBooksService.buildAuthUrl(state)
+        return ResponseEntity.ok(mapOf("auth_url" to authUrl))
+    }
+
+    /**
      * OAuth callback — Intuit redirects here after contractor authorizes.
      * State contains "userId:<uuid>" set by frontend before redirect to Intuit.
      */

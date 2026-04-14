@@ -263,6 +263,9 @@ interface QbCredentialRepository : JpaRepository<QbCredential, UUID> {
 @Repository
 interface PayoutRepository : JpaRepository<Payout, UUID> {
     fun findByBidId(bidId: UUID): Payout?
+
+    @Query("SELECT p FROM Payout p JOIN p.bid b WHERE b.contractorId = :contractorId ORDER BY p.insertedAt DESC")
+    fun findByContractorId(contractorId: UUID): List<Payout>
 }
 
 @Repository

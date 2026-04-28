@@ -31,6 +31,20 @@ services:
         value: "10000"
       - key: SPRING_PROFILES_ACTIVE
         value: prod
+      # ── Email (Resend SMTP relay) ──
+      # Resend → API Keys → create one. Then set SMTP_PASSWORD to the API key.
+      - key: SMTP_HOST
+        value: smtp.resend.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USERNAME
+        value: resend
+      - key: SMTP_PASSWORD
+        sync: false
+      # ── Admin ──
+      # Set this in the Render dashboard. Default is "faircommand" — DO NOT ship that.
+      - key: ADMIN_PASSWORD
+        sync: false
 
 databases:
   - name: ftw-realtime-db

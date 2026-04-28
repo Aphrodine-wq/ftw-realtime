@@ -19,6 +19,12 @@ class StorageService(
     @Value("\${app.storage.bucket:}") private val bucket: String,
     @Value("\${app.storage.region:us-east-1}") private val region: String,
     @Value("\${app.storage.endpoint:}") private val endpoint: String,
+    /** Public-facing URL base for serving uploaded files.
+     *  - AWS S3: leave blank, falls back to virtual-hosted style URL
+     *  - Cloudflare R2: set to your bucket's public dev URL (https://pub-xxx.r2.dev)
+     *    or your custom domain (https://files.fairtradeworker.com)
+     *  - The S3 API endpoint is for SigV4 uploads, not public reads. */
+    @Value("\${app.storage.public-url:}") private val publicUrl: String,
     @Value("\${app.storage.access-key:}") private val accessKey: String,
     @Value("\${app.storage.secret-key:}") private val secretKey: String,
     @Value("\${app.storage.local-path:uploads}") private val localPath: String
@@ -50,8 +56,15 @@ class StorageService(
                     .build(),
                 RequestBody.fromBytes(file.bytes)
             )
-            return if (endpoint.isNotBlank()) "$endpoint/$bucket/$key"
-            else "https://$bucket.s3.$region.amazonaws.com/$key"
+            return when {
+                publicUrl.isNotBlank() -> "${publicUrl.trimEnd('/')}/$key"
+                endpoint.isBlank() -> "https://$bucket.s3.$region.amazonaws.com/$key"
+                else -> {
+                    // Custom endpoint without explicit public URL — best-effort,
+                    // but the caller should set app.storage.public-url for R2.
+                    "${endpoint.trimEnd('/')}/$bucket/$key"
+                }
+            }
         }
 
         // Local storage fallback

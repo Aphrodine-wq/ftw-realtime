@@ -71,6 +71,7 @@ app:
     endpoint: ${STORAGE_ENDPOINT:}
     access-key: ${AWS_ACCESS_KEY_ID:}
     secret-key: ${AWS_SECRET_ACCESS_KEY:}
+    public-url: ${STORAGE_PUBLIC_URL:}
     local-path: ${STORAGE_LOCAL_PATH:uploads}
 
   frontend-url: ${FRONTEND_URL:http://localhost:3000}

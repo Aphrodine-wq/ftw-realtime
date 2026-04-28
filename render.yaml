@@ -52,6 +52,24 @@ services:
       # Apple: Services ID from developer.apple.com (NOT the app bundle ID)
       - key: APPLE_CLIENT_ID
         sync: false
+      # ── File storage (Cloudflare R2 recommended — zero egress fees) ──
+      # Cloudflare R2 setup:
+      #   1. Cloudflare → R2 → Create bucket "ftw-uploads"
+      #   2. Manage R2 API Tokens → Create API token (Object Read & Write)
+      #   3. Bucket → Settings → enable "R2.dev subdomain" for public reads
+      #      OR connect a custom domain (e.g. files.fairtradeworker.com)
+      - key: STORAGE_BUCKET
+        sync: false  # e.g. ftw-uploads
+      - key: STORAGE_ENDPOINT
+        sync: false  # https://<account_id>.r2.cloudflarestorage.com
+      - key: STORAGE_PUBLIC_URL
+        sync: false  # https://pub-<hash>.r2.dev   OR   https://files.fairtradeworker.com
+      - key: AWS_ACCESS_KEY_ID
+        sync: false  # R2 API token Access Key ID
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false  # R2 API token Secret Access Key
+      - key: AWS_REGION
+        value: auto  # R2 ignores region but the SDK requires a non-empty value
 
 databases:
   - name: ftw-realtime-db

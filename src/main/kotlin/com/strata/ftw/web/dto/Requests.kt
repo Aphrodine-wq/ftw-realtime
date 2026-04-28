@@ -50,6 +50,10 @@ data class ResetPasswordRequest(
 )
 
 data class OAuthLoginRequest(
+    /** id_token (snake_case) is the canonical form — matches Google + Apple conventions
+     *  and Spring's SNAKE_CASE Jackson strategy. The @JsonAlias accepts the camelCase
+     *  variant too so older clients don't break. */
+    @com.fasterxml.jackson.annotation.JsonAlias("idToken")
     @field:NotBlank(message = "id_token is required")
     val idToken: String,
 

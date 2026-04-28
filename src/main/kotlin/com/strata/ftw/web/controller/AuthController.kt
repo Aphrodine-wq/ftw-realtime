@@ -1,8 +1,10 @@
 package com.strata.ftw.web.controller
 
+import com.strata.ftw.domain.entity.User
 import com.strata.ftw.domain.entity.UserRole
 import com.strata.ftw.service.AuthService
 import com.strata.ftw.service.EmailService
+import com.strata.ftw.service.OAuthService
 import com.strata.ftw.service.TokenClaims
 import com.strata.ftw.web.dto.*
 import jakarta.validation.Valid
@@ -17,8 +19,20 @@ import org.springframework.web.bind.annotation.*
 class AuthController(
     private val authService: AuthService,
     private val emailService: EmailService,
+    private val oauthService: OAuthService,
     @Value("\${app.frontend-url:http://localhost:3000}") private val frontendUrl: String
 ) {
+
+    private fun userResponse(user: User, token: String) = mapOf(
+        "token" to token,
+        "user" to mapOf(
+            "id" to user.id.toString(),
+            "email" to user.email,
+            "name" to user.name,
+            "role" to user.activeRole.name,
+            "roles" to user.getRolesList().map { it.name }
+        )
+    )
 
     /** Parse role string accepting any case and "subcontractor" as alias for "sub_contractor" */
     private fun parseRole(role: String): UserRole {
@@ -111,6 +125,28 @@ class AuthController(
                 "roles" to user.getRolesList().map { it.name }
             )
         ))
+    }
+
+    @PostMapping("/google")
+    fun loginWithGoogle(@Valid @RequestBody req: OAuthLoginRequest): ResponseEntity<Any> {
+        val profile = oauthService.verifyGoogle(req.idToken)
+            ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(mapOf("error" to "Invalid Google token"))
+        val role = req.role?.let { runCatching { parseRole(it) }.getOrNull() } ?: UserRole.homeowner
+        val user = authService.findOrCreateOAuthUser(profile.email, profile.name, role)
+        val token = authService.generateToken(user)
+        return ResponseEntity.ok(userResponse(user, token))
+    }
+
+    @PostMapping("/apple")
+    fun loginWithApple(@Valid @RequestBody req: OAuthLoginRequest): ResponseEntity<Any> {
+        val profile = oauthService.verifyApple(req.idToken, fallbackName = req.name)
+            ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(mapOf("error" to "Invalid Apple token"))
+        val role = req.role?.let { runCatching { parseRole(it) }.getOrNull() } ?: UserRole.homeowner
+        val user = authService.findOrCreateOAuthUser(profile.email, profile.name, role)
+        val token = authService.generateToken(user)
+        return ResponseEntity.ok(userResponse(user, token))
     }
 
     @PostMapping("/switch-role")

@@ -81,6 +81,17 @@ app:
   admin:
     password: ${ADMIN_PASSWORD:faircommand}
 
+  oauth:
+    google:
+      # Use the WEB OAuth client ID — the same one verifies tokens minted from
+      # web, iOS, and Android (each platform uses its own client ID for the flow,
+      # but the web client ID is the audience we accept on the server).
+      client-id: ${GOOGLE_CLIENT_ID:}
+    apple:
+      # Apple Service ID (e.g. com.fairtradeworker.app.signin) — this is the
+      # `aud` claim Apple puts in the id_token.
+      client-id: ${APPLE_CLIENT_ID:}
+
   quickbooks:
     client-id: ${QB_CLIENT_ID:}
     client-secret: ${QB_CLIENT_SECRET:}

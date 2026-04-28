@@ -45,6 +45,13 @@ services:
       # Set this in the Render dashboard. Default is "faircommand" — DO NOT ship that.
       - key: ADMIN_PASSWORD
         sync: false
+      # ── OAuth (Google + Apple Sign-In) ──
+      # Google: OAuth 2.0 Web client ID from console.cloud.google.com
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      # Apple: Services ID from developer.apple.com (NOT the app bundle ID)
+      - key: APPLE_CLIENT_ID
+        sync: false
 
 databases:
   - name: ftw-realtime-db

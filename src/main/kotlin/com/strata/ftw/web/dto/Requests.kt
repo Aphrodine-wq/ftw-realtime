@@ -49,6 +49,18 @@ data class ResetPasswordRequest(
     val password: String
 )
 
+data class OAuthLoginRequest(
+    @field:NotBlank(message = "id_token is required")
+    val idToken: String,
+
+    /** Optional role hint (homeowner | contractor | subcontractor). Defaults to homeowner. */
+    val role: String? = null,
+
+    /** Apple sometimes only returns the user's name on the very first sign-in. The
+     *  client passes it through here so we can store it on user creation. */
+    val name: String? = null,
+)
+
 data class SwitchRoleRequest(
     @field:NotBlank(message = "Role is required")
     val role: String

@@ -149,6 +149,21 @@ class AuthService(
         return userRepository.save(user)
     }
 
+    fun findOrCreateOAuthUser(email: String, name: String, role: UserRole = UserRole.homeowner): User {
+        val normalized = email.lowercase()
+        val existing = userRepository.findByEmail(normalized)
+        if (existing != null) return existing
+        val user = User(
+            email = normalized,
+            name = name,
+            role = role,
+            activeRole = role,
+            roles = role.name,
+            passwordHash = null,
+        )
+        return userRepository.save(user)
+    }
+
     fun hashPassword(password: String): String =
         passwordEncoder.encode(password)
 

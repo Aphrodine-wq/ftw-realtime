@@ -115,6 +115,12 @@ class SubJobController(
         val bid = subBidRepository.findById(bidId).orElse(null)
             ?: return ResponseEntity.notFound().build()
 
+        // Idempotency: if already accepted, return the existing state without
+        // re-saving. Protects against double-tap / network retries.
+        if (bid.status == BidStatus.accepted) {
+            return ResponseEntity.ok(mapOf("sub_job" to serializeSubJob(subJob), "bid" to serializeSubBid(bid)))
+        }
+
         bid.status = BidStatus.accepted
         subBidRepository.save(bid)
 

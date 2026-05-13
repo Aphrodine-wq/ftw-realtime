@@ -121,6 +121,12 @@ class MarketplaceService(
         val bid = bidRepository.findById(bidId).orElseThrow()
         require(bid.jobId == jobId) { "Bid does not belong to this job" }
 
+        // Idempotency: if this bid is already accepted, return without re-broadcasting
+        // or re-notifying. Protects against double-tap on mobile / network retries.
+        if (bid.status == BidStatus.accepted) {
+            return bid
+        }
+
         bid.status = BidStatus.accepted
         val savedBid = bidRepository.save(bid)
 

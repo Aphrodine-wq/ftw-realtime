@@ -126,7 +126,7 @@ class AiGateway(
 
         // Extract location
         val locationMatch = Regex("""in\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*(?:,?\s*[A-Z]{2})?)""").find(description)
-        val location = locationMatch?.groupValues?.get(1) ?: "Austin, TX"
+        val location = locationMatch?.groupValues?.get(1) ?: "Oxford, MS"
 
         return try {
             val project = mutableMapOf<String, Any>(

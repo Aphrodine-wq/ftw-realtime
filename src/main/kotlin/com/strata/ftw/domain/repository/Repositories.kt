@@ -272,3 +272,88 @@ interface PayoutRepository : JpaRepository<Payout, UUID> {
 interface ReceiptRepository : JpaRepository<Receipt, UUID> {
     fun findByBidId(bidId: UUID): Receipt?
 }
+
+@Repository
+interface MaterialRepository : JpaRepository<Material, UUID> {
+    fun findByMaterialKey(materialKey: String): Material?
+    fun findByMaterialKeyIn(keys: Collection<String>): List<Material>
+    fun findByCategory(category: MaterialCategory): List<Material>
+}
+
+@Repository
+interface PriceSnapshotRepository : JpaRepository<PriceSnapshot, UUID> {
+    @Query(
+        "SELECT p FROM PriceSnapshot p WHERE p.materialId = :materialId AND p.source = :source ORDER BY p.scrapedAt DESC"
+    )
+    fun findLatestForMaterialAndSource(materialId: UUID, source: String, pageable: Pageable): List<PriceSnapshot>
+
+    fun findByScrapeRunId(scrapeRunId: String): List<PriceSnapshot>
+
+    @Query(
+        "SELECT p FROM PriceSnapshot p WHERE p.materialId = :materialId ORDER BY p.scrapedAt DESC"
+    )
+    fun findByMaterialIdRecent(materialId: UUID, pageable: Pageable): List<PriceSnapshot>
+
+    @Query(
+        "SELECT p FROM PriceSnapshot p WHERE p.materialId = :materialId AND p.scrapedAt >= :since ORDER BY p.scrapedAt DESC"
+    )
+    fun findByMaterialIdSince(materialId: UUID, since: Instant): List<PriceSnapshot>
+
+    /**
+     * Latest snapshot per (material_id, source). Uses a Postgres-specific
+     * DISTINCT ON via a native query so we don't pull every snapshot into
+     * the JVM. With the existing index on (material_id, source, scraped_at
+     * DESC) this is an index-only loop.
+     */
+    @Query(
+        value = """
+            SELECT DISTINCT ON (ps.material_id, ps.source) ps.*
+            FROM price_snapshots ps
+            ORDER BY ps.material_id, ps.source, ps.scraped_at DESC
+        """,
+        nativeQuery = true
+    )
+    fun findLatestPerMaterialAndSource(): List<PriceSnapshot>
+
+    @Query("SELECT MAX(p.scrapedAt) FROM PriceSnapshot p")
+    fun findMaxScrapedAt(): Instant?
+
+    @Query("SELECT COUNT(DISTINCT p.source) FROM PriceSnapshot p")
+    fun countDistinctSources(): Long
+}
+
+@Repository
+interface WebhookSubscriptionRepository : JpaRepository<WebhookSubscription, UUID> {
+    fun findByActiveTrueOrderByInsertedAtAsc(): List<WebhookSubscription>
+    fun findByTenantId(tenantId: UUID?): List<WebhookSubscription>
+    fun findByTenantIdAndActiveTrueOrderByInsertedAtAsc(tenantId: UUID): List<WebhookSubscription>
+}
+
+@Repository
+interface TenantRepository : JpaRepository<Tenant, UUID> {
+    fun findBySlug(slug: String): Tenant?
+}
+
+@Repository
+interface ApiKeyRepository : JpaRepository<ApiKey, UUID> {
+    fun findByKeyHash(keyHash: String): ApiKey?
+    fun findByTenantIdOrderByInsertedAtDesc(tenantId: UUID): List<ApiKey>
+}
+
+@Repository
+interface AuditLogRepository : JpaRepository<AuditLog, UUID> {
+    fun findByTenantIdOrderByInsertedAtDesc(tenantId: UUID, pageable: Pageable): List<AuditLog>
+    fun findByEntityAndEntityIdOrderByInsertedAtDesc(entity: String, entityId: UUID): List<AuditLog>
+}
+
+@Repository
+interface PriceAlertRepository : JpaRepository<PriceAlert, UUID> {
+    fun findByAcknowledgedFalseOrderByInsertedAtDesc(pageable: Pageable): List<PriceAlert>
+    fun findByMaterialIdOrderByInsertedAtDesc(materialId: UUID): List<PriceAlert>
+    fun findByScrapeRunId(scrapeRunId: String): List<PriceAlert>
+
+    @Query("SELECT COUNT(a) FROM PriceAlert a WHERE a.acknowledged = false")
+    fun countUnacknowledged(): Long
+
+    fun findAllByOrderByInsertedAtDesc(pageable: Pageable): List<PriceAlert>
+}

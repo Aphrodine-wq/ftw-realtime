@@ -172,12 +172,17 @@ class QuickBooksService(
         val qbInvoiceId = invoice.qbInvoiceId
             ?: throw IllegalStateException("Invoice not synced to QuickBooks yet")
 
+        // Idempotency: if this invoice is already paid, return without re-posting
+        // to QuickBooks. Protects against double-tap on Record-Payment and any
+        // upstream network retry that resubmits the request.
         if (invoice.status == InvoiceStatus.paid) {
-            throw IllegalStateException("Invoice is already paid")
+            return invoice
         }
 
-        val credential = getValidCredential(userId)
         val amount = paymentAmount ?: invoice.amount
+        require(amount > 0) { "Payment amount must be positive (got $amount cents)" }
+
+        val credential = getValidCredential(userId)
         val amountDecimal = amount / 100.0
 
         val paymentPayload = objectMapper.createObjectNode().apply {

@@ -50,6 +50,7 @@ class AuthService(
             val claims = Jwts.parser()
                 .verifyWith(signingKey())
                 .requireIssuer(issuer)
+                .requireAudience(audience)
                 .build()
                 .parseSignedClaims(token)
                 .payload
@@ -120,6 +121,7 @@ class AuthService(
             val claims = Jwts.parser()
                 .verifyWith(signingKey())
                 .requireIssuer(issuer)
+                .requireAudience(audience)
                 .build()
                 .parseSignedClaims(token)
                 .payload

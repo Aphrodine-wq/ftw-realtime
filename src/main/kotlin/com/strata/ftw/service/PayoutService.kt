@@ -29,14 +29,19 @@ class PayoutService(
         val subJob = subJobRepository.findById(subJobId)
             .orElseThrow { IllegalArgumentException("Sub-job not found: $subJobId") }
 
+        // Idempotency: only one payout per sub-job. Double-submit (mobile double-tap,
+        // network retry, repeated approve clicks) returns the existing payout without
+        // re-running the QB processing side-effect.
         val existing = subPayoutRepository.findBySubJobId(subJobId)
         if (existing != null) {
-            throw IllegalArgumentException("Payout already exists for sub-job: $subJobId")
+            return existing
         }
 
-        // Use the accepted bid amount as the gross (already in cents)
         val acceptedBid = subJob.subBids.find { it.status.name == "accepted" }
         val grossAmount = acceptedBid?.amount ?: 0
+        require(grossAmount > 0) {
+            "Cannot create payout for sub-job $subJobId: no positive accepted bid amount"
+        }
         val feePercent = 5.0
         val platformFee = (grossAmount * feePercent / 100.0).toInt()
         val netAmount = grossAmount - platformFee

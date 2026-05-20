@@ -29,6 +29,20 @@ class StorageService(
     @Value("\${app.storage.secret-key:}") private val secretKey: String,
     @Value("\${app.storage.local-path:uploads}") private val localPath: String
 ) {
+    companion object {
+        // Belt-and-suspenders cap; Spring multipart also enforces 10MB at the servlet
+        // boundary (application.yml). This guards the service in case a non-multipart
+        // path ever calls upload() directly.
+        private const val MAX_BYTES: Long = 10L * 1024 * 1024
+        // Insurance docs, job photos, FairRecord certificates — that's the whole
+        // universe of legitimate uploads. Anything else (HTML, JS, executables)
+        // is rejected to prevent S3-served XSS and active-content delivery.
+        private val ALLOWED_TYPES = setOf(
+            "image/jpeg", "image/png", "image/webp", "image/heic", "image/heif",
+            "application/pdf"
+        )
+    }
+
     private val s3Client: S3Client? by lazy {
         if (bucket.isBlank() || accessKey.isBlank()) null
         else {
@@ -45,7 +59,22 @@ class StorageService(
     }
 
     fun upload(file: MultipartFile, entityType: String, entityId: String): String {
-        val key = "$entityType/$entityId/${UUID.randomUUID()}_${file.originalFilename}"
+        require(!file.isEmpty) { "Upload is empty" }
+        require(file.size <= MAX_BYTES) {
+            "Upload exceeds ${MAX_BYTES / (1024 * 1024)}MB limit (got ${file.size} bytes)"
+        }
+        val contentType = file.contentType?.lowercase()
+        require(contentType in ALLOWED_TYPES) {
+            "Unsupported file type: $contentType. Allowed: ${ALLOWED_TYPES.joinToString(", ")}"
+        }
+
+        // Strip directory components from originalFilename — Path.getFileName() rejects
+        // the "../" traversal pattern that would otherwise let an attacker escape the
+        // upload prefix on local-storage fallback or pollute the S3 key namespace.
+        val safeName = Path.of(file.originalFilename ?: "file").fileName.toString()
+            .replace(Regex("[^A-Za-z0-9._-]"), "_")
+            .ifBlank { "file" }
+        val key = "$entityType/$entityId/${UUID.randomUUID()}_$safeName"
 
         if (s3Client != null) {
             s3Client!!.putObject(
@@ -70,7 +99,7 @@ class StorageService(
         // Local storage fallback
         val dir = Path.of(localPath, entityType, entityId)
         Files.createDirectories(dir)
-        val dest = dir.resolve("${UUID.randomUUID()}_${file.originalFilename}")
+        val dest = dir.resolve("${UUID.randomUUID()}_$safeName")
         file.transferTo(dest)
         return dest.toString()
     }

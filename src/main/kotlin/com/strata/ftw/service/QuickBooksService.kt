@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.strata.ftw.domain.entity.*
 import com.strata.ftw.domain.repository.*
+import com.strata.ftw.util.Money
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
@@ -183,7 +184,7 @@ class QuickBooksService(
         require(amount > 0) { "Payment amount must be positive (got $amount cents)" }
 
         val credential = getValidCredential(userId)
-        val amountDecimal = amount / 100.0
+        val amountDecimal = Money.centsToDollars(amount)
 
         val paymentPayload = objectMapper.createObjectNode().apply {
             put("TotalAmt", amountDecimal)
@@ -246,7 +247,8 @@ class QuickBooksService(
         }
 
         val credential = getValidCredential(userId)
-        val amountDecimal = bid.amount / 100.0
+        require(bid.amount > 0) { "Cannot invoice bid ${bid.id}: amount must be positive (got ${bid.amount})" }
+        val amountDecimal = Money.centsToDollars(bid.amount)
 
         val lineDescription = description
             ?: milestone?.let { "Milestone: $it" }
@@ -318,10 +320,13 @@ class QuickBooksService(
                 val qty = (item["quantity"] as? Number)?.toInt() ?: 1
                 val unitPrice = (item["unitPrice"] as? Number)?.toInt() ?: 0
                 val desc = item["description"] as? String ?: ""
-                val unitPriceDecimal = unitPrice / 100.0
+                val unitPriceDecimal = Money.centsToDollars(unitPrice)
+                // Multiply on integer cents first, then convert — keeps the line total
+                // exact and consistent with QB's own rounding semantics.
+                val lineAmountDecimal = Money.centsToDollars(unitPrice * qty)
 
                 lines.add(objectMapper.createObjectNode().apply {
-                    put("Amount", unitPriceDecimal * qty)
+                    put("Amount", lineAmountDecimal)
                     put("DetailType", "SalesItemLineDetail")
                     put("Description", desc)
                     set<JsonNode>("SalesItemLineDetail", objectMapper.createObjectNode().apply {
@@ -374,16 +379,27 @@ class QuickBooksService(
             throw IllegalArgumentException("Bid does not belong to this user")
         }
 
-        // Check for existing payout
+        // Idempotency: if a payout already exists for this bid, return its
+        // public shape without re-creating the QB Bill/BillPayment.
         val existing = payoutRepository.findByBidId(bidId)
         if (existing != null) {
-            throw IllegalStateException("Payout already exists for bid: $bidId")
+            return mapOf(
+                "success" to true,
+                "payoutId" to existing.id,
+                "grossAmount" to existing.grossAmount,
+                "platformFee" to existing.platformFee,
+                "feePercent" to existing.feePercent,
+                "netAmount" to existing.netAmount,
+                "qbBillId" to existing.qbBillId,
+                "qbBillPaymentId" to existing.qbBillPaymentId
+            )
         }
 
         val credential = getValidCredential(userId)
         val grossAmount = bid.amount
+        require(grossAmount > 0) { "Cannot payout bid $bidId: amount must be positive (got $grossAmount)" }
         val feePercent = 5.0
-        val platformFee = (grossAmount * feePercent / 100.0).toInt()
+        val platformFee = Money.feeCents(grossAmount, feePercent)
         val netAmount = grossAmount - platformFee
 
         val payout = Payout(
@@ -395,7 +411,7 @@ class QuickBooksService(
             status = PayoutStatus.PROCESSING
         )
 
-        val netAmountDecimal = netAmount / 100.0
+        val netAmountDecimal = Money.centsToDollars(netAmount)
 
         // Create QB Bill (what we owe the contractor)
         val billPayload = objectMapper.createObjectNode().apply {
@@ -497,7 +513,7 @@ class QuickBooksService(
 
         val grossAmount = bid.amount
         val homeownerFeePercent = 3.0
-        val platformFee = (grossAmount * homeownerFeePercent / 100.0).toInt()
+        val platformFee = Money.feeCents(grossAmount, homeownerFeePercent)
         val totalCharged = grossAmount + platformFee
 
         val receiptNumber = "RCP-${System.currentTimeMillis().toString().takeLast(8)}"
@@ -619,7 +635,7 @@ class QuickBooksService(
     }
 
     private fun buildQbInvoicePayload(invoice: Invoice): JsonNode {
-        val amountDecimal = invoice.amount / 100.0
+        val amountDecimal = Money.centsToDollars(invoice.amount)
 
         return objectMapper.createObjectNode().apply {
             set<JsonNode>("CustomerRef", objectMapper.createObjectNode().apply {

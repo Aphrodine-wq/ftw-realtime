@@ -4,6 +4,7 @@ import com.strata.ftw.domain.entity.SubPayout
 import com.strata.ftw.domain.entity.SubPaymentPath
 import com.strata.ftw.domain.repository.SubJobRepository
 import com.strata.ftw.domain.repository.SubPayoutRepository
+import com.strata.ftw.util.Money
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -43,7 +44,7 @@ class PayoutService(
             "Cannot create payout for sub-job $subJobId: no positive accepted bid amount"
         }
         val feePercent = 5.0
-        val platformFee = (grossAmount * feePercent / 100.0).toInt()
+        val platformFee = Money.feeCents(grossAmount, feePercent)
         val netAmount = grossAmount - platformFee
 
         val payout = SubPayout(

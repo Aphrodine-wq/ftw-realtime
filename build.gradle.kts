@@ -63,6 +63,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
 
+    // OpenAPI / Swagger UI for the public price API. Auto-generates the spec
+    // at /v3/api-docs and an interactive explorer at /swagger-ui — buyers
+    // use it to codegen TypeScript/Python/Go clients in 5 minutes.
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")

@@ -58,12 +58,8 @@ app:
     audience: ftw
 
   cors:
-    allowed-origins:
-      - http://localhost:3000
-      - https://fairtradeworker.com
-      - https://www.fairtradeworker.com
-      - https://fairtradeworker.vercel.app
-      - https://ftw-svc.onrender.com
+    # Spring Boot 3.4 @Value List<String> binding requires comma-separated.
+    allowed-origins: http://localhost:3000,https://fairtradeworker.com,https://www.fairtradeworker.com,https://fairtradeworker.vercel.app,https://ftw-svc.onrender.com
 
   storage:
     bucket: ${STORAGE_BUCKET:}
@@ -106,3 +102,10 @@ app:
   ai:
     runpod-url: ${RUNPOD_URL:}
     cost-per-inference: 0.002
+
+  ingest:
+    # Shared secret for ftw-scraper → POST /api/v1/prices/ingest. The scraper
+    # signs the body with HMAC-SHA256 using this value; the endpoint rejects
+    # requests with a missing or wrong signature. Leave blank to disable the
+    # endpoint entirely (it returns 503).
+    secret: ${FTW_INGEST_SECRET:}

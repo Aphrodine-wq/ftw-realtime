@@ -1,5 +1,6 @@
 package com.strata.ftw.config
 
+import com.strata.ftw.web.filter.ApiKeyAuthFilter
 import com.strata.ftw.web.filter.JwtAuthFilter
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -19,6 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @EnableWebSecurity
 class SecurityConfig(
     private val jwtAuthFilter: JwtAuthFilter,
+    private val apiKeyAuthFilter: ApiKeyAuthFilter,
     @Value("\${app.cors.allowed-origins}") private val allowedOrigins: List<String>
 ) {
 
@@ -51,6 +53,18 @@ class SecurityConfig(
                     .requestMatchers(HttpMethod.GET, "/api/quickbooks/callback").permitAll()
                     // QuickBooks webhook (Intuit posts here — verified via HMAC)
                     .requestMatchers(HttpMethod.POST, "/api/quickbooks/webhook").permitAll()
+                    // Material price ingest from ftw-scraper — verified via HMAC in controller
+                    .requestMatchers(HttpMethod.POST, "/api/v1/prices/ingest").permitAll()
+                    // Public price reads (current prices, material detail) — no auth
+                    .requestMatchers(HttpMethod.GET, "/api/v1/prices/**").permitAll()
+                    // Bulk lookup is a POST but it's still read-only (no auth)
+                    .requestMatchers(HttpMethod.POST, "/api/v1/prices/lookup").permitAll()
+                    // OpenAPI / Swagger UI for the public price API
+                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                    // Webhook subscription management — productization will gate via tenant API key
+                    .requestMatchers("/api/v1/webhooks/**").permitAll()
+                    // Admin endpoints — call from a trusted backend (buyer's dashboard) only
+                    .requestMatchers("/api/v1/admin/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/auth/switch-role").authenticated()
                     // Admin endpoints — role check handled in controller
                     .requestMatchers("/api/admin/**").authenticated()
@@ -60,6 +74,9 @@ class SecurityConfig(
                     .anyRequest().authenticated()
             }
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
+            // API key filter runs before JWT — for /api/v1/prices and /api/v1/webhooks
+            // it resolves tenant context from X-API-Key. JWT filter is no-op there.
+            .addFilterBefore(apiKeyAuthFilter, JwtAuthFilter::class.java)
 
         return http.build()
     }
